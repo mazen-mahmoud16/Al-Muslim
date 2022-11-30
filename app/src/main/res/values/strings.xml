@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">Ela Islami</string>
+    <string name="loc_placeholder">El Marghany Street, EL Manteqa El Oula, Nasr City, Egypt</string>
+    <string name="update">Update</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hij_date">5 Jumada | 1444</string>
+    <string name="upcoming">Upcoming Salat,</string>
+    <string name="asr">Asr</string>
+    <string name="salat_tim">2:35 PM</string>
+    <string name="salat_tim_left">1:05 hrs left</string>
+    <string name="activities">Activities</string>
+    <string name="sibha_place">Your digital Sibha,</string>
+    <string name="sibha_num">1346</string>
 </resources>

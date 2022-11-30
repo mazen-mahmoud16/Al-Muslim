@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".HomeFragment">
+
+    <TextView
+        android:id="@+id/hij_date"
+        android:layout_width="wrap_content"
+        android:text="@string/hij_date"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="33dp"
+        android:layout_marginEnd="30dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_height="wrap_content"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/fir_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/hij_date"
+        android:layout_marginStart="30dp"
+        android:elevation="10dp"
+        android:background="@drawable/rounded_btn"
+        android:padding="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="30dp">
+
+        <TextView
+            android:id="@+id/upcoming_place"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="@string/upcoming"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            />
+
+        <TextView
+            android:id="@+id/salat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/upcoming_place"
+            android:text="@string/asr"
+            android:textColor="@color/white"
+            android:layout_marginTop="5dp"
+            android:textSize="22sp"
+            app:layout_constraintStart_toStartOf="@id/upcoming_place"
+            />
+
+        <TextView
+            android:id="@+id/salat_tim"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/salat"
+            android:text="@string/salat_tim"
+            android:textColor="@color/white"
+            android:layout_marginTop="5dp"
+            android:textSize="22sp"
+            app:layout_constraintStart_toStartOf="@id/upcoming_place"
+            />
+
+        <TextView
+            android:id="@+id/salat_tim_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@id/salat_tim"
+            android:text="@string/salat_tim_left"
+            android:textColor="@color/white"
+            android:layout_marginTop="5dp"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/activities"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        app:layout_constraintStart_toStartOf="@id/hij_date"
+        app:layout_constraintTop_toBottomOf="@id/fir_layout"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:text="@string/activities"/>
+
+    <HorizontalScrollView
+        android:id="@+id/scrollview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="30dp"
+        app:layout_constraintTop_toBottomOf="@id/activities"
+        android:layout_marginStart="25dp">
+
+        <!-- using linear layout to store multiple view
+             inside a Horizontal Scroll View -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@color/white">
+
+
+            <ImageButton
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/ic_todo"
+                android:padding="4dp"
+                android:layout_margin="10dp"
+                android:backgroundTint="@color/white"
+                android:textColor="@color/black"/>
+
+            <ImageButton
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/ic_todo"
+                android:padding="4dp"
+                android:layout_margin="10dp"
+                android:backgroundTint="@color/white"
+                android:textColor="@color/black"/>
+
+            <ImageButton
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/ic_todo"
+                android:padding="4dp"
+                android:layout_margin="10dp"
+                android:backgroundTint="@color/white"
+                android:textColor="@color/black"/>
+
+            <ImageButton
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/ic_todo"
+                android:padding="4dp"
+                android:layout_margin="10dp"
+                android:backgroundTint="@color/white"
+                android:textColor="@color/black"/>
+
+        </LinearLayout>
+
+    </HorizontalScrollView>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/sec_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/scrollview"
+        android:layout_marginStart="30dp"
+        android:elevation="10dp"
+        android:background="@drawable/rounded_btn"
+        android:padding="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="30dp">
+
+
+        <TextView
+            android:id="@+id/sibha_place"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="@string/sibha_place"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            />
+
+        <TextView
+            android:id="@+id/sibha"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/sibha_place"
+            android:text="@string/sibha_num"
+            android:textColor="@color/white"
+            android:layout_marginTop="5dp"
+            android:textSize="22sp"
+            app:layout_constraintStart_toStartOf="@id/sibha_place"
+            />
+
+
+        <ImageButton
+            android:id="@+id/reset"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="7dp"
+            android:background="@drawable/ic_reset"
+            app:layout_constraintStart_toStartOf="@id/sibha"
+            app:layout_constraintTop_toBottomOf="@id/sibha"/>
+
+
+        <ImageButton
+            android:id="@+id/add"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginTop="7dp"
+            android:background="@drawable/ic_add"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/sibha"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
