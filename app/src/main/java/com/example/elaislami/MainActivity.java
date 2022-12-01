@@ -5,8 +5,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
-import android.widget.Button;
-import android.widget.Toast;
+
 
 import com.google.android.material.tabs.TabLayout;
 
@@ -17,9 +16,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        Button btn = findViewById(R.id.update_loc);
-        btn.setOnClickListener(view -> Toast.makeText(MainActivity.this, "Location updated", Toast.LENGTH_SHORT).show());
 
 
         Toolbar toolbar = findViewById(R.id.tool_bar);

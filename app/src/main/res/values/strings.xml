@@ -12,4 +12,8 @@
     <string name="activities">Activities</string>
     <string name="sibha_place">Your digital Sibha,</string>
     <string name="sibha_num">1346</string>
+    <string name="todo">Todo List</string>
+    <string name="statist">Prayer Statistics</string>
+    <string name="azkar_sabah">Azkar Sabah</string>
+    <string name="azkar_masaa">Azkar Masaa</string>
 </resources>

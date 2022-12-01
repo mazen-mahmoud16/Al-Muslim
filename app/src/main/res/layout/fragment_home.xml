@@ -7,21 +7,35 @@
     tools:context=".HomeFragment">
 
     <TextView
-        android:id="@+id/hij_date"
-        android:layout_width="wrap_content"
-        android:text="@string/hij_date"
-        android:layout_marginTop="30dp"
+        android:id="@+id/loc"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/loc_placeholder"
+        app:layout_constraintEnd_toStartOf="@id/update_loc"
+        android:layout_marginTop="15dp"
         android:layout_marginStart="33dp"
-        android:layout_marginEnd="30dp"
+        android:layout_marginEnd="33dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_height="wrap_content"/>
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <Button
+        android:id="@+id/update_loc"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:textSize="11sp"
+        android:padding="0dp"
+        app:layout_constraintStart_toEndOf="@+id/loc"
+        app:layout_constraintEnd_toEndOf="@id/fir_layout"
+        android:text="@string/update"
+        app:layout_constraintTop_toTopOf="@+id/loc"
+        android:background="@drawable/rounded_btn"
+        />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/fir_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/hij_date"
+        app:layout_constraintTop_toBottomOf="@id/loc"
         android:layout_marginStart="30dp"
         android:elevation="10dp"
         android:background="@drawable/rounded_btn"
@@ -83,7 +97,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        app:layout_constraintStart_toStartOf="@id/hij_date"
+        app:layout_constraintStart_toStartOf="@id/loc"
         app:layout_constraintTop_toBottomOf="@id/fir_layout"
         android:textStyle="bold"
         android:textSize="20sp"
@@ -97,58 +111,112 @@
         app:layout_constraintTop_toBottomOf="@id/activities"
         android:layout_marginStart="25dp">
 
-        <!-- using linear layout to store multiple view
-             inside a Horizontal Scroll View -->
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/sec_layout"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:background="@color/white">
+            android:layout_marginBottom="10dp"
+            android:layout_height="wrap_content">
 
 
             <ImageButton
+                android:id="@+id/img1"
                 android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:src="@drawable/ic_todo"
+                android:layout_height="80dp"
+                android:src="@drawable/ic_check"
                 android:padding="4dp"
                 android:layout_margin="10dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
                 android:backgroundTint="@color/white"
                 android:textColor="@color/black"/>
+
+            <TextView
+                android:id="@+id/txt01"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@id/img1"
+                app:layout_constraintEnd_toEndOf="@id/img1"
+                android:textSize="15sp"
+                android:textColor="@color/black"
+                android:text="@string/todo"
+                app:layout_constraintTop_toBottomOf="@id/img1"/>
 
             <ImageButton
+                android:id="@+id/img2"
                 android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:src="@drawable/ic_todo"
+                android:layout_height="80dp"
+                android:src="@drawable/ic_statistics"
                 android:padding="4dp"
                 android:layout_margin="10dp"
+                app:layout_constraintStart_toEndOf="@id/img1"
+                app:layout_constraintTop_toTopOf="parent"
                 android:backgroundTint="@color/white"
                 android:textColor="@color/black"/>
+
+            <TextView
+                android:id="@+id/txt02"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@id/img2"
+                app:layout_constraintEnd_toEndOf="@id/img2"
+                android:textSize="15sp"
+                android:textColor="@color/black"
+                android:text="@string/statist"
+                app:layout_constraintTop_toBottomOf="@id/img1"/>
 
             <ImageButton
+                android:id="@+id/img3"
                 android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:src="@drawable/ic_todo"
+                android:layout_height="80dp"
+                android:src="@drawable/ic_azkar_sabah"
                 android:padding="4dp"
                 android:layout_margin="10dp"
+                app:layout_constraintStart_toEndOf="@id/img2"
+                app:layout_constraintTop_toTopOf="parent"
                 android:backgroundTint="@color/white"
                 android:textColor="@color/black"/>
+
+            <TextView
+                android:id="@+id/txt03"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@id/img3"
+                app:layout_constraintEnd_toEndOf="@id/img3"
+                android:textSize="15sp"
+                android:textColor="@color/black"
+                android:text="@string/azkar_sabah"
+                app:layout_constraintTop_toBottomOf="@id/img3"/>
 
             <ImageButton
+                android:id="@+id/img4"
                 android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:src="@drawable/ic_todo"
+                android:layout_height="80dp"
+                android:src="@drawable/ic_azkar_masaa"
                 android:padding="4dp"
                 android:layout_margin="10dp"
+                app:layout_constraintStart_toEndOf="@id/img3"
+                app:layout_constraintTop_toTopOf="parent"
                 android:backgroundTint="@color/white"
                 android:textColor="@color/black"/>
 
-        </LinearLayout>
+            <TextView
+                android:id="@+id/txt04"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@id/img4"
+                app:layout_constraintEnd_toEndOf="@id/img4"
+                android:textSize="15sp"
+                android:textColor="@color/black"
+                android:text="@string/azkar_masaa"
+                app:layout_constraintTop_toBottomOf="@id/img4"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </HorizontalScrollView>
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/sec_layout"
+        android:id="@+id/third_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/scrollview"
@@ -156,7 +224,7 @@
         android:elevation="10dp"
         android:background="@drawable/rounded_btn"
         android:padding="15dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="30dp">
 
 
