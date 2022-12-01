@@ -1,9 +1,15 @@
-package com.example.elaislami;
+package com.example.elaislami.Adapter;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
+
+import com.example.elaislami.Fragment.HomeFragment;
+import com.example.elaislami.Fragment.PrayerFragment;
+import com.example.elaislami.Fragment.QiblaFragment;
+import com.example.elaislami.Fragment.QuranFragment;
+import com.example.elaislami.Fragment.SurahsListFragment;
 
 public class TabsAdapter extends FragmentStatePagerAdapter {
 
@@ -19,20 +25,22 @@ public class TabsAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
         switch(position){
             case 0:
-                HomeFragment homeFragment = new HomeFragment();
-                return homeFragment;
+                return new HomeFragment();
 
             case 1:
-                PrayerFragment prayerFragment = new PrayerFragment();
+                PrayerFragment prayerFragment;
+                prayerFragment = new PrayerFragment();
                 return prayerFragment;
 
             case 2:
-                QiblaFragment qiblaFragment = new QiblaFragment();
+                QiblaFragment qiblaFragment;
+                qiblaFragment = new QiblaFragment();
                 return qiblaFragment;
 
             case 3:
-                QuranFragment quranFragment = new QuranFragment();
-                return quranFragment;
+                SurahsListFragment surahsListFragment;
+                surahsListFragment = new SurahsListFragment();
+                return surahsListFragment;
 
             default:
                 return null;

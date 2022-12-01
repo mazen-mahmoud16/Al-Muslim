@@ -1,4 +1,4 @@
-package com.example.elaislami;
+package com.example.elaislami.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -7,6 +7,8 @@ import androidx.viewpager.widget.ViewPager;
 import android.os.Bundle;
 
 
+import com.example.elaislami.R;
+import com.example.elaislami.Adapter.TabsAdapter;
 import com.google.android.material.tabs.TabLayout;
 
 public class MainActivity extends AppCompatActivity {
