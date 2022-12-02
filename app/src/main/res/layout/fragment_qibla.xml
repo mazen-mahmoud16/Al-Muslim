@@ -1,14 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Fragment.QiblaFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
 
-</FrameLayout>
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/qibla_title"
+        android:textSize="25sp"
+        android:layout_marginStart="23sp"
+        android:textColor="#5E8D65"
+        android:textStyle="normal"
+        android:layout_marginTop="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/title_arabic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/qibla_title_arabic"
+        android:textSize="25sp"
+        android:layout_marginEnd="30sp"
+        android:textColor="#5E8D65"
+        android:textStyle="normal"
+        app:layout_constraintTop_toTopOf="@id/title"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/loc"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/loc_placeholder"
+        app:layout_constraintEnd_toStartOf="@id/update_loc"
+        android:layout_marginTop="15dp"
+        android:layout_marginStart="33dp"
+        android:layout_marginEnd="33dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title"/>
+
+    <Button
+        android:id="@+id/update_loc"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:textSize="11sp"
+        android:padding="0dp"
+        app:layout_constraintStart_toEndOf="@+id/loc"
+        app:layout_constraintEnd_toEndOf="@id/title_arabic"
+        android:text="@string/update"
+        app:layout_constraintTop_toTopOf="@+id/loc"
+        android:background="@drawable/rounded_btn"
+        />
+
+    <TextView
+        android:id="@+id/hint"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_btn"
+        app:layout_constraintTop_toBottomOf="@id/loc"
+        android:padding="10dp"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:layout_marginTop="10dp"
+        android:text="@string/qibla_hint"
+        app:layout_constraintStart_toStartOf="@id/title"
+        app:layout_constraintEnd_toEndOf="@id/title_arabic"/>
+
+    <RelativeLayout
+        android:id="@+id/rel_layout"
+        android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/hint">
+
+        <ImageView
+            android:id="@+id/image_compass"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_compass" />
+
+
+        <ImageView
+            android:id="@+id/image_cursor"
+            android:layout_width="350dp"
+            android:layout_height="350dp"
+            android:layout_alignTop="@+id/image_compass"
+            android:layout_centerInParent="true"
+            android:src="@drawable/needle"
+            android:rotation="0"/>
+
+    </RelativeLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
