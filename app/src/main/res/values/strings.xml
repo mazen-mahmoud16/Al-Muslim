@@ -6,7 +6,11 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="hij_date">5 Jumada | 1444</string>
     <string name="upcoming">Upcoming Salat,</string>
+    <string name="fajr">Fajr</string>
+    <string name="dohr">Dohr</string>
     <string name="asr">Asr</string>
+    <string name="maghrib">Maghrib</string>
+    <string name="isha">Isha</string>
     <string name="salat_tim">2:35 PM</string>
     <string name="salat_tim_left">1:05 hrs left</string>
     <string name="activities">Activities</string>
@@ -19,4 +23,13 @@
     <string name="qibla_title">Qibla Finder</string>
     <string name="qibla_title_arabic">القبلة</string>
     <string name="qibla_hint">Place your device on a flat surface, then wait until qibla cursor is stable</string>
+    <string name="todo_title">Todo List</string>
+    <string name="todo_list_title">Current List</string>
+    <string name="add_todo">Add</string>
+    <string name="todo_place">Enter next todo item</string>
+    <string name="add_todo_title">Add a todo item</string>
+    <string name="prayer_title">Prayer Statistics</string>
+    <string name="day_title">Day</string>
+    <string name="save">Save</string>
+    <string name="generate">Generate Previous Week Report</string>
 </resources>

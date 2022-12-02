@@ -45,6 +45,7 @@ public class SurahsListAdapter extends RecyclerView.Adapter<SurahsListAdapter.Vi
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
+
         TextView english_Name;
         TextView arabic_Name;
 
