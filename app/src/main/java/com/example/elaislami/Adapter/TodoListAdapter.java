@@ -42,8 +42,7 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.ViewHo
     public void onBindViewHolder(@NonNull TodoListAdapter.ViewHolder holder, int position) {
 
 
-        String todoNum = todoItems.get(position).getNumber()+". ";
-        holder.itemNum.setText(todoNum);
+        holder.itemNum.setText("\u2022 ");
         holder.itemContent.setText(todoItems.get(position).getContent());
 
     }
