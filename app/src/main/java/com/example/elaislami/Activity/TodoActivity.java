@@ -50,12 +50,12 @@ public class TodoActivity extends AppCompatActivity implements TodoListener {
         });
 
         rv_todo = findViewById(R.id.list_rec);
-        todoItems.add(new TodoItem(1,"Read EL Qahf Sura 1 Time"));
-        todoItems.add(new TodoItem(2,"Read Azkar El Sabah"));
-        todoItems.add(new TodoItem(3,"Pray 5 Times"));
-        todoItems.add(new TodoItem(4,"Read Azkar El Masaa"));
-        todoItems.add(new TodoItem(5,"Read EL Qahf Sura 1 Time Read EL Qahf Sura 1 Time Read EL Qahf Sura 1 Time Read EL Qahf Sura 1 Time"));
-        todoItems.add(new TodoItem(6,"Read EL Qahf Sura 1 Time"));
+        todoItems.add(new TodoItem("Read EL Qahf Sura 1 Time"));
+        todoItems.add(new TodoItem("Read Azkar El Sabah"));
+        todoItems.add(new TodoItem("Pray 5 Times"));
+        todoItems.add(new TodoItem("Read Azkar El Masaa"));
+        todoItems.add(new TodoItem("Read EL Qahf Sura 1 Time Read EL Qahf Sura 1 Time Read EL Qahf Sura 1 Time Read EL Qahf Sura 1 Time"));
+        todoItems.add(new TodoItem("Read EL Qahf Sura 1 Time"));
 
         todoListAdapter=new TodoListAdapter(todoItems,this, this);
         rv_todo.setLayoutManager(new LinearLayoutManager(this));

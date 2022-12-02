@@ -328,20 +328,34 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:text="@string/generate"
         app:layout_constraintTop_toBottomOf="@id/save"
-        app:layout_constraintBottom_toTopOf="@id/report"
+        app:layout_constraintBottom_toTopOf="@id/prog_bar"
         android:backgroundTint="#EE4B2B"
         />
 
-    <TextView
-        android:id="@+id/report"
-        android:layout_width="wrap_content"
+    <ProgressBar
+        android:id="@+id/prog_bar"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        style="?android:attr/progressBarStyleHorizontal"
         app:layout_constraintStart_toStartOf="@id/generate"
         app:layout_constraintEnd_toEndOf="@id/generate"
-        android:layout_marginTop="5dp"
-        android:text="You have accomplished 25 prayers/ 50"
+        android:visibility="invisible"
         app:layout_constraintTop_toBottomOf="@id/generate"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintBottom_toTopOf="@id/num_salat"
+        android:max="35"
+        android:progress="0"/>
+
+    <TextView
+        android:id="@+id/num_salat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/prog_bar"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@id/prog_bar"
+        app:layout_constraintTop_toBottomOf="@id/prog_bar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="20/35"/>
+
 
 
 

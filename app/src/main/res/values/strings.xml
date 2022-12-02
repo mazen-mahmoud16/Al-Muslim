@@ -16,14 +16,14 @@
     <string name="activities">Activities</string>
     <string name="sibha_place">Your digital Sibha,</string>
     <string name="sibha_num">1346</string>
-    <string name="todo">Todo List</string>
+    <string name="todo">To do List</string>
     <string name="statist">Prayer Statistics</string>
     <string name="azkar_sabah">Azkar Sabah</string>
     <string name="azkar_masaa">Azkar Masaa</string>
     <string name="qibla_title">Qibla Finder</string>
     <string name="qibla_title_arabic">القبلة</string>
     <string name="qibla_hint">Place your device on a flat surface, then wait until qibla cursor is stable</string>
-    <string name="todo_title">Todo List</string>
+    <string name="todo_title">To do List</string>
     <string name="todo_list_title">Current List</string>
     <string name="add_todo">Add</string>
     <string name="todo_place">Enter next todo item</string>
