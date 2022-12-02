@@ -5,15 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Fragment.SurahsListFragment"
-    android:paddingTop="-20dp"
-    >
+    android:paddingTop="-20dp">
+
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/surahListTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Choose a surah"
-        android:textSize="25dp"
-        android:layout_marginLeft="23sp"
+        android:textSize="25sp"
+        android:layout_marginStart="23sp"
         android:textColor="#5E8D65"
         android:textStyle="normal"
         android:layout_marginTop="10dp"
@@ -21,7 +21,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/searchBar"
         android:layout_width="300sp"
         android:layout_marginTop="20dp"
         android:layout_height="wrap_content"
@@ -29,21 +29,20 @@
         android:hint="Enter a surah name"
         android:drawableStart="@drawable/ic_baseline_search_24"
         android:minHeight="48dp"
-        android:paddingLeft="15sp"
-
+        android:paddingStart="15sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintTop_toBottomOf="@+id/surahListTitle" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/surahRV"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="130dp"
+        android:layout_marginTop="105dp"
         android:paddingBottom="135dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/editText"
+        app:layout_constraintTop_toBottomOf="@id/searchBar"
         tools:listitem="@layout/surah_item" />
 </androidx.constraintlayout.widget.ConstraintLayout>

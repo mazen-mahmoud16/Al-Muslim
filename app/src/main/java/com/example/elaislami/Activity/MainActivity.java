@@ -1,24 +1,22 @@
 package com.example.elaislami.Activity;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
-
 import android.os.Bundle;
-
-
 import com.example.elaislami.R;
 import com.example.elaislami.Adapter.TabsAdapter;
 import com.google.android.material.tabs.TabLayout;
 
 public class MainActivity extends AppCompatActivity {
 
+    int backState;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        backState=getIntent().getIntExtra("back_state",-1);
 
         Toolbar toolbar = findViewById(R.id.tool_bar);
 
@@ -41,7 +39,13 @@ public class MainActivity extends AppCompatActivity {
 
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabs));
 
+        if(backState!=-1){
+            viewPager.setCurrentItem(backState);
+            backState=-1;
+        }
+
         tabs.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());

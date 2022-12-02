@@ -8,6 +8,7 @@
     android:layout_marginTop="20dp"
     android:layout_marginRight="20dp"
     android:layout_marginLeft="20dp"
+    android:elevation="20dp"
     >
     <RelativeLayout
         android:id="@+id/relativelayout"
@@ -37,7 +38,6 @@
             android:gravity="center"
             android:text="1"
             android:textStyle="bold"
-
             android:textColor="#FFFFFF" />
 
     </RelativeLayout>
