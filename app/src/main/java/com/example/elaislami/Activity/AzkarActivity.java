@@ -1,6 +1,8 @@
 package com.example.elaislami.Activity;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,14 +13,20 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.elaislami.Adapter.AzkarAdapter;
+import com.example.elaislami.Model.AzkarModel;
 import com.example.elaislami.R;
+
+import java.util.ArrayList;
 
 
 public class AzkarActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
-    String[] azkar = {"Morning Azkar", "Night Azkar", "Travel Azkar"};
+    String[] azkar = {"Morning Azkar", "Night Azkar"};
 
 
     ImageButton back_btn;
+    ArrayList<AzkarModel> azkarModels=new ArrayList<>();
+    RecyclerView azkarRV;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +56,20 @@ public class AzkarActivity extends AppCompatActivity implements AdapterView.OnIt
             }
         });
 
+        azkarRV =findViewById(R.id.AzkarRV);
+        azkarModels.add(new AzkarModel("بسـم الله الـذي لا يضر مع اسمه شيء في الأرض ولا في السماء وهو السميع العليم", 100));
+        azkarModels.add(new AzkarModel("بسـم الله الـذي لا يضر مع اسمه شيء في الأرض ولا في السماء وهو السميع العليم", 100));
+        azkarModels.add(new AzkarModel("بسـم الله الـذي لا يضر مع اسمه شيء في الأرض ولا في السماء وهو السميع العليم", 100));
+        azkarModels.add(new AzkarModel("بسـم الله الـذي لا يضر مع اسمه شيء في الأرض ولا في السماء وهو السميع العليم", 100));
+        azkarModels.add(new AzkarModel("بسـم الله الـذي لا يضر مع اسمه شيء في الأرض ولا في السماء وهو السميع العليم", 100));
+        azkarModels.add(new AzkarModel("بسـم الله الـذي لا يضر مع اسمه شيء في الأرض ولا في السماء وهو السميع العليم", 100));
+        azkarModels.add(new AzkarModel("بسـم الله الـذي لا يضر مع اسمه شيء في الأرض ولا في السماء وهو السميع العليم", 100));
+        azkarModels.add(new AzkarModel("بسـم الله الـذي لا يضر مع اسمه شيء في الأرض ولا في السماء وهو السميع العليم", 100));
+
+
+        AzkarAdapter azkarAdapterList=new AzkarAdapter(azkarModels);
+        azkarRV.setLayoutManager(new LinearLayoutManager(AzkarActivity.this));
+        azkarRV.setAdapter(azkarAdapterList);
 
     }
 

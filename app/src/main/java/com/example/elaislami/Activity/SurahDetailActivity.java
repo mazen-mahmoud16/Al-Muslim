@@ -13,12 +13,10 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.text.NumberFormat;
 import java.util.ArrayList;
-import java.util.Locale;
 
 public class SurahDetailActivity extends AppCompatActivity {
-    RecyclerView rv_users;
+    RecyclerView surahDetailRV;
     TextView englishNameTv,arabicNameTv;
     String englishName,arabicName;
     ImageView back_btn;
@@ -45,7 +43,7 @@ public class SurahDetailActivity extends AppCompatActivity {
         englishNameTv.setText(englishName);
         arabicNameTv.setText(arabicName);
 
-        rv_users=findViewById(R.id.SurahDetailRV);
+        surahDetailRV =findViewById(R.id.SurahDetailRV);
         ayaModels.add(new SurahDetailModel("وَبَشِّرِ ٱلَّذِينَ ءَامَنُوا۟ وَعَمِلُوا۟ ٱلصَّـٰلِحَـٰتِ أَنَّ لَهُمْ جَنَّـٰتٍۢ تَجْرِى مِن تَحْتِهَا ٱلْأَنْهَـٰرُ ۖ كُلَّمَا رُزِقُوا۟ مِنْهَا مِن ثَمَرَةٍۢ رِّزْقًۭا ۙ قَالُوا۟ هَـٰذَا ٱلَّذِى رُزِقْنَا مِن قَبْلُ ۖ وَأُتُوا۟ بِهِۦ مُتَشَـٰبِهًۭا ۖ وَلَهُمْ فِيهَآ أَزْوَٰجٌۭ مُّطَهَّرَةٌۭ ۖ وَهُمْ فِيهَا خَـٰلِدُون", 222));
         ayaModels.add(new SurahDetailModel("وَبَشِّرِ ٱلَّذِينَ ءَامَنُوا۟ وَعَمِلُوا۟ ٱلصَّـٰلِحَـٰتِ أَنَّ لَهُمْ جَنَّـٰتٍۢ تَجْرِى مِن تَحْتِهَا ٱلْأَنْهَـٰرُ ۖ كُلَّمَا رُزِقُوا۟ مِنْهَا مِن ثَمَرَةٍۢ رِّزْقًۭا ۙ قَالُوا۟ هَـٰذَا ٱلَّذِى رُزِقْنَا مِن قَبْلُ ۖ وَأُتُوا۟ بِهِۦ مُتَشَـٰبِهًۭا ۖ وَلَهُمْ فِيهَآ أَزْوَٰجٌۭ مُّطَهَّرَةٌۭ ۖ وَهُمْ فِيهَا خَـٰلِدُون", 222));
         ayaModels.add(new SurahDetailModel("وَبَشِّرِ ٱلَّذِينَ ءَامَنُوا۟ وَعَمِلُوا۟ ٱلصَّـٰلِحَـٰتِ أَنَّ لَهُمْ جَنَّـٰتٍۢ تَجْرِى مِن تَحْتِهَا ٱلْأَنْهَـٰرُ ۖ كُلَّمَا رُزِقُوا۟ مِنْهَا مِن ثَمَرَةٍۢ رِّزْقًۭا ۙ قَالُوا۟ هَـٰذَا ٱلَّذِى رُزِقْنَا مِن قَبْلُ ۖ وَأُتُوا۟ بِهِۦ مُتَشَـٰبِهًۭا ۖ وَلَهُمْ فِيهَآ أَزْوَٰجٌۭ مُّطَهَّرَةٌۭ ۖ وَهُمْ فِيهَا خَـٰلِدُون",222));
@@ -57,8 +55,8 @@ public class SurahDetailActivity extends AppCompatActivity {
 
 
         SurahDetailAdapter surahAdapter=new SurahDetailAdapter(ayaModels);
-        rv_users.setLayoutManager(new LinearLayoutManager(SurahDetailActivity.this));
-        rv_users.setAdapter(surahAdapter);
+        surahDetailRV.setLayoutManager(new LinearLayoutManager(SurahDetailActivity.this));
+        surahDetailRV.setAdapter(surahAdapter);
 
 
         back_btn.setOnClickListener(new View.OnClickListener() {

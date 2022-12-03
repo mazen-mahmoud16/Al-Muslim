@@ -16,17 +16,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="90dp"
-        app:layout_constraintBottom_toBottomOf="@+id/ayaContent"
+        app:layout_constraintBottom_toBottomOf="@+id/zekr_content"
         app:layout_constraintStart_toStartOf="parent"/>
 
     <TextView
-        android:id="@+id/ayaContent"
+        android:id="@+id/zekr_content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif"
         android:layout_marginTop="10dp"
         android:justificationMode="inter_word"
-        android:text="بسـم الله الـذي لا يضر مع اسمه شيء في الأرض ولا في السماء وهو السميع العليم "
+        android:text="بسـم الله الـذي لا يضر مع اسمه شيء في الأرض ولا في السماء وهو السميع العليم"
         android:textColor="@color/black"
         android:textSize="20sp"
         android:textStyle="bold"
@@ -42,6 +42,7 @@
         android:layout_height="match_parent"
         android:background="@drawable/rounded_btn"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
@@ -49,24 +50,27 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="عدد المرات"
-            android:textStyle="bold"
             android:textColor="@color/black"
             android:textSize="14sp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@id/zekr_no_of_times"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
+            android:id="@+id/zekr_no_of_times"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="٣"
-            android:textSize="15sp"
-            android:textStyle="bold"
-            android:textColor="@color/black"
             android:layout_marginEnd="5dp"
+            android:text="١٠٠"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/textView"
+            app:layout_constraintEnd_toStartOf="@id/textView"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
