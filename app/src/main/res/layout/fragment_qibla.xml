@@ -84,8 +84,7 @@
             android:layout_width="300dp"
             android:layout_height="300dp"
             android:layout_centerInParent="true"
-            android:layout_centerVertical="true"
-            android:src="@drawable/ic_compass" />
+            android:src="@drawable/dial" />
 
 
         <ImageView
@@ -95,7 +94,7 @@
             android:layout_alignTop="@+id/image_compass"
             android:layout_centerInParent="true"
             android:rotation="0"
-            android:src="@drawable/needle" />
+            android:src="@drawable/qibla_arrow" />
 
         <TextView
             android:id="@+id/heading"
