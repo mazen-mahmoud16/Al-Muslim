@@ -11,12 +11,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.elaislami.Model.SurahsModel;
 import java.util.ArrayList;
 
-public class SurahsListAdapter extends RecyclerView.Adapter<SurahsListAdapter.ViewHolder>{
+public class SurahListAdapter extends RecyclerView.Adapter<SurahListAdapter.ViewHolder>{
     ArrayList<SurahsModel> SurahsModelInternal;
     Context context;
     SurahListener surahListener;
 
-    public SurahsListAdapter(ArrayList<SurahsModel> SurahsModelInternals,Context context,SurahListener surahListener) {
+    public SurahListAdapter(ArrayList<SurahsModel> SurahsModelInternals, Context context, SurahListener surahListener) {
         this.SurahsModelInternal = SurahsModelInternals;
         this.context = context;
         this.surahListener=surahListener;

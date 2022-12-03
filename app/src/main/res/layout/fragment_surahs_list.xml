@@ -22,7 +22,7 @@
 
     <EditText
         android:id="@+id/searchBar"
-        android:layout_width="300sp"
+        android:layout_width="match_parent"
         android:layout_marginTop="20dp"
         android:layout_height="wrap_content"
         android:background="@drawable/rounded_edittext"
@@ -30,16 +30,17 @@
         android:drawableStart="@drawable/ic_baseline_search_24"
         android:minHeight="48dp"
         android:paddingStart="15sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginEnd="25dp"
+        android:layout_marginStart="25dp"
+        app:layout_constraintEnd_toEndOf="@id/surahRV"
+        app:layout_constraintStart_toStartOf="@id/surahRV"
         app:layout_constraintTop_toBottomOf="@+id/surahListTitle" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/surahRV"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="105dp"
-        android:paddingBottom="135dp"
+        android:layout_height="0dp"
+        android:paddingBottom="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -1,5 +1,6 @@
 package com.example.elaislami.Activity;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.elaislami.Adapter.SurahDetailAdapter;
@@ -28,6 +29,13 @@ public class SurahDetailActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_surah_detail);
+
+
+        Toolbar toolbar = findViewById(R.id.tool_bar_surah_detail);
+
+        setSupportActionBar(toolbar);
+
+
         englishNameTv=findViewById(R.id.SurahEnglishName);
         arabicNameTv=findViewById(R.id.SurahArabicName);
         back_btn=findViewById(R.id.back_btn);
@@ -36,8 +44,6 @@ public class SurahDetailActivity extends AppCompatActivity {
 
         englishNameTv.setText(englishName);
         arabicNameTv.setText(arabicName);
-        //NumberFormat nf = NumberFormat.getInstance(Locale.forLanguageTag("AR"));
-       // textView.setText(String.valueOf(nf.format(285))+"\u06DD");
 
         rv_users=findViewById(R.id.SurahDetailRV);
         ayaModels.add(new SurahDetailModel("وَبَشِّرِ ٱلَّذِينَ ءَامَنُوا۟ وَعَمِلُوا۟ ٱلصَّـٰلِحَـٰتِ أَنَّ لَهُمْ جَنَّـٰتٍۢ تَجْرِى مِن تَحْتِهَا ٱلْأَنْهَـٰرُ ۖ كُلَّمَا رُزِقُوا۟ مِنْهَا مِن ثَمَرَةٍۢ رِّزْقًۭا ۙ قَالُوا۟ هَـٰذَا ٱلَّذِى رُزِقْنَا مِن قَبْلُ ۖ وَأُتُوا۟ بِهِۦ مُتَشَـٰبِهًۭا ۖ وَلَهُمْ فِيهَآ أَزْوَٰجٌۭ مُّطَهَّرَةٌۭ ۖ وَهُمْ فِيهَا خَـٰلِدُون", 222));

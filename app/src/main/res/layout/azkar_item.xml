@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/rounded_edittext"
+    android:padding="10dp"
+    android:layout_marginTop="20dp"
+    android:layout_marginRight="20dp"
+    android:layout_marginLeft="20dp"
+    android:elevation="20dp">
+
+    <RelativeLayout
+        android:id="@+id/relativelayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="90dp"
+        app:layout_constraintBottom_toBottomOf="@+id/ayaContent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        android:id="@+id/ayaContent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif"
+        android:layout_marginTop="10dp"
+        android:justificationMode="inter_word"
+        android:text="بسـم الله الـذي لا يضر مع اسمه شيء في الأرض ولا في السماء وهو السميع العليم "
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
+        tools:targetApi="o" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/rounded_btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="عدد المرات"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="٣"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_marginEnd="5dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/textView"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+

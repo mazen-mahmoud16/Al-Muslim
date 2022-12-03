@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.example.elaislami.Activity.AzkarActivity;
 import com.example.elaislami.Activity.PrayerStatisticsActivity;
 import com.example.elaislami.Activity.TodoActivity;
 import com.example.elaislami.R;
@@ -20,6 +21,8 @@ public class HomeFragment extends Fragment {
 
     private ImageView todo_btn;
     private ImageView statistics_btn;
+    private ImageView azkar_btn;
+
     Intent intent;
 
     @Override
@@ -30,6 +33,7 @@ public class HomeFragment extends Fragment {
 
         todo_btn = view.findViewById(R.id.img1);
         statistics_btn = view.findViewById(R.id.img2);
+        azkar_btn = view.findViewById(R.id.img3);
 
 
 
@@ -45,6 +49,14 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 intent = new Intent(getActivity(), PrayerStatisticsActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        azkar_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                intent = new Intent(getActivity(), AzkarActivity.class);
                 startActivity(intent);
             }
         });

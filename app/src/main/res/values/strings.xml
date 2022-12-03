@@ -32,4 +32,12 @@
     <string name="day_title">Day</string>
     <string name="save">Save</string>
     <string name="generate">Generate Previous Week Report</string>
+    <string name="prayer_times">Prayer Times</string>
+    <string name="prayer_times_arabic">مواعيد الصلاه</string>
+    <string name="next_day">next_day</string>
+    <string name="previous_day">previous_day</string>
+    <string name="back_btn">Back_btn</string>
+    <string name="Azkar_title" />
+    <string name="azkar">Azkar</string>
+    <string name="drop_down">drop_down</string>
 </resources>

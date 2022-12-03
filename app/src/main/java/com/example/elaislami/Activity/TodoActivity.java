@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 
-import com.example.elaislami.Adapter.SurahsListAdapter;
 import com.example.elaislami.Adapter.TodoListAdapter;
 import com.example.elaislami.Listener.TodoListener;
 import com.example.elaislami.Model.TodoItem;

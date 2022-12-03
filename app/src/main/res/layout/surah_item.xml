@@ -61,11 +61,11 @@
         android:layout_height="wrap_content"
         android:text="سورة الفاتحه"
         android:textColor="@color/white"
-        android:textSize="18dp"
+        android:textSize="18sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/english_name"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/english_name"
-        />
+        app:layout_constraintTop_toTopOf="@+id/english_name" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

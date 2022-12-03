@@ -2,8 +2,6 @@ package com.example.elaislami.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,9 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.elaislami.Activity.MainActivity;
 import com.example.elaislami.Activity.SurahDetailActivity;
-import com.example.elaislami.Adapter.SurahsListAdapter;
+import com.example.elaislami.Adapter.SurahListAdapter;
 import com.example.elaislami.Listener.SurahListener;
 import com.example.elaislami.Model.SurahsModel;
 import com.example.elaislami.R;
@@ -45,12 +42,13 @@ public class SurahsListFragment extends Fragment implements SurahListener {
         surahsModels.add(new SurahsModel("Al-Fatiha","سورة الفاتحه"));
         surahsModels.add(new SurahsModel("Al-Fatiha","سورة الفاتحه"));
 
-        SurahsListAdapter surahAdapter=new SurahsListAdapter(surahsModels,getContext(),this::onSurahListener);
+        SurahListAdapter surahAdapter=new SurahListAdapter(surahsModels,getContext(),this::onSurahListener);
         rv_users.setLayoutManager(new LinearLayoutManager(getContext()));
         rv_users.setAdapter(surahAdapter);
 
         return view;
     }
+
     @Override
     public void onSurahListener(int position) {
         Intent intent = new Intent(getActivity(), SurahDetailActivity.class);
