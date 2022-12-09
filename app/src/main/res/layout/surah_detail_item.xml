@@ -6,18 +6,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/rounded_edittext"
     android:padding="10dp"
-    android:layout_marginTop="20dp"
+    android:layout_marginTop="10dp"
+    android:layout_marginBottom="10dp"
     android:layout_marginRight="20dp"
     android:layout_marginLeft="20dp"
     android:elevation="20dp">
-
-    <RelativeLayout
-        android:id="@+id/relativelayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="90dp"
-        app:layout_constraintBottom_toBottomOf="@+id/ayaContent"
-        app:layout_constraintStart_toStartOf="parent"/>
 
     <TextView
         android:id="@+id/ayaContent"

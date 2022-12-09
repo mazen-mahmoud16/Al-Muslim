@@ -97,31 +97,20 @@
         app:layout_constraintTop_toTopOf="@id/prev_day"
         app:layout_constraintBottom_toBottomOf="@id/prev_day"
         android:contentDescription="@string/next_day" />
+
     <TextView
         android:id="@+id/loc"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/montserrat_medium"
+        android:fontFamily="@font/montserrat_regular"
         android:text="@string/loc_placeholder"
-        app:layout_constraintEnd_toStartOf="@id/update_loc"
+        app:layout_constraintEnd_toEndOf="@id/prayer_times_title_arabic"
+        android:gravity="center"
         android:layout_marginTop="30dp"
-        android:layout_marginEnd="33dp"
         app:layout_constraintStart_toStartOf="@id/prayer_times_title_english"
         app:layout_constraintTop_toBottomOf="@id/prayer_times_title_english"/>
 
-    <Button
-        android:id="@+id/update_loc"
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:fontFamily="@font/montserrat_bold"
-        android:textSize="11sp"
-        android:padding="0dp"
-        app:layout_constraintStart_toEndOf="@+id/loc"
-        app:layout_constraintEnd_toEndOf="@id/prayer_times_title_arabic"
-        android:text="@string/update"
-        app:layout_constraintTop_toTopOf="@+id/loc"
-        android:background="@drawable/rounded_btn"
-        />
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/prayerRV"

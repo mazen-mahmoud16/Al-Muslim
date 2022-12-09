@@ -11,7 +11,8 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/loc_placeholder"
-        app:layout_constraintEnd_toStartOf="@id/update_loc"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:gravity="center"
         android:layout_marginTop="15dp"
         android:layout_marginStart="33dp"
         android:layout_marginEnd="33dp"
@@ -19,18 +20,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
-    <Button
-        android:id="@+id/update_loc"
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:textSize="11sp"
-        android:padding="0dp"
-        app:layout_constraintStart_toEndOf="@+id/loc"
-        app:layout_constraintEnd_toEndOf="@id/fir_layout"
-        android:text="@string/update"
-        app:layout_constraintTop_toTopOf="@+id/loc"
-        android:background="@drawable/rounded_btn"
-        />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/fir_layout"
