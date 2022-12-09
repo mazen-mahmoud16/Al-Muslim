@@ -1,6 +1,7 @@
 package com.example.elaislami.Adapter;
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,21 +33,8 @@ public class SurahDetailAdapter extends RecyclerView.Adapter<SurahDetailAdapter.
     @Override
     public void onBindViewHolder(@NonNull SurahDetailAdapter.ViewHolder holder, int position){
         NumberFormat nf = NumberFormat.getInstance(Locale.forLanguageTag("AR"));
-        long reversedNum = 0;
-        long input_long = SurahDetailModelInternal.get(position).getAyaNumber();
-
-        while (input_long != 0) {
-            reversedNum = reversedNum * 10 + input_long % 10;
-            input_long = input_long / 10;
-        }
-
-        if (reversedNum > Integer.MAX_VALUE || reversedNum < Integer.MIN_VALUE) {
-            throw new IllegalArgumentException();
-        }
-
-        String ayaNumber=String.valueOf(nf.format(reversedNum));
-
-        holder.ayaContent.setText(SurahDetailModelInternal.get(position).getAyaContent()+ayaNumber+"\u06DD");
+        String ayaNumber= nf.format(SurahDetailModelInternal.get(position).getAyaNumber());
+        holder.ayaContent.setText(SurahDetailModelInternal.get(position).getAyaContent()+"    "+"\uFD3F"+ayaNumber+"\uFD3E");
 
     }
 

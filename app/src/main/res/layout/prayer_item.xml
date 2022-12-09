@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/rounded_edittext"
     android:padding="10dp"
-    android:layout_marginTop="20dp"
+    android:layout_marginTop="30dp"
     android:layout_marginRight="20dp"
     android:layout_marginLeft="20dp"
     android:elevation="20dp"
@@ -17,7 +17,7 @@
         android:id="@+id/salat_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="5dp"
+        android:padding="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -30,6 +30,8 @@
             android:text="@string/dohr"
             android:textColor="@color/black"
             android:textSize="18sp"
+            android:fontFamily="@font/montserrat_medium"
+
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -38,6 +40,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="12:00 PM"
+            android:fontFamily="@font/montserrat_medium"
             android:textColor="@color/black"
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"

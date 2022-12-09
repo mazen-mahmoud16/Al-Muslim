@@ -21,9 +21,9 @@
 
     <TextView
         android:id="@+id/zekr_content"
+        android:fontFamily="@font/montserrat_medium"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="sans-serif"
         android:layout_marginTop="10dp"
         android:justificationMode="inter_word"
         android:text="بسـم الله الـذي لا يضر مع اسمه شيء في الأرض ولا في السماء وهو السميع العليم"

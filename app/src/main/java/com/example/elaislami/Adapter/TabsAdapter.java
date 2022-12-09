@@ -8,7 +8,6 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 import com.example.elaislami.Fragment.HomeFragment;
 import com.example.elaislami.Fragment.PrayerFragment;
 import com.example.elaislami.Fragment.QiblaFragment;
-import com.example.elaislami.Fragment.QuranFragment;
 import com.example.elaislami.Fragment.SurahsListFragment;
 
 public class TabsAdapter extends FragmentStatePagerAdapter {
