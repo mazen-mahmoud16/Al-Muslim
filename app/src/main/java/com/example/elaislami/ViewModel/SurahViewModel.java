@@ -1,5 +1,7 @@
 package com.example.elaislami.ViewModel;
 import android.app.Application;
+import android.util.Log;
+
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
@@ -17,11 +19,10 @@ public class SurahViewModel extends AndroidViewModel {
         super(application);
         sRepository = new SurahListRepository(application);
         surahList = sRepository.getAllSurahs();
-
-        if(surahList.equals(null)){
+        if(sRepository.getAllSurahs() == null){
             sRepository.getAllSurahsApi();
         }
-       // sRepository.getAllSurahsApi();
+
     }
 
     public LiveData<List<SurahDBModel>> getAllSurahs() {
