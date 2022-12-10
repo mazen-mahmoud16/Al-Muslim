@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Toasty.info(MainActivity.this, "Hello", Toasty.LENGTH_LONG, true).show();
+        Toasty.warning(MainActivity.this, "Hello", Toasty.LENGTH_LONG, true).show();
 
         settings = getSharedPreferences(PREFS_NAME, 0);
         editor = settings.edit();
