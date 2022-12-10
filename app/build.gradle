@@ -29,7 +29,12 @@ android {
 }
 
 dependencies {
-    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
+    def room_version = "2.4.3"
+    def lifecycle_version = "2.4.0-alpha02"
+    implementation "com.squareup.retrofit2:converter-gson:2.4.0"
+    implementation "com.squareup.retrofit2:retrofit:2.4.0"
+    implementation "androidx.room:room-runtime:$room_version"
+    annotationProcessor "androidx.room:room-compiler:$room_version"
     implementation 'com.batoulapps.adhan:adhan:1.2.1'
     implementation 'com.github.GrenderG:Toasty:1.5.2'
     implementation 'androidx.appcompat:appcompat:1.5.1'

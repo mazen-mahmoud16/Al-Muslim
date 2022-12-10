@@ -1,24 +1,27 @@
 package com.example.elaislami.ViewModel;
 import android.app.Application;
 import androidx.lifecycle.AndroidViewModel;
-import com.example.elaislami.Model.SurahsModel;
-import com.example.elaislami.Repository.SurahListRepository;
+import androidx.lifecycle.LiveData;
 
-import java.util.ArrayList;
+import com.example.elaislami.Repository.SurahListRepository;
+import com.example.elaislami.RoomDBModels.SurahDBModel;
+
 import java.util.List;
 
 public class SurahViewModel extends AndroidViewModel {
 
     private SurahListRepository sRepository;
-    private ArrayList<SurahsModel> surahList;
+    private LiveData<List<SurahDBModel>> surahList;
 
-    public SurahViewModel (Application application) {
+    public SurahViewModel(Application application) {
         super(application);
         sRepository = new SurahListRepository(application);
-        surahList=sRepository.getAllSurahs();
+        surahList = sRepository.getAllSurahs();
+        sRepository.getAllSurahsApi();
     }
 
-    public ArrayList<SurahsModel> getSurahList() {
+    public LiveData<List<SurahDBModel>> getAllSurahs() {
         return surahList;
     }
+
 }
