@@ -30,7 +30,6 @@ import java.util.TimeZone;
 public class PrayerFragment extends Fragment {
 
     TextView loc;
-
     TextView fajrTime;
     TextView duhurTime;
     TextView asrTime;
