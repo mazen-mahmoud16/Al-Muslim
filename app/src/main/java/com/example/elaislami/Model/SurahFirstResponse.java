@@ -9,13 +9,13 @@ import java.util.List;
 public class SurahFirstResponse {
 
     @SerializedName("data")
-    private List<SurahModel> data;
+    private List<SurahDBModel> data;
 
-    public List<SurahModel> getData() {
+    public List<SurahDBModel> getData() {
         return data;
     }
 
-    public SurahFirstResponse(List<SurahModel> data) {
+    public SurahFirstResponse(List<SurahDBModel> data) {
         this.data = data;
     }
 
