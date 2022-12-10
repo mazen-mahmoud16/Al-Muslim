@@ -3,6 +3,7 @@ import com.example.elaislami.Activity.MainActivity;
 import com.example.elaislami.Listener.SurahListener;
 import com.example.elaislami.R;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,17 +12,23 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.elaislami.RoomDBModels.SurahDBModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import es.dmoral.toasty.Toasty;
 
 public class SurahListAdapter extends RecyclerView.Adapter<SurahListAdapter.ViewHolder>{
-    List<SurahDBModel> SurahsModelInternal;
+    List<SurahDBModel> surahsModelInternal;
     Context context;
     SurahListener surahListener;
 
-    public SurahListAdapter(List<SurahDBModel> SurahsModelInternals, Context context) {
-        this.SurahsModelInternal = SurahsModelInternals;
+    public SurahListAdapter(List<SurahDBModel> surahsModelInternals, Context context) {
+        if(surahsModelInternals == null){
+            this.surahsModelInternal = new ArrayList<>();
+        }
+        else{
+            this.surahsModelInternal = surahsModelInternals;
+        }
         this.context = context;
 
 
@@ -37,10 +44,10 @@ public class SurahListAdapter extends RecyclerView.Adapter<SurahListAdapter.View
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder,int position){
-        if (SurahsModelInternal != null) {
-            holder.english_Name.setText(SurahsModelInternal.get(position).getEnglishName());
-            holder.arabic_Name.setText(SurahsModelInternal.get(position).getName());
-            holder.number.setText(String.valueOf(SurahsModelInternal.get(position).getNumber()));
+        if (surahsModelInternal != null) {
+            holder.english_Name.setText(surahsModelInternal.get(position).getEnglishName());
+            holder.arabic_Name.setText(surahsModelInternal.get(position).getName());
+            holder.number.setText(String.valueOf(surahsModelInternal.get(position).getNumber()));
         }
         else {
             holder.english_Name.setText("SurahsModelInternal.get(position).getEnglishName()");
@@ -51,13 +58,13 @@ public class SurahListAdapter extends RecyclerView.Adapter<SurahListAdapter.View
     }
 
     public void setSurahs(List<SurahDBModel> surahModels){
-        SurahsModelInternal = surahModels;
+        surahsModelInternal = surahModels;
         notifyDataSetChanged();
     }
 
     @Override
     public int getItemCount(){
-        return SurahsModelInternal.size();
+        return surahsModelInternal.size();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {

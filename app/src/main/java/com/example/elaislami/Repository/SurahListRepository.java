@@ -9,6 +9,7 @@ import androidx.lifecycle.LiveData;
 import com.example.elaislami.APIHolders.JsonPlaceHolderAPI;
 import com.example.elaislami.DAO.SurahDAO;
 import com.example.elaislami.Model.SurahFirstResponse;
+import com.example.elaislami.Model.SurahModel;
 import com.example.elaislami.RoomDB.SurahRoomDatabase;
 import com.example.elaislami.RoomDBModels.SurahDBModel;
 
@@ -27,7 +28,7 @@ public class SurahListRepository {
     Retrofit retrofit;
     JsonPlaceHolderAPI jsonPlaceHolderAPI;
     Call<SurahFirstResponse> call;
-    List<SurahDBModel> mAllSurahsList;
+    List<SurahModel> mAllSurahsList;
 
     public SurahListRepository(Application application) {
 
@@ -54,10 +55,9 @@ public class SurahListRepository {
                     SurahFirstResponse mAllSurahs = response.body();
                     mAllSurahsList=mAllSurahs.getData();
 
-                    for (SurahDBModel surahModel:mAllSurahsList) {
+                    for (SurahModel surahModel:mAllSurahsList) {
                         SurahDBModel surah=new SurahDBModel(surahModel.getNumber(),surahModel.getName(),surahModel.getEnglishName());
                         insert(surah);
-                        Log.d("MVVMX", "---" + surah.getEnglishName().toString());
                     }
                 }
             }

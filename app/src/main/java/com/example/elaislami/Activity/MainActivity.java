@@ -31,6 +31,7 @@ import java.util.Locale;
 
 import es.dmoral.toasty.Toasty;
 
+
 public class MainActivity extends AppCompatActivity implements LocationListener, BroadCastListener {
 
     int backState;
