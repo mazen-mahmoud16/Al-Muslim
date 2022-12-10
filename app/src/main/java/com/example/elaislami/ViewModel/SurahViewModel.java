@@ -17,7 +17,11 @@ public class SurahViewModel extends AndroidViewModel {
         super(application);
         sRepository = new SurahListRepository(application);
         surahList = sRepository.getAllSurahs();
-        sRepository.getAllSurahsApi();
+
+        if(surahList.equals(null)){
+            sRepository.getAllSurahsApi();
+        }
+       // sRepository.getAllSurahsApi();
     }
 
     public LiveData<List<SurahDBModel>> getAllSurahs() {

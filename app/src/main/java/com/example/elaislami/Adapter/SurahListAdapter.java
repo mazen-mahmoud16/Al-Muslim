@@ -1,9 +1,7 @@
 package com.example.elaislami.Adapter;
-import com.example.elaislami.Activity.MainActivity;
 import com.example.elaislami.Listener.SurahListener;
 import com.example.elaislami.R;
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,9 +48,7 @@ public class SurahListAdapter extends RecyclerView.Adapter<SurahListAdapter.View
             holder.number.setText(String.valueOf(surahsModelInternal.get(position).getNumber()));
         }
         else {
-            holder.english_Name.setText("SurahsModelInternal.get(position).getEnglishName()");
-            holder.arabic_Name.setText("SurahsModelInternal.get(position).getName()");
-            holder.number.setText("String.valueOf(SurahsModelInternal.get(position).getNumber())");
+            Toasty.warning(context, "Hello", Toasty.LENGTH_LONG, true).show();
 
         }
     }

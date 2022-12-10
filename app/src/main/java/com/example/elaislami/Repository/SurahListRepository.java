@@ -36,12 +36,16 @@ public class SurahListRepository {
         mSurahDao = db.surahDAO();
         mAllSurahs = mSurahDao.getAllSurahs();
 
-        retrofit = new Retrofit.Builder()
-                .baseUrl("https://api.alquran.cloud/v1/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        jsonPlaceHolderAPI = retrofit.create(JsonPlaceHolderAPI.class);
-        call = jsonPlaceHolderAPI.getSurahs();
+        if(mAllSurahs.equals(null)){
+            Log.d("ss","hIII");
+            retrofit = new Retrofit.Builder()
+                    .baseUrl("https://api.alquran.cloud/v1/")
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
+            jsonPlaceHolderAPI = retrofit.create(JsonPlaceHolderAPI.class);
+            call = jsonPlaceHolderAPI.getSurahs();
+        }
+
     }
 
 
