@@ -42,7 +42,7 @@ public class SurahsListFragment extends Fragment implements SurahListener {
         surahViewModel = new ViewModelProvider(this).get(SurahViewModel.class);
 
         rv_surahs=view.findViewById(R.id.surahRV);
-        SurahListAdapter surahAdapter=new SurahListAdapter(list,getContext());
+        SurahListAdapter surahAdapter=new SurahListAdapter(list,getContext(),this::onSurahListener);
         rv_surahs.setLayoutManager(new LinearLayoutManager(getContext()));
         rv_surahs.setAdapter(surahAdapter);
 
@@ -51,50 +51,9 @@ public class SurahsListFragment extends Fragment implements SurahListener {
             public void onChanged(@Nullable final List<SurahDBModel> surahModels) {
                 // Update the cached copy of the words in the adapter.
                 surahAdapter.setSurahs(surahModels);
+                list=surahModels;
             }
         });
-
-       /* Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://api.alquran.cloud/v1/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        JsonPlaceHolderAPI jsonPlaceHolderAPI = retrofit.create(JsonPlaceHolderAPI.class);
-        Call<SurahFirstResponse> call = jsonPlaceHolderAPI.getSurahs();
-
-        call.enqueue(new Callback<SurahFirstResponse>() {
-            @Override
-            public void onResponse(Call<SurahFirstResponse> call, Response<SurahFirstResponse> response) {
-                if (!response.isSuccessful()){
-                    Log.d("MVVMX", "--- Not successful");
-                } else {
-                    SurahFirstResponse mAllPosts = response.body();
-                    String s=mAllPosts.getData().get(0).getEnglishName();
-                    Log.d("MVVMX", s);
-                    rv_users=getActivity().findViewById(R.id.surahRV);
-                    list=mAllPosts.getData();
-                    // rv_users.setAdapter(new Adapter(mAllPosts.getSuhras(),MainActivity.this));
-
-
-                }
-            }
-
-            @Override
-            public void onFailure(Call<SurahFirstResponse> call, Throwable t) {
-                Log.d("MVVMX", "--- FAILED " + t.getMessage());
-
-            }
-
-
-        });*/
-
-
-        // rv_users=view.findViewById(R.id.surahRV);
-      //  surahViewModel = new ViewModelProvider(this).get(SurahViewModel.class);
-
-
-       // SurahListAdapter surahAdapter=new SurahListAdapter(list,getContext(),this::onSurahListener);
-        //rv_users.setLayoutManager(new LinearLayoutManager(getContext()));
-       // rv_users.setAdapter(surahAdapter);
 
         return view;
     }
@@ -102,8 +61,9 @@ public class SurahsListFragment extends Fragment implements SurahListener {
     @Override
     public void onSurahListener(int position) {
         Intent intent = new Intent(getActivity(), SurahDetailActivity.class);
-        // intent.putExtra("surah_englishName", surahsModels.get(position).getEnglish_Name());
-        //intent.putExtra("surah_arabicName", surahsModels.get(position).getArabic_Name());
+        intent.putExtra("surah_englishName", list.get(position).getEnglishName());
+        intent.putExtra("surah_arabicName", list.get(position).getName());
+        intent.putExtra("surah_number", list.get(position).getNumber());
         startActivity(intent);
     }
 }

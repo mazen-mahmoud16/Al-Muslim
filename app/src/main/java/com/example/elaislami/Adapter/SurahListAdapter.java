@@ -20,7 +20,7 @@ public class SurahListAdapter extends RecyclerView.Adapter<SurahListAdapter.View
     Context context;
     SurahListener surahListener;
 
-    public SurahListAdapter(List<SurahDBModel> surahsModelInternals, Context context) {
+    public SurahListAdapter(List<SurahDBModel> surahsModelInternals, Context context,SurahListener surahListener) {
         if(surahsModelInternals == null){
             this.surahsModelInternal = new ArrayList<>();
         }
@@ -28,6 +28,7 @@ public class SurahListAdapter extends RecyclerView.Adapter<SurahListAdapter.View
             this.surahsModelInternal = surahsModelInternals;
         }
         this.context = context;
+        this.surahListener=surahListener;
 
 
     }
@@ -36,7 +37,7 @@ public class SurahListAdapter extends RecyclerView.Adapter<SurahListAdapter.View
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent,int viewType){
         LayoutInflater inflater=LayoutInflater.from(context);
         View view=inflater.inflate(R.layout.surah_item,parent,false);
-        ViewHolder viewHolder=new ViewHolder(view);
+        ViewHolder viewHolder=new ViewHolder(view,surahListener);
         return viewHolder;
     }
 
@@ -70,7 +71,7 @@ public class SurahListAdapter extends RecyclerView.Adapter<SurahListAdapter.View
         TextView number;
 
 
-        public ViewHolder(@NonNull View itemView) {
+        public ViewHolder(@NonNull View itemView, SurahListener surahListener) {
             super(itemView);
             english_Name = itemView.findViewById(R.id.english_name);
             arabic_Name = itemView.findViewById(R.id.arabicName);
