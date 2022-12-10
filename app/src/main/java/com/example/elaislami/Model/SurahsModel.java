@@ -1,20 +1,34 @@
 package com.example.elaislami.Model;
 
+import com.google.gson.annotations.SerializedName;
+
 public class SurahsModel {
-    private String english_Name;
-    private String arabic_Name;
 
-    public SurahsModel(String englishName, String arabicName) {
-        this.english_Name = englishName;
-        this.arabic_Name = arabicName;
+    @SerializedName("number")
+    private int number;
+
+    @SerializedName("name")
+    private String name;
+
+    @SerializedName("englishName")
+    private String englishName;
+
+    public SurahsModel(int number, String name, String englishName) {
+        this.number = number;
+        this.name = name;
+        this.englishName = englishName;
     }
 
-    public String getEnglish_Name() {
-        return english_Name;
+    public int getNumber() {
+        return number;
     }
 
-    public String getArabic_Name() {
-        return arabic_Name;
+    public String getName() {
+        return name;
+    }
+
+    public String getEnglishName() {
+        return englishName;
     }
 }
 

@@ -34,8 +34,9 @@ public class SurahListAdapter extends RecyclerView.Adapter<SurahListAdapter.View
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder,int position){
 
-        holder.english_Name.setText(SurahsModelInternal.get(position).getEnglish_Name());
-        holder.arabic_Name.setText(SurahsModelInternal.get(position).getArabic_Name());
+        holder.english_Name.setText(SurahsModelInternal.get(position).getEnglishName());
+        holder.arabic_Name.setText(SurahsModelInternal.get(position).getName());
+        holder.number.setText(String.valueOf(SurahsModelInternal.get(position).getNumber()));
 
     }
 
@@ -48,11 +49,14 @@ public class SurahListAdapter extends RecyclerView.Adapter<SurahListAdapter.View
 
         TextView english_Name;
         TextView arabic_Name;
+        TextView number;
+
 
         public ViewHolder(@NonNull View itemView,SurahListener surahListener) {
             super(itemView);
             english_Name = itemView.findViewById(R.id.english_name);
             arabic_Name = itemView.findViewById(R.id.arabicName);
+            number = itemView.findViewById(R.id.surah_number);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

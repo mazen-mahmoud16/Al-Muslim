@@ -87,7 +87,7 @@ public class PrayerFragment extends Fragment {
 
         CalculationParameters params =
                 CalculationMethod.EGYPTIAN.getParameters();
-        params.madhab = Madhab.HANAFI;
+        params.madhab = Madhab.SHAFI;
 
         PrayerTimes prayerTimes = new PrayerTimes(coordinates, date, params);
 

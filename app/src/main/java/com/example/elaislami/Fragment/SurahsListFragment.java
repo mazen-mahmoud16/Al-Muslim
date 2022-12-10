@@ -3,6 +3,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -15,34 +16,31 @@ import com.example.elaislami.Adapter.SurahListAdapter;
 import com.example.elaislami.Listener.SurahListener;
 import com.example.elaislami.Model.SurahsModel;
 import com.example.elaislami.R;
+import com.example.elaislami.ViewModel.SurahViewModel;
 
 import java.util.ArrayList;
 
 public class SurahsListFragment extends Fragment implements SurahListener {
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
     RecyclerView rv_users;
     ArrayList<SurahsModel> surahsModels=new ArrayList<>();
+    private SurahViewModel surahViewModel;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         View view=inflater.inflate(R.layout.fragment_surahs_list, container, false);
-        rv_users=view.findViewById(R.id.surahRV);
-        surahsModels.add(new SurahsModel("Al-Fatiha","سورة الفاتحه"));
-        surahsModels.add(new SurahsModel("Al-Fatiha","سورة الفاتحه"));
-        surahsModels.add(new SurahsModel("Al-Fatiha","سورة الفاتحه"));
-        surahsModels.add(new SurahsModel("Al-Fatiha","سورة الفاتحه"));
-        surahsModels.add(new SurahsModel("Al-Fatiha","سورة الفاتحه"));
-        surahsModels.add(new SurahsModel("Al-Fatiha","سورة الفاتحه"));
-        surahsModels.add(new SurahsModel("Al-Fatiha","سورة الفاتحه"));
-        surahsModels.add(new SurahsModel("Al-Fatiha","سورة الفاتحه"));
 
-        SurahListAdapter surahAdapter=new SurahListAdapter(surahsModels,getContext(),this::onSurahListener);
+        rv_users=view.findViewById(R.id.surahRV);
+        surahViewModel = new ViewModelProvider(this).get(SurahViewModel.class);
+
+
+        SurahListAdapter surahAdapter=new SurahListAdapter(surahViewModel.getSurahList(),getContext(),this::onSurahListener);
         rv_users.setLayoutManager(new LinearLayoutManager(getContext()));
         rv_users.setAdapter(surahAdapter);
 
@@ -52,8 +50,8 @@ public class SurahsListFragment extends Fragment implements SurahListener {
     @Override
     public void onSurahListener(int position) {
         Intent intent = new Intent(getActivity(), SurahDetailActivity.class);
-        intent.putExtra("surah_englishName", surahsModels.get(position).getEnglish_Name());
-        intent.putExtra("surah_arabicName", surahsModels.get(position).getArabic_Name());
+        // intent.putExtra("surah_englishName", surahsModels.get(position).getEnglish_Name());
+        //intent.putExtra("surah_arabicName", surahsModels.get(position).getArabic_Name());
         startActivity(intent);
     }
 }
