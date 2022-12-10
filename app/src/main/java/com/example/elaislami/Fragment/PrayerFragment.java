@@ -1,30 +1,22 @@
 package com.example.elaislami.Fragment;
 
+import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.elaislami.Activity.MainActivity;
-import com.example.elaislami.Adapter.PrayerAdapter;
-import com.example.elaislami.Adapter.SurahListAdapter;
 import com.example.elaislami.Model.PrayerModel;
-import com.example.elaislami.Model.SurahsModel;
 import com.example.elaislami.R;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 
 
@@ -59,17 +51,22 @@ public class PrayerFragment extends Fragment {
         settings.registerOnSharedPreferenceChangeListener(sharedPreferenceChangeListener);
 
 
+        Date current_date = new Date();
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat formatTime = new SimpleDateFormat("hh:mm aa");
+        String result_time = formatTime.format(current_date);
+        char first = result_time.charAt(0);
 
-        rvPrayers=view.findViewById(R.id.prayerRV);
-        prayerModels.add(new PrayerModel("Fajr","3:28 AM"));
-        prayerModels.add(new PrayerModel("Duhur","7:40 PM"));
-        prayerModels.add(new PrayerModel("Asr","5:00 AM"));
-        prayerModels.add(new PrayerModel("Maghrib","5:00 AM"));
-        prayerModels.add(new PrayerModel("Isha","5:00 AM"));
+        if(String.valueOf(first).equals("0")){
+            result_time = result_time.substring(1);
+        }
 
-        PrayerAdapter prayerAdapter=new PrayerAdapter(prayerModels,getContext());
-        rvPrayers.setLayoutManager(new LinearLayoutManager(getContext()));
-        rvPrayers.setAdapter(prayerAdapter);
+       /* if(prayerModelInternal.get(position).getSalatTime().equals(result_time)){
+            holder.constraintLayoutMain.setBackgroundResource(R.drawable.rounded_btn);
+            holder.constraintLayoutSecondary.setBackgroundResource(R.drawable.rounded_btn);
+        }
+        holder.salatName.setText(prayerModelInternal.get(position).getSalatName());
+        holder.salatTime.setText(prayerModelInternal.get(position).getSalatTime());*/
+
 
         return view;
     }
