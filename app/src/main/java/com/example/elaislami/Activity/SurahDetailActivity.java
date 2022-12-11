@@ -70,14 +70,13 @@ public class SurahDetailActivity extends AppCompatActivity {
 
                     AyahFirstResponse mAllPosts = response.body();
 
-                    Log.d("MVVMX", "s");
                     surahDetailRV =findViewById(R.id.SurahDetailRV);
 
                     List<AyahModel> ayahlist=mAllPosts.getData().getAyahs();
 
-                    AyahListAdapter ayahAdapter=new AyahListAdapter(ayahlist);
+                    AyahListAdapter ayahAdapter=new AyahListAdapter(ayahlist,surahIndex);
                     juz=findViewById(R.id.juz);
-                    juz.setText("Juz"+" "+ ayahlist.get(surahIndex).getJuz());
+                    //juz.setText("Juz"+" "+ ayahlist.get(surahIndex).getJuz());
                     surahDetailRV.setAdapter(ayahAdapter);
                     surahDetailRV.setLayoutManager(new LinearLayoutManager(SurahDetailActivity.this));
 
@@ -97,6 +96,7 @@ public class SurahDetailActivity extends AppCompatActivity {
         back_btn=findViewById(R.id.back_btn);
         englishName=getIntent().getStringExtra("surah_englishName");
         arabicName=getIntent().getStringExtra("surah_arabicName");
+
 
         englishNameTv.setText(englishName);
         arabicNameTv.setText(arabicName);

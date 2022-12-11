@@ -1,9 +1,12 @@
 package com.example.elaislami.Adapter;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.elaislami.Model.AyahModel;
@@ -17,8 +20,10 @@ public class AyahListAdapter extends RecyclerView.Adapter<AyahListAdapter.ViewHo
 
     private List<AyahModel> surahDetailModelInternal;
 
-    public AyahListAdapter( List<AyahModel> list) {
+    private int surahNumber;
 
+    public AyahListAdapter( List<AyahModel> list, int surahNumber) {
+        this.surahNumber = surahNumber;
         this.surahDetailModelInternal = list;
     }
 
@@ -36,6 +41,11 @@ public class AyahListAdapter extends RecyclerView.Adapter<AyahListAdapter.ViewHo
         NumberFormat nf = NumberFormat.getInstance(Locale.forLanguageTag("AR"));
 
         String text = (surahDetailModelInternal.get(position).getAyaContent()).replace("\n", "");
+
+        if(position ==0 && surahNumber !=1){
+            text = text.replace("بِسۡمِ ٱللَّهِ ٱلرَّحۡمَـٰنِ ٱلرَّحِیمِ", "");
+        }
+
 
         String ayaNumber= nf.format(surahDetailModelInternal.get(position).getAyaNo());
 

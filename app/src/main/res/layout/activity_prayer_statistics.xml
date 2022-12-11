@@ -31,7 +31,8 @@
                 android:src="@drawable/ic_baseline_arrow_back_ios_24"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="TouchTargetSizeCheck" />
 
 
             <TextView
@@ -71,14 +72,15 @@
         android:id="@+id/prev_day"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="#00000000"
-        android:src="@drawable/ic_baseline_arrow_back_ios_24_black"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/salat"
-        android:layout_marginTop="10dp"
         android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:background="#00000000"
+        android:contentDescription="@string/previous_day"
+        android:src="@drawable/ic_baseline_arrow_back_ios_24_black"
+        app:layout_constraintBottom_toTopOf="@id/salat"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/day_title"
-        android:contentDescription="@string/previous_day" />
+        tools:ignore="TouchTargetSizeCheck" />
 
     <View
         android:id="@+id/line1"
@@ -119,14 +121,15 @@
         android:id="@+id/next_day"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="#00000000"
-        android:src="@drawable/ic_baseline_arrow_forward_ios_24_black"
-        app:layout_constraintStart_toEndOf="@id/line2"
         android:layout_marginEnd="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/prev_day"
+        android:background="#00000000"
+        android:contentDescription="@string/next_day"
+        android:src="@drawable/ic_baseline_arrow_forward_ios_24_black"
         app:layout_constraintBottom_toBottomOf="@id/prev_day"
-        android:contentDescription="@string/next_day" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/line2"
+        app:layout_constraintTop_toTopOf="@id/prev_day"
+        tools:ignore="TouchTargetSizeCheck" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/salat"
@@ -145,9 +148,10 @@
             android:id="@+id/chk1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
             android:buttonTint="#5E8D65"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="DuplicateSpeakableTextCheck" />
 
         <TextView
             android:id="@+id/fajr"
@@ -317,33 +321,33 @@
         android:id="@+id/save"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="15sp"
-        android:padding="0dp"
         android:layout_marginTop="10dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:text="@string/save"
-        android:fontFamily="@font/montserrat_bold"
-        app:layout_constraintTop_toBottomOf="@id/salat5"
-        app:layout_constraintBottom_toTopOf="@id/generate"
         android:background="@drawable/rounded_btn"
-        />
+        android:fontFamily="@font/montserrat_bold"
+        android:padding="0dp"
+        android:text="@string/save"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toTopOf="@id/generate"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/salat5"
+        tools:ignore="TextContrastCheck" />
 
     <Button
         android:id="@+id/generate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="13sp"
-        android:padding="10dp"
         android:layout_marginTop="10dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:text="@string/generate"
-        android:fontFamily="@font/montserrat_bold"
-        app:layout_constraintTop_toBottomOf="@id/save"
-        app:layout_constraintBottom_toTopOf="@id/prog_bar"
         android:backgroundTint="#EE4B2B"
-        />
+        android:fontFamily="@font/montserrat_bold"
+        android:padding="10dp"
+        android:text="@string/generate"
+        android:textSize="13sp"
+        app:layout_constraintBottom_toTopOf="@id/prog_bar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/save"
+        tools:ignore="TextContrastCheck" />
 
     <ProgressBar
         android:id="@+id/prog_bar"

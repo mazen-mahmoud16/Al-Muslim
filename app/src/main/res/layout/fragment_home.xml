@@ -73,18 +73,6 @@
             app:layout_constraintStart_toStartOf="@id/upcoming_place"
             />
 
-        <TextView
-            android:id="@+id/salat_tim_left"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="@id/salat_tim"
-            android:text="@string/salat_tim_left"
-            android:fontFamily="@font/montserrat_medium"
-            android:textColor="@color/white"
-            android:layout_marginTop="5dp"
-            android:textSize="15sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -123,22 +111,24 @@
                 android:id="@+id/img1"
                 android:layout_width="100dp"
                 android:layout_height="80dp"
-                android:src="@drawable/ic_todo"
-                android:padding="4dp"
                 android:layout_margin="10dp"
+                android:backgroundTint="@color/white"
+                android:contentDescription="@string/todo_list"
+                android:padding="4dp"
+                android:src="@drawable/ic_todo"
+                android:textColor="@color/black"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:backgroundTint="@color/white"
-                android:textColor="@color/black"
-                android:contentDescription="@string/todo_list" />
+                tools:ignore="ImageContrastCheck" />
 
             <TextView
                 android:id="@+id/txt01"
-                android:layout_width="wrap_content"
+                android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="@id/img1"
                 app:layout_constraintEnd_toEndOf="@id/img1"
                 android:textSize="15sp"
+                android:gravity="center"
                 android:textColor="@color/black"
                 android:text="@string/todo"
                 android:fontFamily="@font/montserrat_regular"
@@ -148,18 +138,16 @@
             <ImageButton
                 android:id="@+id/img2"
                 android:layout_width="100dp"
-                android:layout_height="75dp"
-                android:src="@drawable/ic_stat"
-                android:padding="4dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
+                android:layout_height="80dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
+                android:backgroundTint="@color/white"
+                android:contentDescription="@string/prayer_stats"
+                android:padding="4dp"
+                android:src="@drawable/ic_stat"
+                android:textColor="@color/black"
                 app:layout_constraintStart_toEndOf="@id/img1"
                 app:layout_constraintTop_toTopOf="parent"
-                android:backgroundTint="@color/white"
-                android:textColor="@color/black"
-                android:contentDescription="@string/prayer_stats" />
+                tools:ignore="ImageContrastCheck" />
 
             <TextView
                 android:id="@+id/txt02"
@@ -169,7 +157,6 @@
                 app:layout_constraintStart_toStartOf="@id/img2"
                 app:layout_constraintEnd_toEndOf="@id/img2"
                 android:textSize="15sp"
-
                 android:textColor="@color/black"
                 android:text="@string/statist"
                 android:fontFamily="@font/montserrat_regular"
@@ -179,14 +166,15 @@
                 android:id="@+id/img3"
                 android:layout_width="100dp"
                 android:layout_height="80dp"
+                android:layout_marginTop="10dp"
+                android:backgroundTint="@color/white"
+                android:contentDescription="@string/azkar_icon"
+                android:paddingTop="17dp"
                 android:src="@drawable/ic_pray"
-                android:padding="4dp"
-                android:layout_margin="10dp"
+                android:textColor="@color/black"
                 app:layout_constraintStart_toEndOf="@id/img2"
                 app:layout_constraintTop_toTopOf="parent"
-                android:backgroundTint="@color/white"
-                android:textColor="@color/black"
-                android:contentDescription="@string/azkar_icon" />
+                tools:ignore="ImageContrastCheck" />
 
             <TextView
                 android:id="@+id/txt03"
@@ -205,8 +193,8 @@
                 android:layout_width="100dp"
                 android:layout_height="80dp"
                 android:src="@drawable/ic_pray_night"
-                android:padding="4dp"
-                android:layout_margin="10dp"
+                android:paddingTop="19.5dp"
+                android:layout_marginTop="10dp"
                 app:layout_constraintStart_toEndOf="@id/img3"
                 app:layout_constraintTop_toTopOf="parent"
                 android:backgroundTint="@color/white"
@@ -276,9 +264,10 @@
             android:layout_height="20dp"
             android:layout_marginTop="7dp"
             android:background="@drawable/ic_reset"
+            android:contentDescription="@string/reset_icon"
             app:layout_constraintStart_toStartOf="@id/sibha"
             app:layout_constraintTop_toBottomOf="@id/sibha"
-            android:contentDescription="@string/reset_icon" />
+            tools:ignore="TouchTargetSizeCheck" />
 
 
         <ImageButton
@@ -287,9 +276,10 @@
             android:layout_height="25dp"
             android:layout_marginTop="7dp"
             android:background="@drawable/ic_add"
+            android:contentDescription="@string/add_icon"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/sibha"
-            android:contentDescription="@string/add_icon" />
+            tools:ignore="TouchTargetSizeCheck,ImageContrastCheck" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

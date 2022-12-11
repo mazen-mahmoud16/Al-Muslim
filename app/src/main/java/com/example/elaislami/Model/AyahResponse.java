@@ -9,6 +9,7 @@ public class AyahResponse {
     @SerializedName("ayahs")
     private List<AyahModel> ayahs;
 
+
     public List<AyahModel> getAyahs() {
         return ayahs;
     }

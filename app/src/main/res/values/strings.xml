@@ -59,4 +59,11 @@
     <string name="_1_dot">1.</string>
     <string name="read_surat_el_kahf_3_times">Read surat el Kahf 3 times</string>
     <string name="erase_icon">erase_icon</string>
+    <string name="description_viewpager">Tabs view pager</string>
+    <string name="description_tablayout">Tabs layout inside view pager</string>
+    <string name="content_cursor">Cursor</string>
+    <string name="content_compass">Compass</string>
+    <string name="choose_a_surah">Choose a surah</string>
+    <string name="enter_a_surah_name">Enter a surah name</string>
+    <string name="prayer_viewpager">Prayer view pager</string>
 </resources>
