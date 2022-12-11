@@ -36,6 +36,8 @@
         android:id="@+id/loc"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/montserrat_medium"
+        android:gravity="center"
         android:text="@string/loc_placeholder"
         app:layout_constraintEnd_toEndOf="@id/title_arabic"
         android:layout_marginTop="15dp"
@@ -47,16 +49,18 @@
         android:id="@+id/hint"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:background="@drawable/rounded_btn"
-        app:layout_constraintTop_toBottomOf="@id/loc"
-        android:padding="10dp"
         android:gravity="center"
+        android:padding="10dp"
+        android:fontFamily="@font/montserrat_medium"
+        android:text="@string/qibla_hint"
         android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@id/rel_layout"
-        android:layout_marginTop="10dp"
-        android:text="@string/qibla_hint"
+        app:layout_constraintEnd_toEndOf="@id/title_arabic"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@id/title"
-        app:layout_constraintEnd_toEndOf="@id/title_arabic"/>
+        app:layout_constraintTop_toBottomOf="@id/loc" />
 
     <RelativeLayout
         android:id="@+id/rel_layout"

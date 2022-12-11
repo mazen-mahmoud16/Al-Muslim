@@ -12,6 +12,7 @@ import com.example.elaislami.Model.AyahResponse;
 import com.example.elaislami.Model.SurahDetailModel;
 import com.example.elaislami.R;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -31,7 +32,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class SurahDetailActivity extends AppCompatActivity {
 
     RecyclerView surahDetailRV;
-    TextView englishNameTv,arabicNameTv;
+    TextView englishNameTv,arabicNameTv,juz;
     String englishName,arabicName;
     ImageView back_btn;
 
@@ -60,6 +61,7 @@ public class SurahDetailActivity extends AppCompatActivity {
 
 
         call.enqueue(new Callback<AyahFirstResponse>() {
+            @SuppressLint("SetTextI18n")
             @Override
             public void onResponse(Call<AyahFirstResponse> call, Response<AyahFirstResponse> response) {
                 if (!response.isSuccessful()){
@@ -74,7 +76,8 @@ public class SurahDetailActivity extends AppCompatActivity {
                     List<AyahModel> ayahlist=mAllPosts.getData().getAyahs();
 
                     AyahListAdapter ayahAdapter=new AyahListAdapter(ayahlist);
-
+                    juz=findViewById(R.id.juz);
+                    juz.setText("Juz"+" "+ ayahlist.get(surahIndex).getJuz());
                     surahDetailRV.setAdapter(ayahAdapter);
                     surahDetailRV.setLayoutManager(new LinearLayoutManager(SurahDetailActivity.this));
 

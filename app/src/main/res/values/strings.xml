@@ -3,11 +3,9 @@
     <string name="loc_placeholder">El Marghany Street, EL Manteqa El Oula, Nasr City, Egypt</string>
     <string name="update">Update</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="hij_date">5 Jumada | 1444</string>
     <string name="upcoming">Upcoming Salat,</string>
     <string name="fajr">Fajr</string>
-    <string name="dohr">Dohr</string>
     <string name="asr">Asr</string>
     <string name="maghrib">Maghrib</string>
     <string name="isha">Isha</string>
@@ -18,8 +16,7 @@
     <string name="sibha_num">1346</string>
     <string name="todo">To do List</string>
     <string name="statist">Prayer Statistics</string>
-    <string name="azkar_sabah">Azkar Sabah</string>
-    <string name="azkar_masaa">Azkar Masaa</string>
+    <string name="azkar_sabah">Azkar</string>
     <string name="qibla_title">Qibla Finder</string>
     <string name="qibla_title_arabic">القبلة</string>
     <string name="qibla_hint">Place your device on a flat surface, then wait until qibla cursor is stable</string>
@@ -40,5 +37,26 @@
     <string name="Azkar_title" />
     <string name="azkar">Azkar</string>
     <string name="drop_down">drop_down</string>
-    <string name="duhur">Duhur</string>
+    <string name="duhur">Dhuhr</string>
+    <string name="duaa">Duaa</string>
+    <string name="sunrise">Sunrise</string>
+    <string name="app_logo">app_logo</string>
+    <string name="friday_2_december">Friday, 2 December</string>
+    <string name="dummy_rate">20/35</string>
+    <string name="al_emran">Al-emran</string>
+    <string name="fatiha_name">سورة الفاتحه</string>
+    <string name="juz_1">Juz 1</string>
+    <string name="todo_list">todo_list</string>
+    <string name="prayer_stats">prayer_stats</string>
+    <string name="azkar_icon">azkar_icon</string>
+    <string name="duaa_icon">duaa_icon</string>
+    <string name="reset_icon">reset_icon</string>
+    <string name="add_icon">add_icon</string>
+    <string name="_12_00_pm">12:00 PM</string>
+    <string name="_1">1</string>
+    <string name="al_fathiha">Al-Fathiha</string>
+    <string name="surah_num">surah_num</string>
+    <string name="_1_dot">1.</string>
+    <string name="read_surat_el_kahf_3_times">Read surat el Kahf 3 times</string>
+    <string name="erase_icon">erase_icon</string>
 </resources>

@@ -49,7 +49,7 @@ public class SurahListAdapter extends RecyclerView.Adapter<SurahListAdapter.View
             holder.number.setText(String.valueOf(surahsModelInternal.get(position).getNumber()));
         }
         else {
-            Toasty.warning(context, "Hello", Toasty.LENGTH_LONG, true).show();
+            Toasty.warning(context, "Loading Surah list", Toasty.LENGTH_LONG, true).show();
 
         }
     }

@@ -10,6 +10,7 @@
         android:id="@+id/loc"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/montserrat_medium"
         android:text="@string/loc_placeholder"
         app:layout_constraintEnd_toEndOf="parent"
         android:gravity="center"
@@ -36,6 +37,7 @@
 
         <TextView
             android:id="@+id/upcoming_place"
+            android:fontFamily="@font/montserrat_bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
@@ -49,6 +51,7 @@
             android:id="@+id/salat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_regular"
             app:layout_constraintTop_toBottomOf="@id/upcoming_place"
             android:text="@string/asr"
             android:textColor="@color/white"
@@ -63,6 +66,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/salat"
             android:text="@string/salat_tim"
+            android:fontFamily="@font/montserrat_regular"
             android:textColor="@color/white"
             android:layout_marginTop="5dp"
             android:textSize="22sp"
@@ -75,6 +79,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="@id/salat_tim"
             android:text="@string/salat_tim_left"
+            android:fontFamily="@font/montserrat_medium"
             android:textColor="@color/white"
             android:layout_marginTop="5dp"
             android:textSize="15sp"
@@ -124,7 +129,8 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:backgroundTint="@color/white"
-                android:textColor="@color/black"/>
+                android:textColor="@color/black"
+                android:contentDescription="@string/todo_list" />
 
             <TextView
                 android:id="@+id/txt01"
@@ -135,29 +141,38 @@
                 android:textSize="15sp"
                 android:textColor="@color/black"
                 android:text="@string/todo"
+                android:fontFamily="@font/montserrat_regular"
                 app:layout_constraintTop_toBottomOf="@id/img1"/>
+
 
             <ImageButton
                 android:id="@+id/img2"
                 android:layout_width="100dp"
-                android:layout_height="80dp"
+                android:layout_height="75dp"
                 android:src="@drawable/ic_stat"
                 android:padding="4dp"
-                android:layout_margin="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
                 app:layout_constraintStart_toEndOf="@id/img1"
                 app:layout_constraintTop_toTopOf="parent"
                 android:backgroundTint="@color/white"
-                android:textColor="@color/black"/>
+                android:textColor="@color/black"
+                android:contentDescription="@string/prayer_stats" />
 
             <TextView
                 android:id="@+id/txt02"
-                android:layout_width="wrap_content"
+                android:layout_width="70dp"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 app:layout_constraintStart_toStartOf="@id/img2"
                 app:layout_constraintEnd_toEndOf="@id/img2"
                 android:textSize="15sp"
+
                 android:textColor="@color/black"
                 android:text="@string/statist"
+                android:fontFamily="@font/montserrat_regular"
                 app:layout_constraintTop_toTopOf="@id/txt01"/>
 
             <ImageButton
@@ -170,7 +185,8 @@
                 app:layout_constraintStart_toEndOf="@id/img2"
                 app:layout_constraintTop_toTopOf="parent"
                 android:backgroundTint="@color/white"
-                android:textColor="@color/black"/>
+                android:textColor="@color/black"
+                android:contentDescription="@string/azkar_icon" />
 
             <TextView
                 android:id="@+id/txt03"
@@ -181,6 +197,7 @@
                 android:textSize="15sp"
                 android:textColor="@color/black"
                 android:text="@string/azkar_sabah"
+                android:fontFamily="@font/montserrat_regular"
                 app:layout_constraintTop_toTopOf="@id/txt01"/>
 
             <ImageButton
@@ -193,7 +210,8 @@
                 app:layout_constraintStart_toEndOf="@id/img3"
                 app:layout_constraintTop_toTopOf="parent"
                 android:backgroundTint="@color/white"
-                android:textColor="@color/black"/>
+                android:textColor="@color/black"
+                android:contentDescription="@string/duaa_icon" />
 
             <TextView
                 android:id="@+id/txt04"
@@ -203,9 +221,9 @@
                 app:layout_constraintEnd_toEndOf="@id/img4"
                 android:textSize="15sp"
                 android:textColor="@color/black"
-                android:text="@string/azkar_masaa"
+                android:fontFamily="@font/montserrat_regular"
+                android:text="@string/duaa"
                 app:layout_constraintTop_toTopOf="@id/txt01"/>
-
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </HorizontalScrollView>
@@ -234,6 +252,7 @@
             android:text="@string/sibha_place"
             android:textColor="@color/white"
             android:textSize="18sp"
+            android:fontFamily="@font/montserrat_bold"
             app:layout_constraintStart_toStartOf="parent"
             />
 
@@ -246,6 +265,7 @@
             android:textColor="@color/white"
             android:layout_marginTop="5dp"
             android:textSize="22sp"
+            android:fontFamily="@font/montserrat_regular"
             app:layout_constraintStart_toStartOf="@id/sibha_place"
             />
 
@@ -257,7 +277,8 @@
             android:layout_marginTop="7dp"
             android:background="@drawable/ic_reset"
             app:layout_constraintStart_toStartOf="@id/sibha"
-            app:layout_constraintTop_toBottomOf="@id/sibha"/>
+            app:layout_constraintTop_toBottomOf="@id/sibha"
+            android:contentDescription="@string/reset_icon" />
 
 
         <ImageButton
@@ -267,9 +288,8 @@
             android:layout_marginTop="7dp"
             android:background="@drawable/ic_add"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/sibha"/>
-
-
+            app:layout_constraintTop_toBottomOf="@id/sibha"
+            android:contentDescription="@string/add_icon" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

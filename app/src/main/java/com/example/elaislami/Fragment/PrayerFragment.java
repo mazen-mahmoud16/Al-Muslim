@@ -31,7 +31,8 @@ public class PrayerFragment extends Fragment {
 
     TextView loc;
     TextView fajrTime;
-    TextView duhurTime;
+    TextView sunRiseTime;
+    TextView dhuhrTime;
     TextView asrTime;
     TextView maghribTime;
     TextView ishaTime;
@@ -46,7 +47,8 @@ public class PrayerFragment extends Fragment {
 
         loc = view.findViewById(R.id.loc);
         fajrTime = view.findViewById(R.id.fajr_time);
-        duhurTime = view.findViewById(R.id.duhur_time);
+        sunRiseTime = view.findViewById(R.id.sunrise_time);
+        dhuhrTime = view.findViewById(R.id.dhuhr_time);
         asrTime = view.findViewById(R.id.asr_time);
         maghribTime = view.findViewById(R.id.maghrib_time);
         ishaTime = view.findViewById(R.id.isha_time);
@@ -96,7 +98,8 @@ public class PrayerFragment extends Fragment {
         formatter.setTimeZone(TimeZone.getDefault());
 
         fajrTime.setText(formatter.format(prayerTimes.fajr));
-        duhurTime.setText(formatter.format(prayerTimes.dhuhr));
+        sunRiseTime.setText(formatter.format(prayerTimes.sunrise));
+        dhuhrTime.setText(formatter.format(prayerTimes.dhuhr));
         asrTime.setText(formatter.format(prayerTimes.asr));
         maghribTime.setText(formatter.format(prayerTimes.maghrib));
         ishaTime.setText(formatter.format(prayerTimes.isha));

@@ -25,25 +25,27 @@
                 android:id="@+id/back_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="#00000000"
                 android:layout_margin="10dp"
+                android:background="#00000000"
+                android:contentDescription="Back-btn"
                 android:src="@drawable/ic_baseline_arrow_back_ios_24"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/title"
-                android:contentDescription="Back-btn" />
+                app:layout_constraintTop_toTopOf="parent" />
 
 
             <TextView
                 android:id="@+id/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/todo_title"
-                app:layout_constraintTop_toTopOf="parent"
-                android:textColor="#5E8D65"
-                app:layout_constraintStart_toEndOf="@id/back_btn"
                 android:layout_margin="10dp"
-                android:textStyle="bold"
-                android:textSize="30sp"/>
+                android:fontFamily="@font/montserrat_bold"
+                android:text="@string/todo_title"
+                android:textColor="#5E8D65"
+                android:textSize="30sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/back_btn"
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -53,6 +55,7 @@
         android:id="@+id/todo_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/montserrat_medium"
         android:text="@string/add_todo_title"
         android:textSize="22sp"
         android:layout_marginStart="23sp"
@@ -68,6 +71,7 @@
         android:layout_marginTop="20dp"
         android:layout_height="wrap_content"
         android:background="@drawable/rounded_edittext"
+        android:fontFamily="@font/montserrat_regular"
         android:hint="@string/todo_place"
         android:minHeight="48dp"
         android:paddingStart="15dp"
@@ -85,6 +89,7 @@
         android:layout_height="wrap_content"
         android:textSize="15sp"
         android:padding="10dp"
+        android:fontFamily="@font/montserrat_bold"
         android:layout_marginTop="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -101,6 +106,7 @@
         android:layout_marginStart="23sp"
         android:textColor="#5E8D65"
         android:textStyle="normal"
+        android:fontFamily="@font/montserrat_medium"
         android:layout_marginTop="15dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/add_todo" />
@@ -109,8 +115,8 @@
         android:id="@+id/list_rec"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginTop="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:paddingBottom="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/todo_list_title"

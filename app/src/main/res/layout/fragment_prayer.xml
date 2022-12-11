@@ -65,7 +65,7 @@
         android:layout_marginStart="15dp"
         android:layout_marginEnd="15dp"
         android:fontFamily="@font/montserrat_medium"
-        android:text="Friday, 2 December"
+        android:text="@string/friday_2_december"
         android:textColor="#000000"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/prev_day"
@@ -99,13 +99,14 @@
         android:id="@+id/loc"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:fontFamily="@font/montserrat_regular"
+        android:fontFamily="@font/montserrat_medium"
         android:gravity="center"
         android:text="@string/loc_placeholder"
         app:layout_constraintEnd_toEndOf="@+id/next_day"
         app:layout_constraintStart_toStartOf="@+id/prev_day"
-        app:layout_constraintTop_toBottomOf="@id/prayer_times_title_english" />
+        app:layout_constraintTop_toBottomOf="@id/prayer_times_title_english"
+        app:layout_constraintBottom_toTopOf="@id/day"
+        />
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -117,7 +118,7 @@
         android:padding="25dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        app:layout_constraintBottom_toTopOf="@id/salat_container2"
+        app:layout_constraintBottom_toTopOf="@id/salat_container6"
         app:layout_constraintEnd_toEndOf="@+id/next_day"
         app:layout_constraintStart_toStartOf="@+id/prev_day"
         app:layout_constraintTop_toBottomOf="@id/prev_day">
@@ -139,7 +140,44 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/montserrat_medium"
-            android:text="12:00 PM"
+            android:text="@string/_12_00_pm"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/salat_container6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/rounded_edittext"
+        android:elevation="20dp"
+        android:padding="25dp"
+        app:layout_constraintEnd_toEndOf="@+id/salat_container"
+        app:layout_constraintBottom_toTopOf="@id/salat_container2"
+        app:layout_constraintStart_toStartOf="@+id/salat_container"
+        app:layout_constraintTop_toBottomOf="@id/salat_container">
+
+        <TextView
+            android:id="@+id/sunrise_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_medium"
+            android:text="@string/sunrise"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/sunrise_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_medium"
+            android:text="@string/_12_00_pm"
             android:textColor="@color/black"
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -150,18 +188,18 @@
         android:id="@+id/salat_container2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginRight="20dp"
         android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:background="@drawable/rounded_edittext"
         android:elevation="20dp"
         android:padding="25dp"
         app:layout_constraintBottom_toTopOf="@id/salat_container3"
         app:layout_constraintEnd_toEndOf="@+id/salat_container"
         app:layout_constraintStart_toStartOf="@+id/salat_container"
-        app:layout_constraintTop_toBottomOf="@id/salat_container">
+        app:layout_constraintTop_toBottomOf="@id/salat_container6">
 
         <TextView
-            android:id="@+id/duhur_name"
+            android:id="@+id/dhuhr_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/montserrat_medium"
@@ -173,11 +211,11 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/duhur_time"
+            android:id="@+id/dhuhr_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/montserrat_medium"
-            android:text="12:00 PM"
+            android:text="@string/_12_00_pm"
             android:textColor="@color/black"
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -215,7 +253,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/montserrat_medium"
-            android:text="12:00 PM"
+            android:text="@string/_12_00_pm"
             android:textColor="@color/black"
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -253,7 +291,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/montserrat_medium"
-            android:text="12:00 PM"
+            android:text="@string/_12_00_pm"
             android:textColor="@color/black"
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -291,7 +329,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/montserrat_medium"
-            android:text="12:00 PM"
+            android:text="@string/_12_00_pm"
             android:textColor="@color/black"
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"

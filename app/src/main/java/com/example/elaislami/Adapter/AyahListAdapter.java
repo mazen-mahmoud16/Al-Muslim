@@ -41,7 +41,6 @@ public class AyahListAdapter extends RecyclerView.Adapter<AyahListAdapter.ViewHo
 
         holder.ayaContent.setText(text+"   "+"\uFD3F"+ayaNumber+"\uFD3E");
 
-
     }
 
     @Override
@@ -51,11 +50,14 @@ public class AyahListAdapter extends RecyclerView.Adapter<AyahListAdapter.ViewHo
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         private TextView ayaContent;
+        private TextView juz;
+
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             ayaContent = (TextView) itemView.findViewById(R.id.ayaContent);
+
         }
 
     }
