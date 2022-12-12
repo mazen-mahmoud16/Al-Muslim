@@ -46,7 +46,6 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Toasty.warning(MainActivity.this, "Hello", Toasty.LENGTH_LONG, true).show();
 
         settings = getSharedPreferences(PREFS_NAME, 0);
         editor = settings.edit();
@@ -61,8 +60,9 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
 
         if (isGPSEnabled(MainActivity.this)) {
             getLocation();
-        } else {
-            Toast.makeText(MainActivity.this, "Please enable your location", Toast.LENGTH_LONG).show();
+        }
+        else{
+            Toasty.warning(MainActivity.this, "Please open your location", Toasty.LENGTH_LONG, true).show();
         }
 
 
@@ -137,7 +137,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
 
     @Override
     public void onLocationChanged(Location location) {
-        Toast.makeText(this, ""+location.getLatitude()+","+location.getLongitude(), Toast.LENGTH_SHORT).show();
+        Toasty.success(MainActivity.this, "Location updated", Toasty.LENGTH_LONG, true).show();
         editor.putString("long", String.valueOf(location.getLongitude()));
         editor.putString("lat", String.valueOf(location.getLatitude()));
         try {
@@ -169,7 +169,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
             getLocation();
         }
         else{
-            Toast.makeText(MainActivity.this,"Please enable your location",Toast.LENGTH_LONG).show();
+            Toasty.warning(MainActivity.this, "Please open your location", Toasty.LENGTH_LONG, true).show();
         }
     }
 
@@ -194,11 +194,12 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
 
     @Override
     public void onProviderDisabled(String provider) {
+        Toasty.warning(MainActivity.this, "Please open your location", Toasty.LENGTH_LONG, true).show();
     }
 
     @Override
     public void regenerateLocation() {
-        Toast.makeText(this, "Getting location", Toast.LENGTH_SHORT).show();
+        Toasty.info(MainActivity.this, "Getting your location", Toasty.LENGTH_LONG, true).show();
         getLocation();
     }
 }

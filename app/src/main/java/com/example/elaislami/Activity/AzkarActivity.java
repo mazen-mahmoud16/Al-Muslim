@@ -19,6 +19,8 @@ import com.example.elaislami.R;
 
 import java.util.ArrayList;
 
+import es.dmoral.toasty.Toasty;
+
 
 public class AzkarActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     String[] azkar = {"Morning Azkar", "Night Azkar"};
@@ -75,7 +77,7 @@ public class AzkarActivity extends AppCompatActivity implements AdapterView.OnIt
 
     @Override
     public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long id) {
-        Toast.makeText(getApplicationContext(), azkar[position], Toast.LENGTH_LONG).show();
+        Toasty.info(AzkarActivity.this, azkar[position], Toasty.LENGTH_LONG, true).show();
     }
 
     @Override
