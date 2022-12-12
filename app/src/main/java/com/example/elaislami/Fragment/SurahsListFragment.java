@@ -13,6 +13,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SearchView;
+
 import com.example.elaislami.Activity.SurahDetailActivity;
 import com.example.elaislami.Adapter.SurahListAdapter;
 import com.example.elaislami.Listener.SurahListener;
@@ -20,7 +22,12 @@ import com.example.elaislami.Listener.SurahListener;
 import com.example.elaislami.R;
 import com.example.elaislami.RoomDBModels.SurahDBModel;
 import com.example.elaislami.ViewModel.SurahViewModel;
+
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
+
+import es.dmoral.toasty.Toasty;
 
 public class SurahsListFragment extends Fragment implements SurahListener {
     @Override
@@ -31,6 +38,8 @@ public class SurahsListFragment extends Fragment implements SurahListener {
     RecyclerView rv_surahs;
     List<SurahDBModel> list;
     private SurahViewModel surahViewModel;
+    SearchView searchView;
+    SurahListAdapter surahAdapter;
 
 
     @Override
@@ -42,7 +51,7 @@ public class SurahsListFragment extends Fragment implements SurahListener {
         surahViewModel = new ViewModelProvider(this).get(SurahViewModel.class);
 
         rv_surahs=view.findViewById(R.id.surahRV);
-        SurahListAdapter surahAdapter=new SurahListAdapter(list,getContext(),this::onSurahListener);
+        surahAdapter=new SurahListAdapter(list,getContext(),this::onSurahListener);
         rv_surahs.setLayoutManager(new LinearLayoutManager(getContext()));
         rv_surahs.setAdapter(surahAdapter);
 
@@ -50,9 +59,9 @@ public class SurahsListFragment extends Fragment implements SurahListener {
             @Override
             public void onChanged(@Nullable final List<SurahDBModel> surahModels) {
                 // Update the cached copy of the words in the adapter.
-                surahAdapter.setSurahs(surahModels);
-                list=surahModels;
-            }
+                    surahAdapter.setSurahs(surahModels);
+                    list=surahModels;
+                }
         });
 
         return view;
@@ -66,4 +75,6 @@ public class SurahsListFragment extends Fragment implements SurahListener {
         intent.putExtra("surah_number", list.get(position).getNumber());
         startActivity(intent);
     }
+
+
 }

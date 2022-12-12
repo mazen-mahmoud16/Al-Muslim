@@ -46,6 +46,8 @@ public class PrayerFragment extends Fragment {
     ImageButton nextDay;
     TextView tv_date;
 
+    // one day less and 30 ahead
+
     public static final String PREFS_NAME = "MyPreferenceFile";
 
     @Override
@@ -193,7 +195,6 @@ public class PrayerFragment extends Fragment {
             viewPager.setCurrentItem(viewPager.getCurrentItem()+1);
             Date date_new2 = prayerModels.get(viewPager.getCurrentItem()).getDate().getTime();
             String formattedDate2 = new SimpleDateFormat("E, d MMMM").format(date_new2);
-
             tv_date.setText(formattedDate2);
         });
 
@@ -216,15 +217,6 @@ public class PrayerFragment extends Fragment {
 
             }
         });
-
-
-        /*fajrTime.setText(formatter.format(prayerTimes.fajr));
-        sunRiseTime.setText(formatter.format(prayerTimes.sunrise));
-        dhuhrTime.setText(formatter.format(prayerTimes.dhuhr));
-        asrTime.setText(formatter.format(prayerTimes.asr));
-        maghribTime.setText(formatter.format(prayerTimes.maghrib));
-        ishaTime.setText(formatter.format(prayerTimes.isha));*/
-
 
       /*  Date current_date = new Date();
         @SuppressLint("SimpleDateFormat") SimpleDateFormat formatTime = new SimpleDateFormat("hh:mm aa");

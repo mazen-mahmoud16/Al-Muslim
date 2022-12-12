@@ -58,7 +58,7 @@ public class SurahListAdapter extends RecyclerView.Adapter<SurahListAdapter.View
         surahsModelInternal = surahModels;
         notifyDataSetChanged();
     }
-
+    
     @Override
     public int getItemCount(){
         return surahsModelInternal.size();

@@ -2,6 +2,7 @@ package com.example.elaislami.Fragment;
 
 import static android.content.Context.SENSOR_SERVICE;
 
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -26,6 +27,8 @@ public class QiblaFragment extends Fragment implements SensorEventListener {
     // define the display assembly compass picture
     private ImageView image;
     private ImageView image2;
+    private TextView loc;
+    public static final String PREFS_NAME = "MyPreferenceFile";
 
     // record the compass picture angle turned
     private float currentDegree = 0f;
@@ -36,11 +39,36 @@ public class QiblaFragment extends Fragment implements SensorEventListener {
     TextView tvHeading;
     TextView hint;
 
+    double longDouble;
+    double latDouble;
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         View view = inflater.inflate(R.layout.fragment_qibla, container, false);
+
+        loc=view.findViewById(R.id.loc);
+        SharedPreferences settings = getActivity().getSharedPreferences(PREFS_NAME, 0);
+        loc.setText(settings.getString("address", "Loading"));
+
+         longDouble = Double.parseDouble(settings.getString("long", "0.0"));
+         latDouble = Double.parseDouble(settings.getString("lat", "0.0"));
+
+        SharedPreferences.OnSharedPreferenceChangeListener sharedPreferenceChangeListener = new SharedPreferences.OnSharedPreferenceChangeListener() {
+            @Override
+            public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+                if (key.equals("address")) {
+                    loc.setText(settings.getString("address", "Loading"));
+
+                     longDouble = Double.parseDouble(settings.getString("long", "0.0"));
+                     latDouble = Double.parseDouble(settings.getString("lat", "0.0"));
+                }
+            }
+        };
+
+        // Inflate the layout for this fragment
 
         image = (ImageView) view.findViewById(R.id.image_compass);
         image2 = (ImageView) view.findViewById(R.id.image_cursor);
@@ -84,7 +112,7 @@ public class QiblaFragment extends Fragment implements SensorEventListener {
         // get the angle around the z-axis rotated
         float degree = Math.round(event.values[0]);
 
-        float x =-degree+calculateQibla(30.061711917988855,31.32824577335585);
+        float x =-degree+calculateQibla(latDouble,longDouble);
 
         tvHeading.setText("Heading: " + Float.toString(x) + " degrees");
 

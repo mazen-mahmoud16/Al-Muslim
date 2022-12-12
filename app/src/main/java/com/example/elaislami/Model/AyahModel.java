@@ -10,6 +10,11 @@ public class AyahModel {
     @SerializedName("numberInSurah")
     private int numberInSurah;
 
+    public AyahModel(String text, int numberInSurah) {
+        this.text = text;
+        this.numberInSurah = numberInSurah;
+    }
+
     public int getJuz() {
         return juz;
     }
