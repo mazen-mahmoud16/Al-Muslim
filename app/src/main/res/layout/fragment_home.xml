@@ -6,6 +6,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Fragment.HomeFragment">
 
+    <ImageView
+        android:id="@+id/loc_ic"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/loc"
+        android:layout_marginStart="33dp"
+        android:background="#00000000"
+        android:src="@drawable/icons8_visit_50"/>
+
     <TextView
         android:id="@+id/loc"
         android:layout_width="0dp"
@@ -15,10 +25,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:gravity="center"
         android:layout_marginTop="15dp"
-        android:layout_marginStart="33dp"
         android:layout_marginEnd="33dp"
         app:layout_constraintBottom_toTopOf="@id/fir_layout"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@id/loc_ic"
         app:layout_constraintTop_toTopOf="parent"/>
 
 

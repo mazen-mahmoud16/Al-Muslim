@@ -32,6 +32,15 @@
         app:layout_constraintTop_toTopOf="@id/title"
         app:layout_constraintEnd_toEndOf="parent"/>
 
+    <ImageView
+        android:id="@+id/loc_ic"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        app:layout_constraintStart_toStartOf="@id/title"
+        app:layout_constraintTop_toTopOf="@id/loc"
+        android:background="#00000000"
+        android:src="@drawable/icons8_visit_50"/>
+
     <TextView
         android:id="@+id/loc"
         android:layout_width="0dp"
@@ -41,7 +50,7 @@
         android:text="@string/loc_placeholder"
         app:layout_constraintEnd_toEndOf="@id/title_arabic"
         android:layout_marginTop="15dp"
-        app:layout_constraintStart_toStartOf="@id/title"
+        app:layout_constraintStart_toEndOf="@id/loc_ic"
         app:layout_constraintTop_toBottomOf="@id/title"/>
 
 
@@ -67,7 +76,7 @@
         android:id="@+id/rel_layout"
         android:layout_width="match_parent"
         android:layout_marginTop="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/heading"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/hint">
 
@@ -86,20 +95,22 @@
             android:layout_height="350dp"
             android:layout_alignTop="@+id/image_compass"
             android:layout_centerInParent="true"
+            android:contentDescription="@string/content_cursor"
             android:rotation="0"
-            android:src="@drawable/qibla_arrow"
-            android:contentDescription="@string/content_cursor" />
+            android:src="@drawable/qibla_arrow" />
 
-        <TextView
-            android:id="@+id/heading"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@id/image_cursor"
-            android:gravity="center"
-            android:layout_centerHorizontal="true"
-            />
 
     </RelativeLayout>
+
+    <TextView
+        android:id="@+id/heading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/rel_layout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
