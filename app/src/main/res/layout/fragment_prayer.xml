@@ -44,7 +44,7 @@
         app:layout_constraintStart_toStartOf="@id/prev_day"
         app:layout_constraintTop_toTopOf="@id/loc"
         android:background="#00000000"
-        android:src="@drawable/icons8_visit_50"/>
+        android:src="@drawable/ic_baseline_location_on_24"/>
 
     <TextView
         android:id="@+id/loc"
