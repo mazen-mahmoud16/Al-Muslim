@@ -59,7 +59,7 @@ public class AyahListAdapter extends RecyclerView.Adapter<AyahListAdapter.ViewHo
         }
 
         else if(position==0&&surahNumber!=1){
-            holder.ayaContent.setText(text);
+            holder.ayaContent.setText(text);//holder.constraintLayout.setBackgroundColor(Color.TRANSPARENT);
             ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) holder.ayaContent.getLayoutParams();
             params.startToStart = holder.constraintLayout.getId();
             params.endToEnd = holder.constraintLayout.getId();

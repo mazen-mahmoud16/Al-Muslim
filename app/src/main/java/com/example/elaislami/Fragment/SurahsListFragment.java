@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SearchView;
+import android.widget.Toast;
 
 import com.example.elaislami.Activity.SurahDetailActivity;
 import com.example.elaislami.Adapter.SurahListAdapter;
@@ -64,6 +65,20 @@ public class SurahsListFragment extends Fragment implements SurahListener {
                 }
         });
 
+        searchView=view.findViewById(R.id.search_bar);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                filter(s);
+                return false;
+            }
+        });
+
         return view;
     }
 
@@ -76,5 +91,20 @@ public class SurahsListFragment extends Fragment implements SurahListener {
         startActivity(intent);
     }
 
+    private void filter(String text) {
+        ArrayList<SurahDBModel> filteredlist = new ArrayList<SurahDBModel>();
+
+        for (SurahDBModel surah : list) {
+            if (surah.getEnglishName().toLowerCase().contains(text.toLowerCase())||surah.getName().toLowerCase().contains(text.toLowerCase())) {
+                filteredlist.add(surah);
+            }
+        }
+        if (filteredlist.isEmpty()) {
+            Toasty.info(getActivity(), "No Data Found..", Toast.LENGTH_SHORT).show();
+            surahAdapter.setSurahs(filteredlist);
+        } else {
+            surahAdapter.setSurahs(filteredlist);
+        }
+    }
 
 }

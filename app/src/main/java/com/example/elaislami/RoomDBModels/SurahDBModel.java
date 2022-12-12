@@ -43,4 +43,8 @@ public class SurahDBModel {
     public String getEnglishName() {
         return englishName;
     }
+
+    public void setName(@NonNull String name) {
+        this.name = name;
+    }
 }

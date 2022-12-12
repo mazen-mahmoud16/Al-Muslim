@@ -137,7 +137,6 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
 
     @Override
     public void onLocationChanged(Location location) {
-        Toasty.success(MainActivity.this, "Location updated", Toasty.LENGTH_LONG, true).show();
         editor.putString("long", String.valueOf(location.getLongitude()));
         editor.putString("lat", String.valueOf(location.getLatitude()));
         try {

@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.elaislami.RoomDBModels.SurahDBModel;
 
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,6 +45,9 @@ public class SurahListAdapter extends RecyclerView.Adapter<SurahListAdapter.View
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder,int position){
         if (surahsModelInternal != null) {
+            this.surahsModelInternal.get(position).setName(Normalizer.normalize(this.surahsModelInternal.get(position).getName(),
+                    Normalizer.Form.NFKD) .replaceAll("\\p{M}", ""));
+
             holder.english_Name.setText(surahsModelInternal.get(position).getEnglishName());
             holder.arabic_Name.setText(surahsModelInternal.get(position).getName());
             holder.number.setText(String.valueOf(surahsModelInternal.get(position).getNumber()));
@@ -80,7 +84,7 @@ public class SurahListAdapter extends RecyclerView.Adapter<SurahListAdapter.View
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    surahListener.onSurahListener(getAdapterPosition());
+                    surahListener.onSurahListener(Integer.parseInt(number.getText().toString())-1);
                 }
             });
         }

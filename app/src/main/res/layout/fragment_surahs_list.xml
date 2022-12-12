@@ -32,8 +32,6 @@
         android:fontFamily="@font/montserrat_medium"
         android:queryHint="@string/enter_a_surah_name"
         android:minHeight="48dp"
-        android:paddingStart="15dp"
-        android:paddingEnd="15dp"
         app:layout_constraintEnd_toEndOf="@id/surahRV"
         app:layout_constraintStart_toStartOf="@id/surahRV"
         app:layout_constraintTop_toBottomOf="@+id/surahListTitle"
