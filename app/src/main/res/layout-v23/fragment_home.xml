@@ -288,6 +288,7 @@
             android:background="@drawable/ic_add"
             android:contentDescription="@string/add_icon"
             app:layout_constraintEnd_toEndOf="parent"
+            android:foreground="?android:attr/selectableItemBackground"
             app:layout_constraintTop_toBottomOf="@id/sibha"
             tools:ignore="TouchTargetSizeCheck,ImageContrastCheck" />
     </androidx.constraintlayout.widget.ConstraintLayout>
