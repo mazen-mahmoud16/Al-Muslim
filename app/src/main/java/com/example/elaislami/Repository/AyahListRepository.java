@@ -41,6 +41,9 @@ public class AyahListRepository {
         SurahRoomDatabase db = SurahRoomDatabase.getDatabase(application);
 
         settings = application.getApplicationContext().getSharedPreferences(PREFS_NAME, 0);
+
+
+
         mAyahDao = db.ayahDAO();
 
         retrofit = new Retrofit.Builder()

@@ -49,6 +49,11 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
 
         settings = getSharedPreferences(PREFS_NAME, 0);
         editor = settings.edit();
+
+        editor.putInt("surahNumber",-1);
+        editor.commit();
+        editor = settings.edit();
+
         locationReceiver = new LocationReceiver(this);
 
         if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION)
