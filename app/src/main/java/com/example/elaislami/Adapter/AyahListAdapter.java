@@ -15,24 +15,27 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.elaislami.Model.AyahModel;
 import com.example.elaislami.R;
+import com.example.elaislami.RoomDBModels.AyahDBModel;
+import com.example.elaislami.RoomDBModels.SurahDBModel;
 
 import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
 public class AyahListAdapter extends RecyclerView.Adapter<AyahListAdapter.ViewHolder>{
 
-    private List<AyahModel> surahDetailModelInternal;
+    private List<AyahDBModel> surahDetailModelInternal;
 
     private int surahNumber;
 
-    public AyahListAdapter( List<AyahModel> list, int surahNumber) {
-        this.surahNumber = surahNumber;
-        this.surahDetailModelInternal = list;
+    public AyahListAdapter(int surahNumber) {
 
-      if(surahNumber!=1){
-            list.add(0,new AyahModel("بِسۡمِ ٱللَّهِ ٱلرَّحۡمَـٰنِ ٱلرَّحِیمِ",0));
+        if(surahDetailModelInternal == null) {
+            this.surahDetailModelInternal = new ArrayList<>();
         }
+        this.surahNumber = surahNumber;
+
     }
 
     @NonNull
@@ -48,9 +51,14 @@ public class AyahListAdapter extends RecyclerView.Adapter<AyahListAdapter.ViewHo
 
         NumberFormat nf = NumberFormat.getInstance(Locale.forLanguageTag("AR"));
 
-        String text = (surahDetailModelInternal.get(position).getAyaContent()).replace("\n", "");
+        String text = (surahDetailModelInternal.get(position).getText()).replace("\n", "");
 
-        String ayaNumber= nf.format(surahDetailModelInternal.get(position).getAyaNo());
+        for (AyahDBModel ayahDBModel:surahDetailModelInternal) {
+            Log.d("xxxx",String.valueOf(ayahDBModel.getSurahNumber()));
+        }
+
+
+        String ayaNumber= nf.format(surahDetailModelInternal.get(position).getNumberInSurah());
 
         if(position ==1 && surahNumber !=1){
             text = text.replace("بِسۡمِ ٱللَّهِ ٱلرَّحۡمَـٰنِ ٱلرَّحِیمِ", "");
@@ -71,6 +79,11 @@ public class AyahListAdapter extends RecyclerView.Adapter<AyahListAdapter.ViewHo
 
         }
 
+    }
+
+    public void setAyahs(List<AyahDBModel> ayahModels){
+        this.surahDetailModelInternal = ayahModels;
+        notifyDataSetChanged();
     }
 
     @Override

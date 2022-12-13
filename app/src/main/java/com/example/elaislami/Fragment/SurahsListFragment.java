@@ -42,7 +42,6 @@ public class SurahsListFragment extends Fragment implements SurahListener {
     SearchView searchView;
     SurahListAdapter surahAdapter;
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
