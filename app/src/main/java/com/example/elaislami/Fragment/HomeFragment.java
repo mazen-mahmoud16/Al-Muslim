@@ -3,8 +3,10 @@ package com.example.elaislami.Fragment;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.RequiresApi;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
@@ -34,11 +36,13 @@ import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.time.Instant;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.TimeUnit;
 
 
 public class HomeFragment extends Fragment {
@@ -92,6 +96,7 @@ public class HomeFragment extends Fragment {
 
 
         final Runnable r = new Runnable() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @SuppressLint({"SetTextI18n", "DefaultLocale"})
             public void run() {
 
@@ -136,8 +141,8 @@ public class HomeFragment extends Fragment {
                             editor.commit();
                         }
 
-                            hour11 = current.substring(0, 2)+current.substring(3, 5);
-                            hour22 = fajr.substring(0, 2)+fajr.substring(3, 5);
+                            hour11 = current.substring(0, 2)+":"+current.substring(3, 5);
+                            hour22 = fajr.substring(0, 2)+":"+fajr.substring(3, 5);
 
 
                             salatName.setText("Fajr");
@@ -166,8 +171,8 @@ public class HomeFragment extends Fragment {
                             editor.commit();
                         }
 
-                            hour11 = current.substring(0, 2)+current.substring(3, 5);
-                            hour22 = dhuhr.substring(0, 2)+dhuhr.substring(3, 5);
+                        hour11 = current.substring(0, 2)+":"+current.substring(3, 5);
+                        hour22 = dhuhr.substring(0, 2)+":"+dhuhr.substring(3, 5);
 
                             salatName.setText("Dhuhr");
 
@@ -196,10 +201,11 @@ public class HomeFragment extends Fragment {
                             editor.commit();
                         }
 
-                            hour11 = current.substring(0, 2)+current.substring(3, 5);
-                            hour22 = asr.substring(0, 2)+asr.substring(3, 5);
+                        hour11 = current.substring(0, 2)+":"+current.substring(3, 5);
+                        hour22 = asr.substring(0, 2)+":"+asr.substring(3, 5);
 
-                            salatName.setText("Asr");
+
+                        salatName.setText("Asr");
                             SimpleDateFormat formatter2 = new SimpleDateFormat("hh:mm", Locale.ENGLISH);
 
                             String dateInString = obj.getAsr().substring(0, 5);
@@ -225,8 +231,9 @@ public class HomeFragment extends Fragment {
                             editor.commit();
 
                         }
-                        hour11 = current.substring(0, 2)+current.substring(3, 5);
-                        hour22 = maghrib.substring(0, 2)+maghrib.substring(3, 5);
+
+                        hour22 = maghrib.substring(0, 2)+":"+maghrib.substring(3, 5);
+                        hour11 = current.substring(0, 2)+":"+current.substring(3, 5);
 
 
                             salatName.setText("Maghrib");
@@ -252,10 +259,8 @@ public class HomeFragment extends Fragment {
                             editor.putString("currentPrayer", "Isha");
                             editor.commit();
                         }
-
-                        hour11 = current.substring(0, 2)+current.substring(3, 5);
-
-                        hour22 = isha.substring(0, 2)+isha.substring(3, 5);
+                        hour22 = isha.substring(0, 2)+":"+isha.substring(3, 5);
+                        hour11 = current.substring(0, 2)+":"+current.substring(3, 5);
 
                             salatName.setText("Isha");
 
@@ -276,32 +281,24 @@ public class HomeFragment extends Fragment {
 
                     }
 
-                    if(!hour11.isEmpty()){
-                        int time1 = Integer.parseInt(hour11);
-                        int time2 = Integer.parseInt(hour22);
+                  if(!hour11.isEmpty()){
+                    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm");
+                    LocalTime lt1 = LocalTime.parse(hour11, dtf);
+                    LocalTime lt2 = LocalTime.parse(hour22, dtf);
 
+                    Duration between = Duration.between(lt1, lt2);
 
-                        int hourDiff = time2 / 100 - time1 / 100 - 1;
-
-                        // difference between minutes
-                        int minDiff = time2 % 100 + (60 - time1 % 100);
-
-                        if (minDiff >= 60) {
-                            hourDiff++;
-                            minDiff = minDiff - 60;
-
-                        }
-                        if(minDiff==0&&hourDiff==0){
-                            test.setText("Prayer is now");
-
-                        }else {
-                            test.setText(hourDiff + " hrs" + " and " + minDiff + " mins left");
-
-                        }
+                    if (lt2.isBefore(lt1)) {
+                        between = Duration.ofMinutes(TimeUnit.DAYS.toMinutes(1)).plus(between);
                     }
+                    String finalTime=between.toString().replace("PT","");
+                    finalTime=finalTime.replace("H"," hrs and ");
+                    finalTime=finalTime.replace("M"," mins left");
 
+                    test.setText(finalTime);
                 }
 
+                }
 
                 handler.postDelayed(this, 1000);
             }

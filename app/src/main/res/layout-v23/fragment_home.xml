@@ -46,7 +46,7 @@
 
         <TextView
             android:id="@+id/upcoming_place"
-            android:fontFamily="@font/montserrat_bold"
+            android:fontFamily="@font/montserrat_medium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
@@ -60,12 +60,12 @@
             android:id="@+id/salat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/montserrat_regular"
+            android:fontFamily="@font/montserrat_bold"
             app:layout_constraintTop_toBottomOf="@id/upcoming_place"
             android:text="@string/asr"
             android:textColor="@color/white"
             android:layout_marginTop="5dp"
-            android:textSize="22sp"
+            android:textSize="25sp"
             app:layout_constraintStart_toStartOf="@id/upcoming_place"
             />
 
@@ -75,10 +75,10 @@
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/salat"
             android:text="@string/salat_tim"
-            android:fontFamily="@font/montserrat_regular"
+            android:fontFamily="@font/montserrat_bold"
             android:textColor="@color/white"
             android:layout_marginTop="5dp"
-            android:textSize="22sp"
+            android:textSize="21sp"
             app:layout_constraintStart_toStartOf="@id/upcoming_place"
             />
 
@@ -260,7 +260,7 @@
             android:text="@string/sibha_place"
             android:textColor="@color/white"
             android:textSize="18sp"
-            android:fontFamily="@font/montserrat_bold"
+            android:fontFamily="@font/montserrat_medium"
             app:layout_constraintStart_toStartOf="parent"
             />
 
@@ -273,7 +273,7 @@
             android:textColor="@color/white"
             android:layout_marginTop="5dp"
             android:textSize="22sp"
-            android:fontFamily="@font/montserrat_regular"
+            android:fontFamily="@font/montserrat_bold"
             app:layout_constraintStart_toStartOf="@id/sibha_place"
             />
 

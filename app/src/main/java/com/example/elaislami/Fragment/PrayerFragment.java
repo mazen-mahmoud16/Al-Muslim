@@ -241,22 +241,6 @@ public class PrayerFragment extends Fragment {
             }
         });
 
-      /*  Date current_date = new Date();
-        @SuppressLint("SimpleDateFormat") SimpleDateFormat formatTime = new SimpleDateFormat("hh:mm aa");
-        String result_time = formatTime.format(current_date);
-        char first = result_time.charAt(0);
-
-        if(String.valueOf(first).equals("0")){
-            result_time = result_time.substring(1);
-        }
-
-          if(prayerModelInternal.get(position).getSalatTime().equals(result_time)){
-            holder.constraintLayoutMain.setBackgroundResource(R.drawable.rounded_btn);
-            holder.constraintLayoutSecondary.setBackgroundResource(R.drawable.rounded_btn);
-        }
-        holder.salatName.setText(prayerModelInternal.get(position).getSalatName());
-        holder.salatTime.setText(prayerModelInternal.get(position).getSalatTime());*/
-
         return view;
     }
 

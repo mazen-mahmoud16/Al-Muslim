@@ -76,7 +76,7 @@
             android:fontFamily="@font/montserrat_bold"
             android:textColor="@color/white"
             android:layout_marginTop="5dp"
-            android:textSize="19sp"
+            android:textSize="21sp"
             app:layout_constraintStart_toStartOf="@id/upcoming_place"
             />
 
