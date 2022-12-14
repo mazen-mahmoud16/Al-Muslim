@@ -56,6 +56,7 @@ public class PrayerFragment extends Fragment {
     TextView tv_date;
     SharedPreferences settings;
     SharedPreferences.Editor editor;
+    SharedPreferences.OnSharedPreferenceChangeListener sharedPreferenceChangeListener;
 
     public static final String PREFS_NAME = "MyPreferenceFile";
 
@@ -71,11 +72,13 @@ public class PrayerFragment extends Fragment {
         loc.setText(settings.getString("address", "Loading"));
 
 
-        SharedPreferences.OnSharedPreferenceChangeListener sharedPreferenceChangeListener = new SharedPreferences.OnSharedPreferenceChangeListener() {
+        sharedPreferenceChangeListener = new SharedPreferences.OnSharedPreferenceChangeListener() {
             @Override
             public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+
                 if(key.equals("address")){
                     loc.setText(settings.getString("address", "Loading"));
+
 
                     double longDouble=Double.parseDouble(settings.getString("long", "0.0"));
                     double latDouble=Double.parseDouble(settings.getString("lat", "0.0"));
@@ -135,7 +138,6 @@ public class PrayerFragment extends Fragment {
                 }
                 if(key.equals("currentPrayer")){
                     adapter = new PrayerViewPagerAdapter(prayerModels, getActivity(),settings.getString("currentPrayer","Loading"));
-                    Log.d("bbbbb",settings.getString("currentPrayer","Loading"));
                     viewPager = view.findViewById(R.id.view_pager_prayer);
                     viewPager.setAdapter(adapter);
                     viewPager.setCurrentItem(2);
@@ -145,7 +147,6 @@ public class PrayerFragment extends Fragment {
             }
         };
 
-        settings.registerOnSharedPreferenceChangeListener(sharedPreferenceChangeListener);
 
         double longDouble=Double.parseDouble(settings.getString("long", "0.0"));
         double latDouble=Double.parseDouble(settings.getString("lat", "0.0"));
@@ -259,4 +260,15 @@ public class PrayerFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        settings.registerOnSharedPreferenceChangeListener(sharedPreferenceChangeListener);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        settings.unregisterOnSharedPreferenceChangeListener(sharedPreferenceChangeListener);
+    }
 }
