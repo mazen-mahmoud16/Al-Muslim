@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -48,6 +49,11 @@ public class HomeFragment extends Fragment {
     private TextView salatName;
     private TextView salatTime;
     private TextView test;
+    private TextView sibhaCounter;
+    private ImageButton reset;
+    private ImageButton add;
+
+
     Intent intent;
 
     public static final String PREFS_NAME = "MyPreferenceFile";
@@ -66,6 +72,11 @@ public class HomeFragment extends Fragment {
         salatName = view.findViewById(R.id.salat);
         salatTime = view.findViewById(R.id.salat_tim);
         test=view.findViewById(R.id.counter);
+
+        sibhaCounter = view.findViewById(R.id.sibha);
+        reset = view.findViewById(R.id.reset);
+        add = view.findViewById(R.id.add);
+
 
         loc=view.findViewById(R.id.loc);
         settings = getActivity().getSharedPreferences(PREFS_NAME, 0);
@@ -311,6 +322,30 @@ public class HomeFragment extends Fragment {
         };
 
         handler.postDelayed(r, 1000);
+
+        sibhaCounter.setText(String.valueOf(settings.getInt("sibha", 0)));
+
+        reset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SharedPreferences.Editor editor = settings.edit();
+                editor.putInt("sibha",0);
+                editor.commit();
+                sibhaCounter.setText(String.valueOf(0));
+            }
+        });
+
+        add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int curr_counter = Integer.parseInt(sibhaCounter.getText().toString());
+                curr_counter++;
+                SharedPreferences.Editor editor = settings.edit();
+                editor.putInt("sibha",curr_counter);
+                editor.commit();
+                sibhaCounter.setText(String.valueOf(curr_counter));
+            }
+        });
 
 
        SharedPreferences.OnSharedPreferenceChangeListener sharedPreferenceChangeListener = new SharedPreferences.OnSharedPreferenceChangeListener() {

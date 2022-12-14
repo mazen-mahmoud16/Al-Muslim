@@ -46,7 +46,7 @@
 
         <TextView
             android:id="@+id/upcoming_place"
-            android:fontFamily="@font/montserrat_medium"
+            android:fontFamily="@font/montserrat_bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
@@ -60,11 +60,12 @@
             android:id="@+id/salat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/montserrat_bold"
+            android:fontFamily="@font/montserrat_regular"
             app:layout_constraintTop_toBottomOf="@id/upcoming_place"
+            android:text="@string/asr"
             android:textColor="@color/white"
             android:layout_marginTop="5dp"
-            android:textSize="25sp"
+            android:textSize="22sp"
             app:layout_constraintStart_toStartOf="@id/upcoming_place"
             />
 
@@ -73,22 +74,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/salat"
-            android:fontFamily="@font/montserrat_bold"
+            android:text="@string/salat_tim"
+            android:fontFamily="@font/montserrat_regular"
             android:textColor="@color/white"
             android:layout_marginTop="5dp"
-            android:textSize="19sp"
+            android:textSize="22sp"
             app:layout_constraintStart_toStartOf="@id/upcoming_place"
-            />
-
-        <TextView
-            android:id="@+id/counter"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="13sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:fontFamily="@font/montserrat_medium"
-            android:textColor="@color/white"
             />
 
 
@@ -99,12 +90,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:text="@string/activities"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@id/scrollview"
         app:layout_constraintStart_toStartOf="@id/loc"
-        app:layout_constraintTop_toBottomOf="@id/fir_layout" />
+        app:layout_constraintTop_toBottomOf="@id/fir_layout"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@id/scrollview"
+        android:text="@string/activities"/>
 
     <HorizontalScrollView
         android:id="@+id/scrollview"
@@ -258,7 +249,7 @@
             android:text="@string/sibha_place"
             android:textColor="@color/white"
             android:textSize="18sp"
-            android:fontFamily="@font/montserrat_medium"
+            android:fontFamily="@font/montserrat_bold"
             app:layout_constraintStart_toStartOf="parent"
             />
 
@@ -271,7 +262,7 @@
             android:textColor="@color/white"
             android:layout_marginTop="5dp"
             android:textSize="22sp"
-            android:fontFamily="@font/montserrat_bold"
+            android:fontFamily="@font/montserrat_regular"
             app:layout_constraintStart_toStartOf="@id/sibha_place"
             />
 
@@ -297,6 +288,7 @@
             android:background="@drawable/ic_add"
             android:contentDescription="@string/add_icon"
             app:layout_constraintEnd_toEndOf="parent"
+            android:foreground="?android:attr/selectableItemBackground"
             app:layout_constraintTop_toBottomOf="@id/sibha"
             tools:ignore="TouchTargetSizeCheck,ImageContrastCheck" />
     </androidx.constraintlayout.widget.ConstraintLayout>
