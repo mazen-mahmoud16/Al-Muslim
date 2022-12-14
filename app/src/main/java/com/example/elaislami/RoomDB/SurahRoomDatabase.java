@@ -72,7 +72,7 @@ public abstract class SurahRoomDatabase extends RoomDatabase {
         protected Void doInBackground(final Void... params) {
             //sDao.deleteAll();
             //aDao.deleteAll();
-            tDao.deleteAll();
+            //tDao.deleteAll();
             return null;
         }
     }

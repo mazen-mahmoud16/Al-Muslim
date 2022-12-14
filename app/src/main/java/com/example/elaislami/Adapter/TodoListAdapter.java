@@ -3,7 +3,6 @@ package com.example.elaislami.Adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,7 +27,7 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.ViewHo
     public TodoListAdapter(List<TodoItemDBModel> todoItems, Context context, TodoListener todoListener) {
         this.todoItems = todoItems;
         this.context = context;
-        this.todoListener = todoListener;
+        TodoListAdapter.todoListener = todoListener;
     }
 
     @NonNull
@@ -46,7 +45,7 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.ViewHo
 
 
         holder.itemNum.setText("\u2022 ");
-        holder.itemContent.setText(todoItems.get(position).getContent()+"-"+String.valueOf(todoItems.get(position).getId()));
+        holder.itemContent.setText(todoItems.get(position).getContent());
 
     }
 
@@ -72,12 +71,7 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.ViewHo
             itemContent = itemView.findViewById(R.id.item_content);
             delete = itemView.findViewById(R.id.item_delete);
 
-            delete.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    todoListener.onDeleteTodoItem(getAdapterPosition());
-                }
-            });
+            delete.setOnClickListener(view -> todoListener.onDeleteTodoItem(getAdapterPosition()));
         }
 
 
