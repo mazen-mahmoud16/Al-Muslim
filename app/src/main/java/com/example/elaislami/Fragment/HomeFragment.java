@@ -53,6 +53,8 @@ public class HomeFragment extends Fragment {
     private ImageButton reset;
     private ImageButton add;
 
+    String currentPrayer = "";
+
 
     Intent intent;
 
@@ -64,6 +66,7 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         todo_btn = view.findViewById(R.id.img1);
@@ -87,8 +90,6 @@ public class HomeFragment extends Fragment {
         Handler handler = new Handler();
         editor=settings.edit();
 
-        editor.putString("currentPrayer",null);
-        editor.commit();
 
         final Runnable r = new Runnable() {
             @SuppressLint({"SetTextI18n", "DefaultLocale"})
@@ -101,220 +102,219 @@ public class HomeFragment extends Fragment {
                 PrayerModel obj = gson.fromJson(json, PrayerModel.class);
 
                 if(obj!=null){
-                    String currentPrayer=settings.getString("currentPrayer", "Loading");
-                    String fajr = obj.getFajr().substring(0,5);
-                    String dhuhr =obj.getDhuhr().substring(0,5);
-                    String asr =obj.getAsr().substring(0,5);
-                    String maghrib= obj.getMaghrib().substring(0,5);
-                    String isha = obj.getIsha().substring(0,5);
-                    Date current_date = new Date();
-                    @SuppressLint("SimpleDateFormat") SimpleDateFormat formatTime = new SimpleDateFormat("HH:mm aa");
-                    String result_time = formatTime.format(current_date);
-                    String current = result_time.substring(0,5);
-                    String current2 = current.replace(":",".");
-                    Double current_int= Double.parseDouble(current2);
 
-                    String fajr2 = fajr.replace(":",".");
-                    Double fajr_int= Double.parseDouble(fajr2);
+                    if(!currentPrayer.equals(settings.getString("currentPrayer", "Loading"))){
+                        currentPrayer=settings.getString("currentPrayer", "Loading");
+                        String fajr = obj.getFajr().substring(0,5);
+                        String dhuhr =obj.getDhuhr().substring(0,5);
+                        String asr =obj.getAsr().substring(0,5);
+                        String maghrib= obj.getMaghrib().substring(0,5);
+                        String isha = obj.getIsha().substring(0,5);
+                        Date current_date = new Date();
+                        @SuppressLint("SimpleDateFormat") SimpleDateFormat formatTime = new SimpleDateFormat("HH:mm aa");
+                        String result_time = formatTime.format(current_date);
+                        String current = result_time.substring(0,5);
+                        String current2 = current.replace(":",".");
+                        Double current_int= Double.parseDouble(current2);
 
-                    dhuhr = dhuhr.replace(":",".");
-                    asr = asr.replace(":",".");
-                    maghrib = maghrib.replace(":",".");
-                    isha = isha.replace(":",".");
+                        String fajr2 = fajr.replace(":",".");
+                        Double fajr_int= Double.parseDouble(fajr2);
 
-                    Double dhuhr_int= Double.parseDouble(dhuhr);
-                    Double asr_int= Double.parseDouble(asr);
-                    Double maghrib_int= Double.parseDouble(maghrib);
-                    Double isha_int= Double.parseDouble(isha);
+                        dhuhr = dhuhr.replace(":",".");
+                        asr = asr.replace(":",".");
+                        maghrib = maghrib.replace(":",".");
+                        isha = isha.replace(":",".");
 
-                    int diffMin;
-                    int min1=0,min2 = 0;
-                    int hour1=0,hour2=0;
+                        Double dhuhr_int= Double.parseDouble(dhuhr);
+                        Double asr_int= Double.parseDouble(asr);
+                        Double maghrib_int= Double.parseDouble(maghrib);
+                        Double isha_int= Double.parseDouble(isha);
 
-                    if((current_int<=fajr_int&&current_int<isha_int)||(current_int>fajr_int&&current_int>isha_int)) {
+                        int diffMin;
+                        int min1=0,min2 = 0;
+                        int hour1=0,hour2=0;
 
-                        if(!currentPrayer.equals("Fajr")){
+                        if((current_int<=fajr_int&&current_int<isha_int)||(current_int>fajr_int&&current_int>isha_int)) {
+
                             editor.putString("currentPrayer","Fajr");
                             editor.commit();
                             editor=settings.edit();
+
+
+                            min1=Integer.parseInt(current.substring(3,5));
+                            hour1=Integer.parseInt(current.substring(0,2));
+                            min2=Integer.parseInt(fajr.substring(3,5));
+                            hour2=Integer.parseInt(fajr.substring(0,2));
+
+
+                            salatName.setText("Fajr");
+                            SimpleDateFormat formatter2 = new SimpleDateFormat("hh:mm", Locale.ENGLISH);
+
+                            String dateInString = obj.getFajr().substring(0,5);
+                            String AoP= obj.getFajr().substring(6,8);
+
+                            Date date = null;
+                            try {
+                                date = formatter2.parse(dateInString);
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+                            String formattedDateString = formatter2.format(date);
+
+                            salatTime.setText(formattedDateString+" "+AoP);
+
+
                         }
+                        else if(current_int>fajr_int&&current_int<=dhuhr_int){
 
-
-                        min1=Integer.parseInt(current.substring(3,5));
-                        hour1=Integer.parseInt(current.substring(0,2));
-                        min2=Integer.parseInt(fajr.substring(3,5));
-                        hour2=Integer.parseInt(fajr.substring(0,2));
-
-
-                        salatName.setText("Fajr");
-                        SimpleDateFormat formatter2 = new SimpleDateFormat("hh:mm", Locale.ENGLISH);
-
-                        String dateInString = obj.getFajr().substring(0,5);
-                        String AoP= obj.getFajr().substring(6,8);
-
-                        Date date = null;
-                        try {
-                            date = formatter2.parse(dateInString);
-                        } catch (ParseException e) {
-                            e.printStackTrace();
-                        }
-                        String formattedDateString = formatter2.format(date);
-
-                        salatTime.setText(formattedDateString+" "+AoP);
-
-
-                    }
-                    else if(current_int>fajr_int&&current_int<=dhuhr_int){
-
-                        if(!currentPrayer.equals("Dhuhrr")){
                             editor.putString("currentPrayer","Dhuhr");
                             editor.commit();
                             editor=settings.edit();
+
+
+                            min1=Integer.parseInt(current.substring(3,5));
+                            hour1=Integer.parseInt(current.substring(0,2));
+                            min2=Integer.parseInt(fajr.substring(3,5));
+                            hour2=Integer.parseInt(fajr.substring(0,2));
+
+                            salatName.setText("Dhuhr");
+
+                            SimpleDateFormat formatter2 = new SimpleDateFormat("hh:mm", Locale.ENGLISH);
+
+                            String dateInString = obj.getDhuhr().substring(0,5);
+                            String AoP= obj.getDhuhr().substring(6,8);
+
+                            Date date = null;
+                            try {
+                                date = formatter2.parse(dateInString);
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+                            String formattedDateString = formatter2.format(date);
+
+                            salatTime.setText(formattedDateString+" "+AoP);
+
+
+
                         }
-
-                        min1=Integer.parseInt(current.substring(3,5));
-                        hour1=Integer.parseInt(current.substring(0,2));
-                        min2=Integer.parseInt(fajr.substring(3,5));
-                        hour2=Integer.parseInt(fajr.substring(0,2));
-
-                        salatName.setText("Dhuhr");
-
-                        SimpleDateFormat formatter2 = new SimpleDateFormat("hh:mm", Locale.ENGLISH);
-
-                        String dateInString = obj.getDhuhr().substring(0,5);
-                        String AoP= obj.getDhuhr().substring(6,8);
-
-                        Date date = null;
-                        try {
-                            date = formatter2.parse(dateInString);
-                        } catch (ParseException e) {
-                            e.printStackTrace();
-                        }
-                        String formattedDateString = formatter2.format(date);
-
-                        salatTime.setText(formattedDateString+" "+AoP);
+                        else if(current_int>dhuhr_int&&current_int<=asr_int){
 
 
-
-                    }
-                    else if(current_int>dhuhr_int&&current_int<=asr_int){
-
-                        if(!currentPrayer.equals("Asr")){
                             editor.putString("currentPrayer","Asr");
                             editor.commit();
                             editor=settings.edit();
+
+
+
+                            min1=Integer.parseInt(current.substring(3,5));
+                            hour1=Integer.parseInt(current.substring(0,2));
+                            min2=Integer.parseInt(fajr.substring(3,5));
+                            hour2=Integer.parseInt(fajr.substring(0,2));
+
+                            salatName.setText("Asr");
+                            SimpleDateFormat formatter2 = new SimpleDateFormat("hh:mm", Locale.ENGLISH);
+
+                            String dateInString = obj.getAsr().substring(0,5);
+                            String AoP= obj.getAsr().substring(6,8);
+
+                            Date date = null;
+                            try {
+                                date = formatter2.parse(dateInString);
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+                            String formattedDateString = formatter2.format(date);
+
+                            salatTime.setText(formattedDateString+" "+AoP);
+
+
                         }
+                        if(current_int>asr_int&&current_int<=maghrib_int){
 
-
-                        min1=Integer.parseInt(current.substring(3,5));
-                        hour1=Integer.parseInt(current.substring(0,2));
-                        min2=Integer.parseInt(fajr.substring(3,5));
-                        hour2=Integer.parseInt(fajr.substring(0,2));
-
-                        salatName.setText("Asr");
-                        SimpleDateFormat formatter2 = new SimpleDateFormat("hh:mm", Locale.ENGLISH);
-
-                        String dateInString = obj.getAsr().substring(0,5);
-                        String AoP= obj.getAsr().substring(6,8);
-
-                        Date date = null;
-                        try {
-                            date = formatter2.parse(dateInString);
-                        } catch (ParseException e) {
-                            e.printStackTrace();
-                        }
-                        String formattedDateString = formatter2.format(date);
-
-                        salatTime.setText(formattedDateString+" "+AoP);
-
-
-                    }
-                    if(current_int>asr_int&&current_int<=maghrib_int){
-
-                        if(!currentPrayer.equals("Maghrib")){
                             editor.putString("currentPrayer","Maghrib");
                             editor.commit();
                             editor=settings.edit();
+
+
+                            min1=Integer.parseInt(current.substring(3,5));
+                            hour1=Integer.parseInt(current.substring(0,2));
+                            min2=Integer.parseInt(fajr.substring(3,5));
+                            hour2=Integer.parseInt(fajr.substring(0,2));
+
+                            salatName.setText("Maghrib");
+                            SimpleDateFormat formatter2 = new SimpleDateFormat("hh:mm", Locale.ENGLISH);
+                            String dateInString = obj.getMaghrib().substring(0,5);
+                            String AoP= obj.getMaghrib().substring(6,8);
+
+                            Date date = null;
+                            try {
+                                date = formatter2.parse(dateInString);
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+                            String formattedDateString = formatter2.format(date);
+
+                            salatTime.setText(formattedDateString+" "+AoP);
+
+
+
                         }
+                        else if(current_int>maghrib_int&&current_int<=isha_int) {
 
 
-                        min1=Integer.parseInt(current.substring(3,5));
-                        hour1=Integer.parseInt(current.substring(0,2));
-                        min2=Integer.parseInt(fajr.substring(3,5));
-                        hour2=Integer.parseInt(fajr.substring(0,2));
-
-                        salatName.setText("Maghrib");
-                        SimpleDateFormat formatter2 = new SimpleDateFormat("hh:mm", Locale.ENGLISH);
-                        String dateInString = obj.getMaghrib().substring(0,5);
-                        String AoP= obj.getMaghrib().substring(6,8);
-
-                        Date date = null;
-                        try {
-                            date = formatter2.parse(dateInString);
-                        } catch (ParseException e) {
-                            e.printStackTrace();
-                        }
-                        String formattedDateString = formatter2.format(date);
-
-                        salatTime.setText(formattedDateString+" "+AoP);
-
-
-
-                    }
-                    else if(current_int>maghrib_int&&current_int<=isha_int) {
-
-                        if(!currentPrayer.equals("Isha")){
                             editor.putString("currentPrayer","Isha");
                             editor.commit();
                             editor=settings.edit();
+
+
+
+                            min1=Integer.parseInt(current.substring(3,5));
+                            hour1=Integer.parseInt(current.substring(0,2));
+                            min2=Integer.parseInt(fajr.substring(3,5));
+                            hour2=Integer.parseInt(fajr.substring(0,2));
+
+                            salatName.setText("Isha");
+
+                            SimpleDateFormat formatter2 = new SimpleDateFormat("hh:mm", Locale.ENGLISH);
+
+                            String dateInString = obj.getIsha().substring(0,5);
+                            String AoP= obj.getIsha().substring(6,8);
+
+                            Date date = null;
+                            try {
+                                date = formatter2.parse(dateInString);
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+                            String formattedDateString = formatter2.format(date);
+                            salatTime.setText(formattedDateString+" "+AoP);
+
                         }
-
-
-                        min1=Integer.parseInt(current.substring(3,5));
-                        hour1=Integer.parseInt(current.substring(0,2));
-                        min2=Integer.parseInt(fajr.substring(3,5));
-                        hour2=Integer.parseInt(fajr.substring(0,2));
-
-                        salatName.setText("Isha");
-
-                        SimpleDateFormat formatter2 = new SimpleDateFormat("hh:mm", Locale.ENGLISH);
-
-                        String dateInString = obj.getIsha().substring(0,5);
-                        String AoP= obj.getIsha().substring(6,8);
-
-                        Date date = null;
-                        try {
-                            date = formatter2.parse(dateInString);
-                        } catch (ParseException e) {
-                            e.printStackTrace();
-                        }
-                        String formattedDateString = formatter2.format(date);
-                        salatTime.setText(formattedDateString+" "+AoP);
-
-                    }
-                    if (min2 < min1) {
-                        diffMin = 60 + min2 - min1;
-                        if (hour2 == 0) {
-                            hour2 = 23;
+                        if (min2 < min1) {
+                            diffMin = 60 + min2 - min1;
+                            if (hour2 == 0) {
+                                hour2 = 23;
+                            } else {
+                                hour2--;
+                            }
                         } else {
-                            hour2--;
+                            diffMin = min2 - min1;
                         }
-                    } else {
-                        diffMin = min2 - min1;
+
+                        int diffHour;
+                        if (hour2 < hour1) {
+                            diffHour = hour2 + 24 - hour1;
+                        } else {
+                            diffHour = hour2 - hour1;
+                        }
+                        if(diffHour==0&&diffMin==0){
+                            test.setText("Prayer is now");
+
+                        }else{
+                            test.setText(diffHour+" h"+" and "+diffMin+" mins left");
+                        }
                     }
 
-                    int diffHour;
-                    if (hour2 < hour1) {
-                        diffHour = hour2 + 24 - hour1;
-                    } else {
-                        diffHour = hour2 - hour1;
-                    }
-                    if(diffHour==0&&diffMin==0){
-                        test.setText("Prayer is now");
-
-                    }else{
-                        test.setText(diffHour+" h"+" and "+diffMin+" mins left");
-                    }
                 }
 
                     handler.postDelayed(this, 1000);

@@ -1,29 +1,44 @@
 package com.example.elaislami.Activity;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 
 import com.example.elaislami.Adapter.TodoListAdapter;
 import com.example.elaislami.Listener.TodoListener;
 import com.example.elaislami.Model.TodoItem;
 import com.example.elaislami.R;
+import com.example.elaislami.RoomDBModels.SurahDBModel;
+import com.example.elaislami.RoomDBModels.TodoItemDBModel;
+import com.example.elaislami.ViewModel.SurahViewModel;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import es.dmoral.toasty.Toasty;
 
 public class TodoActivity extends AppCompatActivity implements TodoListener {
 
     int backState;
     ImageButton back_btn;
     RecyclerView rv_todo;
-    ArrayList<TodoItem> todoItems=new ArrayList<>();
     TodoListAdapter todoListAdapter;
+    List<TodoItemDBModel> todoItems=new ArrayList<>();
+    SurahViewModel surahViewModel;
+    EditText addedItem;
+    Button add;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,23 +63,47 @@ public class TodoActivity extends AppCompatActivity implements TodoListener {
             }
         });
 
+
+
         rv_todo = findViewById(R.id.list_rec);
-        todoItems.add(new TodoItem("Read EL Qahf Sura 1 Time"));
-        todoItems.add(new TodoItem("Read Azkar El Sabah"));
-        todoItems.add(new TodoItem("Pray 5 Times"));
-        todoItems.add(new TodoItem("Read Azkar El Masaa"));
-        todoItems.add(new TodoItem("Read EL Qahf Sura 1 Time Read EL Qahf Sura 1 Time Read EL Qahf Sura 1 Time Read EL Qahf Sura 1 Time"));
-        todoItems.add(new TodoItem("Read EL Qahf Sura 1 Time"));
+
+        surahViewModel = new ViewModelProvider(this).get(SurahViewModel.class);
 
         todoListAdapter=new TodoListAdapter(todoItems,this, this);
         rv_todo.setLayoutManager(new LinearLayoutManager(this));
         rv_todo.setAdapter(todoListAdapter);
 
+        surahViewModel.getAllTodoList().observe(this, new Observer<List<TodoItemDBModel>>() {
+            @Override
+            public void onChanged(@Nullable final List<TodoItemDBModel> todoModels) {
+                // Update the cached copy of the words in the adapter.
+                todoListAdapter.setTodoItems(todoModels);
+                todoItems=todoModels;
+            }
+        });
+
+        addedItem = findViewById(R.id.todo_item);
+        add = findViewById(R.id.add_todo);
+
+        add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String addedText = addedItem.getText().toString();
+                if(addedText.isEmpty()){
+                    Toasty.error(TodoActivity.this, "Please enter a todo item to be added", Toasty.LENGTH_LONG, true).show();
+                }
+                else{
+                    TodoItemDBModel newItem = new TodoItemDBModel();
+                    newItem.setContent(addedText);
+                    surahViewModel.insertTodoItem(newItem);
+                }
+            }
+        });
+
     }
 
     @Override
     public void onDeleteTodoItem(int position) {
-        todoItems.remove(position);
-        rv_todo.setAdapter(new TodoListAdapter(todoItems,this, this));
+        surahViewModel.deleteTodoItem(position);
     }
 }
