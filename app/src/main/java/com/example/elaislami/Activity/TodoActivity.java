@@ -18,9 +18,7 @@ import android.widget.ImageButton;
 
 import com.example.elaislami.Adapter.TodoListAdapter;
 import com.example.elaislami.Listener.TodoListener;
-import com.example.elaislami.Model.TodoItem;
 import com.example.elaislami.R;
-import com.example.elaislami.RoomDBModels.SurahDBModel;
 import com.example.elaislami.RoomDBModels.TodoItemDBModel;
 import com.example.elaislami.ViewModel.SurahViewModel;
 
@@ -78,7 +76,7 @@ public class TodoActivity extends AppCompatActivity implements TodoListener {
             public void onChanged(@Nullable final List<TodoItemDBModel> todoModels) {
                 // Update the cached copy of the words in the adapter.
                 todoListAdapter.setTodoItems(todoModels);
-                todoItems=todoModels;
+                todoItems = todoModels;
             }
         });
 
@@ -96,6 +94,8 @@ public class TodoActivity extends AppCompatActivity implements TodoListener {
                     TodoItemDBModel newItem = new TodoItemDBModel();
                     newItem.setContent(addedText);
                     surahViewModel.insertTodoItem(newItem);
+                    addedItem.setText("");
+                    Toasty.success(TodoActivity.this, "Item added successfully", Toasty.LENGTH_SHORT, true).show();
                 }
             }
         });
@@ -104,6 +104,6 @@ public class TodoActivity extends AppCompatActivity implements TodoListener {
 
     @Override
     public void onDeleteTodoItem(int position) {
-        surahViewModel.deleteTodoItem(position);
+        surahViewModel.deleteTodoItem(todoItems.get(position).getId());
     }
 }

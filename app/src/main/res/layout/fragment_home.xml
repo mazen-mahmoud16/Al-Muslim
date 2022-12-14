@@ -85,7 +85,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="13sp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="@id/salat_tim"
+            app:layout_constraintBottom_toBottomOf="@id/salat_tim"
             app:layout_constraintEnd_toEndOf="parent"
             android:fontFamily="@font/montserrat_medium"
             android:textColor="@color/white"
@@ -103,7 +104,7 @@
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@id/scrollview"
-        app:layout_constraintStart_toStartOf="@id/loc"
+        app:layout_constraintStart_toStartOf="@id/loc_ic"
         app:layout_constraintTop_toBottomOf="@id/fir_layout" />
 
     <HorizontalScrollView
@@ -129,7 +130,9 @@
                 android:id="@+id/img1"
                 android:layout_width="100dp"
                 android:layout_height="80dp"
-                android:layout_margin="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginEnd="10dp"
                 android:backgroundTint="@color/white"
                 android:contentDescription="@string/todo_list"
                 android:padding="4dp"
