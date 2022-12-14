@@ -199,7 +199,7 @@ public class PrayerFragment extends Fragment {
 
         editor = settings.edit();
         Gson gson = new Gson();
-        String json = gson.toJson(prayerModels.get(7));
+        String json = gson.toJson(prayerModels.get(2));
         editor.putString("prayers", json);
         editor.commit();
 
