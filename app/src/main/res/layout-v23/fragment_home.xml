@@ -83,6 +83,17 @@
             />
 
 
+        <TextView
+            android:id="@+id/counter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="13sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:fontFamily="@font/montserrat_medium"
+            android:textColor="@color/white"
+            />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
