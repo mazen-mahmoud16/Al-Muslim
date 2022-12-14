@@ -1,22 +1,16 @@
 package com.example.elaislami.Adapter;
 import android.content.Context;
-import android.graphics.Color;
-import android.text.Layout;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
-import com.example.elaislami.Model.AyahModel;
+
 import com.example.elaislami.R;
 import com.example.elaislami.RoomDBModels.AyahDBModel;
-import com.example.elaislami.RoomDBModels.SurahDBModel;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;

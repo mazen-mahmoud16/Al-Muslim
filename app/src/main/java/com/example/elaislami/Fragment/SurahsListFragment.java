@@ -31,14 +31,10 @@ import java.util.Locale;
 import es.dmoral.toasty.Toasty;
 
 public class SurahsListFragment extends Fragment implements SurahListener {
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
 
     RecyclerView rv_surahs;
     List<SurahDBModel> list=new ArrayList<>();
-    private SurahViewModel surahViewModel;
+    SurahViewModel surahViewModel;
     SearchView searchView;
     SurahListAdapter surahAdapter;
 

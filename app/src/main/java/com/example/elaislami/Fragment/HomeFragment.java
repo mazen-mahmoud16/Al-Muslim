@@ -53,6 +53,8 @@ public class HomeFragment extends Fragment {
     private ImageButton reset;
     private ImageButton add;
 
+    String currentPrayer = "";
+
 
     Intent intent;
 
@@ -64,6 +66,7 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         todo_btn = view.findViewById(R.id.img1);
@@ -87,8 +90,6 @@ public class HomeFragment extends Fragment {
         Handler handler = new Handler();
         editor=settings.edit();
 
-        editor.putString("currentPrayer",null);
-        editor.commit();
 
         final Runnable r = new Runnable() {
             @SuppressLint({"SetTextI18n", "DefaultLocale"})
@@ -222,13 +223,13 @@ public class HomeFragment extends Fragment {
                         String dateInString = obj.getAsr().substring(0, 5);
                         String AoP = obj.getAsr().substring(6, 8);
 
-                        Date date = null;
-                        try {
-                            date = formatter2.parse(dateInString);
-                        } catch (ParseException e) {
-                            e.printStackTrace();
-                        }
-                        String formattedDateString = formatter2.format(date);
+                            Date date = null;
+                            try {
+                                date = formatter2.parse(dateInString);
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+                            String formattedDateString = formatter2.format(date);
 
                         salatTime.setText(formattedDateString + " " + AoP);
 
@@ -256,13 +257,13 @@ public class HomeFragment extends Fragment {
                         String dateInString = obj.getMaghrib().substring(0, 5);
                         String AoP = obj.getMaghrib().substring(6, 8);
 
-                        Date date = null;
-                        try {
-                            date = formatter2.parse(dateInString);
-                        } catch (ParseException e) {
-                            e.printStackTrace();
-                        }
-                        String formattedDateString = formatter2.format(date);
+                            Date date = null;
+                            try {
+                                date = formatter2.parse(dateInString);
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+                            String formattedDateString = formatter2.format(date);
 
                         salatTime.setText(formattedDateString + " " + AoP);
 
@@ -283,9 +284,9 @@ public class HomeFragment extends Fragment {
                         min1 = Integer.parseInt(isha.substring(3, 5));
                         hour1 = Integer.parseInt(isha.substring(0, 2));*/
 
-                        salatName.setText("Isha");
+                            salatName.setText("Isha");
 
-                        SimpleDateFormat formatter2 = new SimpleDateFormat("hh:mm", Locale.ENGLISH);
+                            SimpleDateFormat formatter2 = new SimpleDateFormat("hh:mm", Locale.ENGLISH);
 
                         String dateInString = obj.getIsha().substring(0, 5);
                         String AoP = obj.getIsha().substring(6, 8);

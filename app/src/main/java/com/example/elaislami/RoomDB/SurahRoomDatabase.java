@@ -11,15 +11,18 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.example.elaislami.DAO.AyahDAO;
 import com.example.elaislami.DAO.SurahDAO;
+import com.example.elaislami.DAO.TodoDAO;
 import com.example.elaislami.RoomDBModels.AyahDBModel;
 import com.example.elaislami.RoomDBModels.SurahDBModel;
+import com.example.elaislami.RoomDBModels.TodoItemDBModel;
 
-@Database(entities = {SurahDBModel.class, AyahDBModel.class}, version = 3, exportSchema = false)
+@Database(entities = {SurahDBModel.class, AyahDBModel.class, TodoItemDBModel.class}, version = 4, exportSchema = false)
 
 public abstract class SurahRoomDatabase extends RoomDatabase {
 
     public abstract SurahDAO surahDAO();
     public abstract AyahDAO ayahDAO();
+    public abstract TodoDAO todoDAO();
     private static SurahRoomDatabase INSTANCE;
 
     public static SurahRoomDatabase getDatabase(final Context context) {
@@ -57,16 +60,19 @@ public abstract class SurahRoomDatabase extends RoomDatabase {
 
         private final SurahDAO sDao;
         private final AyahDAO aDao;
+        private final TodoDAO tDao;
 
         PopulateDbAsync(SurahRoomDatabase db) {
             sDao = db.surahDAO();
             aDao = db.ayahDAO();
+            tDao = db.todoDAO();
         }
 
         @Override
         protected Void doInBackground(final Void... params) {
             //sDao.deleteAll();
             //aDao.deleteAll();
+            tDao.deleteAll();
             return null;
         }
     }

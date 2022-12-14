@@ -27,19 +27,13 @@ public class TabsAdapter extends FragmentStatePagerAdapter {
                 return new HomeFragment();
 
             case 1:
-                PrayerFragment prayerFragment;
-                prayerFragment = new PrayerFragment();
-                return prayerFragment;
+                return new PrayerFragment();
 
             case 2:
-                QiblaFragment qiblaFragment;
-                qiblaFragment = new QiblaFragment();
-                return qiblaFragment;
+                return new QiblaFragment();
 
             case 3:
-                SurahsListFragment surahsListFragment;
-                surahsListFragment = new SurahsListFragment();
-                return surahsListFragment;
+                return new SurahsListFragment();
 
             default:
                 return null;

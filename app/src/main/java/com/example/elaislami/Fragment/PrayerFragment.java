@@ -135,6 +135,7 @@ public class PrayerFragment extends Fragment {
                 }
                 if(key.equals("currentPrayer")){
                     adapter = new PrayerViewPagerAdapter(prayerModels, getActivity(),settings.getString("currentPrayer","Loading"));
+                    Log.d("bbbbb",settings.getString("currentPrayer","Loading"));
                     viewPager = view.findViewById(R.id.view_pager_prayer);
                     viewPager.setAdapter(adapter);
                     viewPager.setCurrentItem(2);

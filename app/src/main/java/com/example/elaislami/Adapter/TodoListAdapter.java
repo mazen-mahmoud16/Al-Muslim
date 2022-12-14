@@ -3,6 +3,7 @@ package com.example.elaislami.Adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,15 +15,19 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.elaislami.Listener.TodoListener;
 import com.example.elaislami.Model.TodoItem;
 import com.example.elaislami.R;
+import com.example.elaislami.RoomDBModels.SurahDBModel;
+import com.example.elaislami.RoomDBModels.TodoItemDBModel;
+
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.ViewHolder> {
-    ArrayList<TodoItem> todoItems;
+    List<TodoItemDBModel> todoItems;
     Context context;
     static TodoListener todoListener;
 
-    public TodoListAdapter(ArrayList<TodoItem> todoItems, Context context, TodoListener todoListener) {
+    public TodoListAdapter(List<TodoItemDBModel> todoItems, Context context, TodoListener todoListener) {
         this.todoItems = todoItems;
         this.context = context;
         this.todoListener = todoListener;
@@ -34,7 +39,7 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.ViewHo
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.todo_item, parent, false);
-        return new TodoListAdapter.ViewHolder(view,todoListener);
+        return new TodoListAdapter.ViewHolder(view,todoListener,todoItems);
     }
 
     @SuppressLint("SetTextI18n")
@@ -43,8 +48,18 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.ViewHo
 
 
         holder.itemNum.setText("\u2022 ");
-        holder.itemContent.setText(todoItems.get(position).getContent());
+        holder.itemContent.setText(todoItems.get(position).getContent()+"-"+String.valueOf(todoItems.get(position).getId()));
 
+    }
+
+    public void setTodoItems(List<TodoItemDBModel> todoModels){
+        todoItems = todoModels;
+        for (TodoItemDBModel surahDBModel:todoItems) {
+            Log.d("aaaaaaaaaa",surahDBModel.getId()+surahDBModel.getContent());
+        }
+
+        Log.d("aaaaaaaaaa","***************************");
+        notifyDataSetChanged();
     }
 
     @Override
@@ -56,17 +71,20 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.ViewHo
         TextView itemNum;
         TextView itemContent;
         ImageButton delete;
+        List<TodoItemDBModel> todoItems;
 
-        public ViewHolder(@NonNull View itemView, TodoListener todoListener) {
+        public ViewHolder(@NonNull View itemView, TodoListener todoListener, List<TodoItemDBModel> todoItems) {
             super(itemView);
             itemNum = itemView.findViewById(R.id.item_num);
             itemContent = itemView.findViewById(R.id.item_content);
             delete = itemView.findViewById(R.id.item_delete);
+            this.todoItems = todoItems;
 
             delete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    todoListener.onDeleteTodoItem(getAdapterPosition());
+                    Log.d("aaaaaaaaaa", String.valueOf(todoItems.get(getAdapterPosition()).getId()));
+                    todoListener.onDeleteTodoItem(todoItems.get(getAdapterPosition()).getId());
                 }
             });
         }
