@@ -37,7 +37,7 @@ public class SurahsListFragment extends Fragment implements SurahListener {
     }
 
     RecyclerView rv_surahs;
-    List<SurahDBModel> list;
+    List<SurahDBModel> list=new ArrayList<>();
     private SurahViewModel surahViewModel;
     SearchView searchView;
     SurahListAdapter surahAdapter;
@@ -73,7 +73,10 @@ public class SurahsListFragment extends Fragment implements SurahListener {
 
             @Override
             public boolean onQueryTextChange(String s) {
-                filter(s);
+                if(s != null){
+                    filter(s);
+
+                }
                 return false;
             }
         });
@@ -93,17 +96,18 @@ public class SurahsListFragment extends Fragment implements SurahListener {
     private void filter(String text) {
         ArrayList<SurahDBModel> filteredlist = new ArrayList<SurahDBModel>();
 
-        for (SurahDBModel surah : list) {
-            if (surah.getEnglishName().toLowerCase().contains(text.toLowerCase())||surah.getName().toLowerCase().contains(text.toLowerCase())) {
-                filteredlist.add(surah);
+            for (SurahDBModel surah : list) {
+                if (surah.getEnglishName().toLowerCase().contains(text.toLowerCase())||surah.getName().toLowerCase().contains(text.toLowerCase())) {
+                    filteredlist.add(surah);
+                }
             }
-        }
-        if (filteredlist.isEmpty()) {
-            Toasty.info(getActivity(), "No Data Found..", Toast.LENGTH_SHORT).show();
-            surahAdapter.setSurahs(filteredlist);
-        } else {
-            surahAdapter.setSurahs(filteredlist);
-        }
+            if (filteredlist.isEmpty()) {
+                surahAdapter.setSurahs(filteredlist);
+            } else {
+                surahAdapter.setSurahs(filteredlist);
+            }
+
+
     }
 
 }

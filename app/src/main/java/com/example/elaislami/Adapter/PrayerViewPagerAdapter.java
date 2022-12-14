@@ -23,21 +23,23 @@ import com.example.elaislami.R;
 import org.w3c.dom.Text;
 
 import java.text.Format;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class PrayerViewPagerAdapter extends PagerAdapter {
 
-    private List<PrayerModel> prayerModels;
-    private Context context;
+    private final List<PrayerModel> prayerModels;
+    private final Context context;
+    private final String currentPrayer;
 
-
-
-    public PrayerViewPagerAdapter(List<PrayerModel> models, Context context) {
+    public PrayerViewPagerAdapter(List<PrayerModel> models, Context context, String currentPrayer) {
         this.prayerModels = models;
         this.context = context;
+        this.currentPrayer=currentPrayer;
     }
 
     @Override
@@ -50,6 +52,7 @@ public class PrayerViewPagerAdapter extends PagerAdapter {
         return view.equals(object);
     }
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     @NonNull
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, final int position) {
@@ -57,6 +60,7 @@ public class PrayerViewPagerAdapter extends PagerAdapter {
         View view = layoutInflater.inflate(R.layout.prayer_viewpager_item, container, false);
 
         TextView fajr_time,sunrise_time,dhuhr_time,asr_time,maghrib_time,isha_time;
+        ConstraintLayout fajr,dhuhr,asr,maghrib,isha;
 
         fajr_time = view.findViewById(R.id.fajr_time);
         sunrise_time = view.findViewById(R.id.sunrise_time);
@@ -65,28 +69,107 @@ public class PrayerViewPagerAdapter extends PagerAdapter {
         maghrib_time = view.findViewById(R.id.maghrib_time);
         isha_time = view.findViewById(R.id.isha_time);
 
-        fajr_time.setText(prayerModels.get(position).getFajr());
-        sunrise_time.setText(prayerModels.get(position).getSunrise());
-        dhuhr_time.setText(prayerModels.get(position).getDhuhr());
-        asr_time.setText(prayerModels.get(position).getAsr());
-        maghrib_time.setText(prayerModels.get(position).getMaghrib());
-        isha_time.setText(prayerModels.get(position).getIsha());
+        fajr=view.findViewById(R.id.salat_container);
+        dhuhr=view.findViewById(R.id.salat_container2);
+        asr=view.findViewById(R.id.salat_container3);
+        maghrib=view.findViewById(R.id.salat_container4);
+        isha=view.findViewById(R.id.salat_container5);
 
-       /* Date current_date = new Date();
-        @SuppressLint("SimpleDateFormat") SimpleDateFormat formatTime = new SimpleDateFormat("hh:mm aa");
-        String result_time = formatTime.format(current_date);
-        char first = result_time.charAt(0);
-
-        if(String.valueOf(first).equals("0")){
-            result_time = result_time.substring(1);
+        if(position==2){
+            if(currentPrayer.equals("Fajr")){
+                fajr.setBackground(context.getResources().getDrawable(R.drawable.rounded_btn));
+            }else if(currentPrayer.equals("Asr")){
+                asr.setBackground(context.getResources().getDrawable(R.drawable.rounded_btn));
+            }else if(currentPrayer.equals("Dhuhr")){
+                dhuhr.setBackground(context.getResources().getDrawable(R.drawable.rounded_btn));
+            }else if(currentPrayer.equals("Maghrib")){
+                maghrib.setBackground(context.getResources().getDrawable(R.drawable.rounded_btn));
+            }else if(currentPrayer.equals("Isha")){
+                isha.setBackground(context.getResources().getDrawable(R.drawable.rounded_btn));
+            }
         }
 
-          if(prayerModelInternal.get(position).getSalatTime().equals(result_time)){
-            holder.constraintLayoutMain.setBackgroundResource(R.drawable.rounded_btn);
-            holder.constraintLayoutSecondary.setBackgroundResource(R.drawable.rounded_btn);
+        SimpleDateFormat formatter2 = new SimpleDateFormat("hh:mm", Locale.ENGLISH);
+
+        String dateInFormat = prayerModels.get(position).getFajr().substring(0,5);
+        String AoP= prayerModels.get(position).getFajr().substring(6,8);
+
+        Date date = null;
+        try {
+            date = formatter2.parse(dateInFormat);
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
-        holder.salatName.setText(prayerModelInternal.get(position).getSalatName());
-        holder.salatTime.setText(prayerModelInternal.get(position).getSalatTime());*/
+        String formattedDateString = formatter2.format(date);
+
+        fajr_time.setText(formattedDateString+" "+AoP);
+
+
+        dateInFormat = prayerModels.get(position).getSunrise().substring(0,5);
+         AoP= prayerModels.get(position).getSunrise().substring(6,8);
+
+         date = null;
+        try {
+            date = formatter2.parse(dateInFormat);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        formattedDateString = formatter2.format(date);
+
+        sunrise_time.setText(formattedDateString+" "+AoP);
+
+
+        dateInFormat = prayerModels.get(position).getDhuhr().substring(0,5);
+        AoP= prayerModels.get(position).getDhuhr().substring(6,8);
+
+        date = null;
+        try {
+            date = formatter2.parse(dateInFormat);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        formattedDateString = formatter2.format(date);
+
+        dhuhr_time.setText(formattedDateString+" "+AoP);
+
+        dateInFormat = prayerModels.get(position).getAsr().substring(0,5);
+        AoP= prayerModels.get(position).getAsr().substring(6,8);
+
+        date = null;
+        try {
+            date = formatter2.parse(dateInFormat);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        formattedDateString = formatter2.format(date);
+
+        asr_time.setText(formattedDateString+" "+AoP);
+
+        dateInFormat = prayerModels.get(position).getMaghrib().substring(0,5);
+        AoP= prayerModels.get(position).getMaghrib().substring(6,8);
+
+        date = null;
+        try {
+            date = formatter2.parse(dateInFormat);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        formattedDateString = formatter2.format(date);
+
+        maghrib_time.setText(formattedDateString+" "+AoP);
+
+        dateInFormat = prayerModels.get(position).getIsha().substring(0,5);
+        AoP= prayerModels.get(position).getIsha().substring(6,8);
+
+        date = null;
+        try {
+            date = formatter2.parse(dateInFormat);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        formattedDateString = formatter2.format(date);
+
+        isha_time.setText(formattedDateString+" "+AoP);
 
 
         container.addView(view, 0);

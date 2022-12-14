@@ -1,22 +1,17 @@
 package com.example.elaislami.Repository;
-
 import android.app.Application;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.util.Log;
-
 import androidx.lifecycle.LiveData;
-
 import com.example.elaislami.APIHolders.JsonPlaceHolderAPI;
 import com.example.elaislami.DAO.AyahDAO;
 import com.example.elaislami.Model.AyahFirstResponse;
 import com.example.elaislami.RoomDB.SurahRoomDatabase;
 import com.example.elaislami.RoomDBModels.AyahDBModel;
-import com.example.elaislami.RoomDBModels.SurahDBModel;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -34,27 +29,34 @@ public class AyahListRepository {
     SharedPreferences settings;
     public static final String PREFS_NAME = "MyPreferenceFile";
     int surahNumber;
+    SurahRoomDatabase db ;
 
 
     public AyahListRepository(Application application) {
 
-        SurahRoomDatabase db = SurahRoomDatabase.getDatabase(application);
+         db = SurahRoomDatabase.getDatabase(application);
 
         settings = application.getApplicationContext().getSharedPreferences(PREFS_NAME, 0);
-
-
-
-        mAyahDao = db.ayahDAO();
-
-        retrofit = new Retrofit.Builder()
-                .baseUrl("https://api.alquran.cloud/v1/surah/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        jsonPlaceHolderAPI = retrofit.create(JsonPlaceHolderAPI.class);
         surahNumber = settings.getInt("surahNumber",1);
-        call = jsonPlaceHolderAPI.getAyas(surahNumber);
+
+
+
+        if(mAllAyahs == null){
+           retrofit = new Retrofit.Builder()
+                   .baseUrl("https://api.alquran.cloud/v1/surah/")
+                   .addConverterFactory(GsonConverterFactory.create())
+                   .build();
+           jsonPlaceHolderAPI = retrofit.create(JsonPlaceHolderAPI.class);
+            call = jsonPlaceHolderAPI.getAyas(surahNumber);
+
+        }
+        mAyahDao = db.ayahDAO();
         mAllAyahs = mAyahDao.getAllAyahs();
+
         mAllAyahs = mAyahDao.getSpecificAyahs(surahNumber);
+
+        //mAllAyahs = mAyahDao.getAllAyahs();
+       // mAllAyahs = mAyahDao.getSpecificAyahs(surahNumber);
 
     }
 
@@ -80,6 +82,9 @@ public class AyahListRepository {
             }
             @Override
             public void onFailure(Call<AyahFirstResponse> call, Throwable t) {
+                mAllAyahs = mAyahDao.getAllAyahs();
+
+                mAllAyahs = mAyahDao.getSpecificAyahs(surahNumber);
                 Log.d("MVVMX", "--- FAILED " + t.getMessage());
             }
         });

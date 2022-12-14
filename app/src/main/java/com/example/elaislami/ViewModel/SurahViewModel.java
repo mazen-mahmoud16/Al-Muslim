@@ -29,8 +29,6 @@ public class SurahViewModel extends AndroidViewModel {
         ayahList = aRepository.getAllAyahs();
         sRepository.getAllSurahsApi();
         aRepository.getAllAyahsApi();
-
-
     }
 
     public LiveData<List<SurahDBModel>> getAllSurahs() {

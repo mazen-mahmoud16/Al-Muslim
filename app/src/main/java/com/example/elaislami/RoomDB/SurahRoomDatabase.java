@@ -66,7 +66,7 @@ public abstract class SurahRoomDatabase extends RoomDatabase {
         @Override
         protected Void doInBackground(final Void... params) {
             //sDao.deleteAll();
-            aDao.deleteAll();
+            //aDao.deleteAll();
             return null;
         }
     }

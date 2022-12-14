@@ -2,12 +2,16 @@ package com.example.elaislami.Fragment;
 
 import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,7 +28,10 @@ import com.batoulapps.adhan.data.DateComponents;
 import com.example.elaislami.Adapter.PrayerViewPagerAdapter;
 import com.example.elaislami.Model.PrayerModel;
 import com.example.elaislami.R;
+import com.example.elaislami.Receiver.LocationReceiver;
+import com.google.gson.Gson;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -32,21 +39,23 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.TimeZone;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 public class PrayerFragment extends Fragment {
 
     TextView loc;
-
     ViewPager viewPager;
     PrayerViewPagerAdapter adapter;
     List<PrayerModel> prayerModels;
     ImageButton prevDay;
     ImageButton nextDay;
     TextView tv_date;
-
-    // one day less and 30 ahead
+    SharedPreferences settings;
+    SharedPreferences.Editor editor;
 
     public static final String PREFS_NAME = "MyPreferenceFile";
 
@@ -58,8 +67,7 @@ public class PrayerFragment extends Fragment {
 
         loc = view.findViewById(R.id.loc);
 
-
-        SharedPreferences settings = getActivity().getSharedPreferences(PREFS_NAME, 0);
+        settings = getActivity().getSharedPreferences(PREFS_NAME, 0);
         loc.setText(settings.getString("address", "Loading"));
 
 
@@ -88,25 +96,27 @@ public class PrayerFragment extends Fragment {
                     List<Calendar> list = new ArrayList<>();
 
 
-                    for(int i=-7;i<7;i++){
+                    for(int i=-2;i<13;i++){
                         list.add(Calendar.getInstance());
-                        list.get(i+7).add(Calendar.DATE, +i);
+                        list.get(i+2).add(Calendar.DATE, +i);
 
-                        DateComponents date = DateComponents.from(list.get(i+7).getTime());
+                        DateComponents date = DateComponents.from(list.get(i+2).getTime());
 
                         PrayerTimes prayerTimes = new PrayerTimes(coordinates, date, params);
 
-                        @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("hh:mm aa");
+                        @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("HH:mm aa");
 
                         formatter.setTimeZone(TimeZone.getDefault());
 
-                        prayerModels.add(new PrayerModel(list.get(i+7),formatter.format(prayerTimes.fajr),formatter.format(prayerTimes.sunrise),formatter.format(prayerTimes.dhuhr),formatter.format(prayerTimes.asr),formatter.format(prayerTimes.maghrib),formatter.format(prayerTimes.isha)));
+                        prayerModels.add(new PrayerModel(list.get(i+2),formatter.format(prayerTimes.fajr),formatter.format(prayerTimes.sunrise),formatter.format(prayerTimes.dhuhr),formatter.format(prayerTimes.asr),formatter.format(prayerTimes.maghrib),formatter.format(prayerTimes.isha)));
 
 
                     }
 
 
-                    adapter = new PrayerViewPagerAdapter(prayerModels, getActivity());
+                    adapter = new PrayerViewPagerAdapter(prayerModels, getActivity(),settings.getString("currentPrayer","Loading"));
+                    viewPager.setCurrentItem(2);
+
 
                     viewPager = view.findViewById(R.id.view_pager_prayer);
                     viewPager.setAdapter(adapter);
@@ -115,12 +125,20 @@ public class PrayerFragment extends Fragment {
                     prevDay = view.findViewById(R.id.prev_day);
                     nextDay = view.findViewById(R.id.next_day);
 
-                    viewPager.setCurrentItem(7);
+                    viewPager.setCurrentItem(2);
 
                     Date date_new = prayerModels.get(viewPager.getCurrentItem()).getDate().getTime();
                     String formattedDate = new SimpleDateFormat("E, d MMMM").format(date_new);
 
                     tv_date.setText(formattedDate);
+
+                }
+                if(key.equals("currentPrayer")){
+                    adapter = new PrayerViewPagerAdapter(prayerModels, getActivity(),settings.getString("currentPrayer","Loading"));
+                    viewPager = view.findViewById(R.id.view_pager_prayer);
+                    viewPager.setAdapter(adapter);
+                    viewPager.setCurrentItem(2);
+
 
                 }
             }
@@ -148,25 +166,22 @@ public class PrayerFragment extends Fragment {
         List<Calendar> list = new ArrayList<>();
 
 
-        for(int i=-7;i<7;i++){
+        for(int i=-2;i<13;i++){
             list.add(Calendar.getInstance());
-            list.get(i+7).add(Calendar.DATE, +i);
+            list.get(i+2).add(Calendar.DATE, +i);
 
-            DateComponents date = DateComponents.from(list.get(i+7).getTime());
+            DateComponents date = DateComponents.from(list.get(i+2).getTime());
 
             PrayerTimes prayerTimes = new PrayerTimes(coordinates, date, params);
 
-            @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("hh:mm aa");
+            @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("HH:mm aa");
 
             formatter.setTimeZone(TimeZone.getDefault());
 
-            prayerModels.add(new PrayerModel(list.get(i+7),formatter.format(prayerTimes.fajr),formatter.format(prayerTimes.sunrise),formatter.format(prayerTimes.dhuhr),formatter.format(prayerTimes.asr),formatter.format(prayerTimes.maghrib),formatter.format(prayerTimes.isha)));
-
-
+            prayerModels.add(new PrayerModel(list.get(i+2),formatter.format(prayerTimes.fajr),formatter.format(prayerTimes.sunrise),formatter.format(prayerTimes.dhuhr),formatter.format(prayerTimes.asr),formatter.format(prayerTimes.maghrib),formatter.format(prayerTimes.isha)));
         }
 
-
-        adapter = new PrayerViewPagerAdapter(prayerModels, getActivity());
+        adapter = new PrayerViewPagerAdapter(prayerModels, getActivity(),settings.getString("currentPrayer","Loading"));
 
         viewPager = view.findViewById(R.id.view_pager_prayer);
         viewPager.setAdapter(adapter);
@@ -175,13 +190,18 @@ public class PrayerFragment extends Fragment {
         prevDay = view.findViewById(R.id.prev_day);
         nextDay = view.findViewById(R.id.next_day);
 
-        viewPager.setCurrentItem(7);
+        viewPager.setCurrentItem(2);
 
         Date date_new = prayerModels.get(viewPager.getCurrentItem()).getDate().getTime();
         String formattedDate = new SimpleDateFormat("E, d MMMM").format(date_new);
 
         tv_date.setText(formattedDate);
 
+        editor = settings.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(prayerModels.get(7));
+        editor.putString("prayers", json);
+        editor.commit();
 
         prevDay.setOnClickListener(view1 -> {
             viewPager.setCurrentItem(viewPager.getCurrentItem()-1);
@@ -192,6 +212,7 @@ public class PrayerFragment extends Fragment {
         });
 
         nextDay.setOnClickListener(view1 -> {
+
             viewPager.setCurrentItem(viewPager.getCurrentItem()+1);
             Date date_new2 = prayerModels.get(viewPager.getCurrentItem()).getDate().getTime();
             String formattedDate2 = new SimpleDateFormat("E, d MMMM").format(date_new2);

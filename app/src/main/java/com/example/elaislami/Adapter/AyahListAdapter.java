@@ -29,12 +29,15 @@ public class AyahListAdapter extends RecyclerView.Adapter<AyahListAdapter.ViewHo
 
     private int surahNumber;
 
-    public AyahListAdapter(int surahNumber) {
+    public AyahListAdapter( List<AyahDBModel> list,int surahNumber) {
+
+        this.surahDetailModelInternal=list;
 
         if(surahDetailModelInternal == null) {
             this.surahDetailModelInternal = new ArrayList<>();
         }
         this.surahNumber = surahNumber;
+
 
     }
 
@@ -53,12 +56,8 @@ public class AyahListAdapter extends RecyclerView.Adapter<AyahListAdapter.ViewHo
 
         String text = (surahDetailModelInternal.get(position).getText()).replace("\n", "");
 
-        for (AyahDBModel ayahDBModel:surahDetailModelInternal) {
-            Log.d("xxxx",String.valueOf(ayahDBModel.getSurahNumber()));
-        }
-
-
         String ayaNumber= nf.format(surahDetailModelInternal.get(position).getNumberInSurah());
+
 
         if(position ==1 && surahNumber !=1){
             text = text.replace("بِسۡمِ ٱللَّهِ ٱلرَّحۡمَـٰنِ ٱلرَّحِیمِ", "");
@@ -66,8 +65,13 @@ public class AyahListAdapter extends RecyclerView.Adapter<AyahListAdapter.ViewHo
 
         }
 
-        else if(position==0&&surahNumber!=1){
-            holder.ayaContent.setText(text);//holder.constraintLayout.setBackgroundColor(Color.TRANSPARENT);
+        else if(position==0&&surahNumber!=1)
+        {
+
+            text = text.replace(text, "بِسۡمِ ٱللَّهِ ٱلرَّحۡمَـٰنِ ٱلرَّحِیمِ");
+            surahDetailModelInternal.add(0,new AyahDBModel(0,"",0));
+            holder.ayaContent.setText(text);
+
             ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) holder.ayaContent.getLayoutParams();
             params.startToStart = holder.constraintLayout.getId();
             params.endToEnd = holder.constraintLayout.getId();

@@ -70,77 +70,21 @@ public class SurahDetailActivity extends AppCompatActivity {
 
         surahDetailRV =findViewById(R.id.SurahDetailRV);
 
-        ayahAdapter=new AyahListAdapter(surahIndex);
+        ayahAdapter=new AyahListAdapter(ayahList,surahIndex);
 
-        surahDetailRV.setLayoutManager(new LinearLayoutManager(this));
 
-        surahDetailRV.setAdapter(ayahAdapter);
 
         surahViewModel.getAllAyahs().observe(this, new Observer<List<AyahDBModel>>() {
             @Override
             public void onChanged(@Nullable final List<AyahDBModel> ayahModels) {
                 // Update the cached copy of the words in the adapter.
-                ayahAdapter=new AyahListAdapter(surahIndex);
-                /*for (AyahDBModel ayahDBModel:ayahModels) {
-                    Log.d("xxxx",ayahDBModel.getText());
-                    Log.d("xxxx",String.valueOf(ayahDBModel.getSurahNumber()));
-                    Log.d("xxxx",String.valueOf(ayahDBModel.getNumberInSurah()));
-                }*/
                 ayahAdapter.setAyahs(ayahModels);
-                surahDetailRV.setAdapter(ayahAdapter);
 
             }
         });
+        surahDetailRV.setLayoutManager(new LinearLayoutManager(this));
 
-
-
-
-
-/*
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://api.alquran.cloud/v1/surah/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        JsonPlaceHolderAPI jsonPlaceHolderAPI = retrofit.create(JsonPlaceHolderAPI.class);
-
-        Call<AyahFirstResponse> call = jsonPlaceHolderAPI.getAyas(surahIndex);
-        Log.d("Response", call.toString());
-
-
-        call.enqueue(new Callback<AyahFirstResponse>() {
-            @SuppressLint("SetTextI18n")
-            @Override
-            public void onResponse(Call<AyahFirstResponse> call, Response<AyahFirstResponse> response) {
-                if (!response.isSuccessful()){
-                    Log.d("MVVMX", "--- Not successful");
-                } else {
-
-                    AyahFirstResponse mAllPosts = response.body();
-
-                    surahDetailRV =findViewById(R.id.SurahDetailRV);
-
-                    List<AyahDBModel> ayahlist=mAllPosts.getData().getAyahs();
-
-                    AyahListAdapter ayahAdapter=new AyahListAdapter(ayahlist,surahIndex);
-                    juz=findViewById(R.id.juz);
-                    //juz.setText("Juz"+" "+ ayahlist.get(surahIndex).getJuz());
-                    surahDetailRV.setAdapter(ayahAdapter);
-                    surahDetailRV.setLayoutManager(new LinearLayoutManager(SurahDetailActivity.this));
-
-                }
-            }
-
-            @Override
-            public void onFailure(Call<AyahFirstResponse> call, Throwable t) {
-                Log.d("MVVMX", "--- FAILED " + t.getMessage());
-
-            }
-
-
-        });
-
-
- */
+        surahDetailRV.setAdapter(ayahAdapter);
         englishNameTv=findViewById(R.id.SurahEnglishName);
         arabicNameTv=findViewById(R.id.SurahArabicName);
         back_btn=findViewById(R.id.back_btn);
