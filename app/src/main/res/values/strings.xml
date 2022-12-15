@@ -38,7 +38,6 @@
     <string name="azkar">Azkar</string>
     <string name="drop_down">drop_down</string>
     <string name="duhur">Dhuhr</string>
-    <string name="duaa">Duaa</string>
     <string name="sunrise">Sunrise</string>
     <string name="app_logo">app_logo</string>
     <string name="friday_2_december">Friday, 2 December</string>
@@ -67,4 +66,5 @@
     <string name="enter_a_surah_name">Enter a surah name</string>
     <string name="prayer_viewpager">Prayer view pager</string>
     <string name="loading">Loading</string>
+    <string name="tasbeeh">Tasbeeh</string>
 </resources>

@@ -212,12 +212,13 @@
             <ImageButton
                 android:id="@+id/img4"
                 android:layout_width="100dp"
-                android:layout_height="80dp"
-                android:src="@drawable/ic_pray_night"
-                android:paddingTop="19.5dp"
+                android:layout_height="60dp"
+                android:src="@drawable/icons8_tasbeeh_64"
+                android:paddingTop="10dp"
                 android:layout_marginTop="10dp"
                 app:layout_constraintStart_toEndOf="@id/img3"
                 app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="@id/img3"
                 android:backgroundTint="@color/white"
                 android:textColor="@color/black"
                 android:contentDescription="@string/duaa_icon" />
@@ -231,7 +232,7 @@
                 android:textSize="15sp"
                 android:textColor="@color/black"
                 android:fontFamily="@font/montserrat_regular"
-                android:text="@string/duaa"
+                android:text="@string/tasbeeh"
                 app:layout_constraintTop_toTopOf="@id/txt01"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
 

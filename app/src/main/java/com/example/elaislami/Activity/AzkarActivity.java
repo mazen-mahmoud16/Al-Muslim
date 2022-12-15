@@ -11,15 +11,16 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import com.example.elaislami.Adapter.AzkarAdapter;
+import com.example.elaislami.JsonManager.Utils;
 import com.example.elaislami.Model.AzkarModel;
 import com.example.elaislami.R;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
-import java.util.ArrayList;
-
-import es.dmoral.toasty.Toasty;
+import java.lang.reflect.Type;
+import java.util.List;
 
 
 public class AzkarActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
@@ -27,8 +28,12 @@ public class AzkarActivity extends AppCompatActivity implements AdapterView.OnIt
 
 
     ImageButton back_btn;
-    ArrayList<AzkarModel> azkarModels=new ArrayList<>();
     RecyclerView azkarRV;
+    String jsonFileString;
+    Gson gson;
+    Type listAzkarType;
+    List<AzkarModel> azkarModelList;
+    AzkarAdapter azkarAdapterList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,25 +64,28 @@ public class AzkarActivity extends AppCompatActivity implements AdapterView.OnIt
         });
 
         azkarRV =findViewById(R.id.AzkarRV);
-        azkarModels.add(new AzkarModel("بسـم الله الـذي لا يضر مع اسمه شيء في الأرض ولا في السماء وهو السميع العليم", 100));
-        azkarModels.add(new AzkarModel("بسـم الله الـذي لا يضر مع اسمه شيء في الأرض ولا في السماء وهو السميع العليم", 100));
-        azkarModels.add(new AzkarModel("بسـم الله الـذي لا يضر مع اسمه شيء في الأرض ولا في السماء وهو السميع العليم", 100));
-        azkarModels.add(new AzkarModel("بسـم الله الـذي لا يضر مع اسمه شيء في الأرض ولا في السماء وهو السميع العليم", 100));
-        azkarModels.add(new AzkarModel("بسـم الله الـذي لا يضر مع اسمه شيء في الأرض ولا في السماء وهو السميع العليم", 100));
-        azkarModels.add(new AzkarModel("بسـم الله الـذي لا يضر مع اسمه شيء في الأرض ولا في السماء وهو السميع العليم", 100));
-        azkarModels.add(new AzkarModel("بسـم الله الـذي لا يضر مع اسمه شيء في الأرض ولا في السماء وهو السميع العليم", 100));
-        azkarModels.add(new AzkarModel("بسـم الله الـذي لا يضر مع اسمه شيء في الأرض ولا في السماء وهو السميع العليم", 100));
-
-
-        AzkarAdapter azkarAdapterList=new AzkarAdapter(azkarModels);
         azkarRV.setLayoutManager(new LinearLayoutManager(AzkarActivity.this));
-        azkarRV.setAdapter(azkarAdapterList);
+        gson = new Gson();
+        listAzkarType = new TypeToken<List<AzkarModel>>() { }.getType();
+
 
     }
 
     @Override
     public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long id) {
-        Toasty.info(AzkarActivity.this, azkar[position], Toasty.LENGTH_LONG, true).show();
+        // Morning
+        if(position == 0){
+            jsonFileString = Utils.getJsonFromAssets(getApplicationContext(), "morningazkar.json");
+            azkarModelList = gson.fromJson(jsonFileString, listAzkarType);
+            azkarAdapterList=new AzkarAdapter(azkarModelList);
+            azkarRV.setAdapter(azkarAdapterList);
+        }
+        else if(position==1){
+            jsonFileString = Utils.getJsonFromAssets(getApplicationContext(), "nightazkar.json");
+            azkarModelList = gson.fromJson(jsonFileString, listAzkarType);
+            azkarAdapterList=new AzkarAdapter(azkarModelList);
+            azkarRV.setAdapter(azkarAdapterList);
+        }
     }
 
     @Override

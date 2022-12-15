@@ -1,20 +1,34 @@
 package com.example.elaislami.Model;
 
+import com.google.gson.annotations.SerializedName;
+
 public class AzkarModel {
 
-    private String zekrContent;
-    private int noOfTimes;
+    @SerializedName("count")
+    private String count;
 
-    public AzkarModel(String zekrContent, int no_of_times) {
-        this.zekrContent = zekrContent;
-        this.noOfTimes = no_of_times;
+    @SerializedName("content")
+    private String content;
+
+
+    public AzkarModel(String count, String content) {
+        this.count = count;
+        this.content = content;
     }
 
-    public String getZekrContent() {
-        return zekrContent;
+    public String getCount() {
+        return count;
     }
 
-    public int getNoOfTimes() {
-        return noOfTimes;
+    public void setCount(String count) {
+        this.count = count;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
     }
 }

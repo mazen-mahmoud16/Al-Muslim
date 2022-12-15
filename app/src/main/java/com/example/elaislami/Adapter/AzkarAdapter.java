@@ -12,13 +12,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.elaislami.Model.AzkarModel;
 import com.example.elaislami.R;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class AzkarAdapter extends RecyclerView.Adapter<AzkarAdapter.ViewHolder>{
-    ArrayList<AzkarModel> azkarModelInternal;
+    List<AzkarModel> azkarModelModelInternal;
 
-    public AzkarAdapter(ArrayList<AzkarModel> azkarModelInternal) {
-        this.azkarModelInternal = azkarModelInternal;
+    public AzkarAdapter(List<AzkarModel> azkarModelModelInternal) {
+        this.azkarModelModelInternal = azkarModelModelInternal;
     }
     @NonNull
     @Override
@@ -32,15 +32,15 @@ public class AzkarAdapter extends RecyclerView.Adapter<AzkarAdapter.ViewHolder>{
     @Override
     public void onBindViewHolder(@NonNull AzkarAdapter.ViewHolder holder, int position){
 
-        holder.zekrContent.setText(azkarModelInternal.get(position).getZekrContent());
-        holder.noOfTimes.setText(String.valueOf(azkarModelInternal.get(position).getNoOfTimes()));
+        holder.zekrContent.setText(azkarModelModelInternal.get(position).getContent());
+        holder.noOfTimes.setText(String.valueOf(azkarModelModelInternal.get(position).getCount()));
 
 
     }
 
     @Override
     public int getItemCount(){
-        return azkarModelInternal.size();
+        return azkarModelModelInternal.size();
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
