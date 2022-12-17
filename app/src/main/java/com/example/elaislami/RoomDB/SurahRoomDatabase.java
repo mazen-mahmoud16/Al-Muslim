@@ -16,7 +16,7 @@ import com.example.elaislami.RoomDBModels.AyahDBModel;
 import com.example.elaislami.RoomDBModels.SurahDBModel;
 import com.example.elaislami.RoomDBModels.TodoItemDBModel;
 
-@Database(entities = {SurahDBModel.class, AyahDBModel.class, TodoItemDBModel.class}, version = 4, exportSchema = false)
+@Database(entities = {SurahDBModel.class, AyahDBModel.class, TodoItemDBModel.class}, version = 5, exportSchema = false)
 
 public abstract class SurahRoomDatabase extends RoomDatabase {
 

@@ -15,20 +15,22 @@ import com.example.elaislami.ViewModel.SurahViewModel;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SurahDetailActivity extends AppCompatActivity {
 
     RecyclerView surahDetailRV;
-    TextView englishNameTv,arabicNameTv;
+    TextView englishNameTv,arabicNameTv,juz;
     String englishName,arabicName;
     ImageView back_btn;
     private SurahViewModel surahViewModel;
-    List<AyahDBModel> ayahList;
+    List<AyahDBModel> ayahList= new ArrayList<>();
     int surahIndex;
     public static final String PREFS_NAME = "MyPreferenceFile";
     SharedPreferences settings;
@@ -57,6 +59,8 @@ public class SurahDetailActivity extends AppCompatActivity {
         surahViewModel = new ViewModelProvider(this).get(SurahViewModel.class);
 
         surahDetailRV =findViewById(R.id.SurahDetailRV);
+        juz =findViewById(R.id.juz);
+
 
         ayahAdapter=new AyahListAdapter(ayahList,surahIndex);
 
@@ -66,11 +70,39 @@ public class SurahDetailActivity extends AppCompatActivity {
             @Override
             public void onChanged(@Nullable final List<AyahDBModel> ayahModels) {
                 // Update the cached copy of the words in the adapter.
-                ayahAdapter.setAyahs(ayahModels);
+                if(!ayahModels.isEmpty()) {
 
-            }
+                    if(!(ayahModels.get(0).getSurahNumber()==1)){
+                        ayahModels.add(0,new AyahDBModel(0,"بِسۡمِ ٱللَّهِ ٱلرَّحۡمَـٰنِ ٱلرَّحِیم",0));
+                    }
+                }
+
+                ayahAdapter.setAyahs(ayahModels);
+                ayahList=ayahModels;
+
+                if(!ayahList.isEmpty()&&ayahList.get(0).getSurahNumber()!=1) {
+                    if(ayahList.get(1).getJuz()==ayahList.get(ayahList.size()-1).getJuz()){
+                        juz.setText("Juz " + ayahList.get(1).getJuz());
+
+                    }else{
+                        juz.setText("From juz " + ayahList.get(1).getJuz()+" to "+ ayahList.get(ayahList.size()-1).getJuz());
+
+                    }
+                }else if(!ayahList.isEmpty()&&ayahList.get(0).getSurahNumber()==1){
+                    juz.setText("Juz " + ayahList.get(0).getJuz());
+
+                }
+                else {
+                    juz.setText("Juz");
+
+                }
+                }
         });
+
+
+
         surahDetailRV.setLayoutManager(new LinearLayoutManager(this));
+
 
         surahDetailRV.setAdapter(ayahAdapter);
         englishNameTv=findViewById(R.id.SurahEnglishName);

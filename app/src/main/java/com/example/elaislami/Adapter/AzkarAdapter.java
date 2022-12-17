@@ -1,6 +1,7 @@
 package com.example.elaislami.Adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,9 +34,16 @@ public class AzkarAdapter extends RecyclerView.Adapter<AzkarAdapter.ViewHolder>{
     public void onBindViewHolder(@NonNull AzkarAdapter.ViewHolder holder, int position){
 
         holder.zekrContent.setText(azkarModelModelInternal.get(position).getContent());
-        holder.noOfTimes.setText(String.valueOf(azkarModelModelInternal.get(position).getCount()));
 
+        int count=Integer.parseInt(azkarModelModelInternal.get(position).getCount());
 
+        if(count<10){
+            holder.noOfTimes.setText(String.valueOf(azkarModelModelInternal.get(position).getCount()).replace("0",""));
+
+        }else{
+            holder.noOfTimes.setText(String.valueOf(azkarModelModelInternal.get(position).getCount()));
+
+        }
     }
 
     @Override

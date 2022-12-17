@@ -27,6 +27,14 @@ public class AyahDBModel
     @ColumnInfo(name = "surahNumber")
     private int surahNumber;
 
+    public void setJuz(int juz) {
+        this.juz = juz;
+    }
+
+    @NonNull
+    @ColumnInfo(name = "juz")
+    private int juz;
+
     public AyahDBModel(int numberInSurah, @NonNull String text,int surahNumber) {
         this.numberInSurah = numberInSurah;
         this.text = text;
@@ -44,6 +52,11 @@ public class AyahDBModel
     @NonNull
     public String getText() {
         return text;
+    }
+
+    @NonNull
+    public int getJuz() {
+        return juz;
     }
 
     public int getSurahNumber() {

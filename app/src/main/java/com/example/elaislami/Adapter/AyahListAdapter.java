@@ -1,5 +1,6 @@
 package com.example.elaislami.Adapter;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +27,7 @@ public class AyahListAdapter extends RecyclerView.Adapter<AyahListAdapter.ViewHo
     public AyahListAdapter( List<AyahDBModel> list,int surahNumber) {
 
         this.surahDetailModelInternal=list;
+
 
         if(surahDetailModelInternal == null) {
             this.surahDetailModelInternal = new ArrayList<>();
@@ -55,15 +57,13 @@ public class AyahListAdapter extends RecyclerView.Adapter<AyahListAdapter.ViewHo
 
         if(position ==1 && surahNumber !=1){
             text = text.replace("بِسۡمِ ٱللَّهِ ٱلرَّحۡمَـٰنِ ٱلرَّحِیمِ", "");
+
             holder.ayaContent.setText(text+"   "+"\uFD3F"+ayaNumber+"\uFD3E");
 
         }
 
         else if(position==0&&surahNumber!=1)
         {
-
-            text = text.replace(text, "بِسۡمِ ٱللَّهِ ٱلرَّحۡمَـٰنِ ٱلرَّحِیمِ");
-            surahDetailModelInternal.add(0,new AyahDBModel(0,"",0));
             holder.ayaContent.setText(text);
 
             ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) holder.ayaContent.getLayoutParams();
@@ -73,14 +73,20 @@ public class AyahListAdapter extends RecyclerView.Adapter<AyahListAdapter.ViewHo
         }
 
         else {
+
             holder.ayaContent.setText(text+"   "+"\uFD3F"+ayaNumber+"\uFD3E");
 
+            ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) holder.ayaContent.getLayoutParams();
+            params.startToStart = params.UNSET;
+            params.endToEnd = holder.constraintLayout.getId();
+            holder.ayaContent.requestLayout();
         }
 
     }
 
     public void setAyahs(List<AyahDBModel> ayahModels){
         this.surahDetailModelInternal = ayahModels;
+
         notifyDataSetChanged();
     }
 
@@ -92,7 +98,6 @@ public class AyahListAdapter extends RecyclerView.Adapter<AyahListAdapter.ViewHo
 
         private TextView ayaContent;
         private ConstraintLayout constraintLayout;
-        private TextView juz;
 
 
         public ViewHolder(@NonNull View itemView) {
