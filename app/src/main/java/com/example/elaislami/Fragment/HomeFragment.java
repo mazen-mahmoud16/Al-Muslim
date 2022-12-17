@@ -288,8 +288,16 @@ public class HomeFragment extends Fragment {
                         between = Duration.ofMinutes(TimeUnit.DAYS.toMinutes(1)).plus(between);
                     }
                     String finalTime=between.toString().replace("PT","");
-                    finalTime=finalTime.replace("H"," hrs and ");
-                    finalTime=finalTime.replace("M"," mins left");
+                    if(finalTime.contains("H")&&finalTime.contains("M")){
+                        finalTime=finalTime.replace("H"," hrs and ");
+                        finalTime=finalTime.replace("M"," mins left");
+                    }
+                    else if(finalTime.contains("H")){
+                        finalTime=finalTime.replace("H"," hrs and 0 mins left");
+
+                    }else{
+                        finalTime=finalTime.replace("M"," mins left");
+                    }
 
                     test.setText(finalTime);
                 }
