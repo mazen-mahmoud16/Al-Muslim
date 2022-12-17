@@ -49,11 +49,7 @@ public class HomeFragment extends Fragment {
     private ImageView todo_btn;
     private ImageView statistics_btn;
     private ImageView azkar_btn;
-    private TextView loc;
-    private TextView salatName;
-    private TextView salatTime;
-    private TextView test;
-    private TextView sibhaCounter;
+    private TextView loc,salatName,salatTime,test,sibhaCounter;
     private ImageButton reset;
     private ImageButton add;
 
