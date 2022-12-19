@@ -28,8 +28,8 @@ public class TasabehActivity extends AppCompatActivity {
     String jsonFileString;
     Gson gson;
     Type listAzkarType;
-    List<AzkarModel> azkarModelList;
-    AzkarAdapter azkarAdapterList;
+    List<AzkarModel> tasabeehModelList;
+    AzkarAdapter tasabeehAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,9 +59,9 @@ public class TasabehActivity extends AppCompatActivity {
         }.getType();
 
         jsonFileString = Utils.getJsonFromAssets(getApplicationContext(), "tasabeeh.json");
-        azkarModelList = gson.fromJson(jsonFileString, listAzkarType);
-        azkarAdapterList = new AzkarAdapter(azkarModelList);
-        tasabehRV.setAdapter(azkarAdapterList);
+        tasabeehModelList = gson.fromJson(jsonFileString, listAzkarType);
+        tasabeehAdapter = new AzkarAdapter(tasabeehModelList);
+        tasabehRV.setAdapter(tasabeehAdapter);
 
     }
 
