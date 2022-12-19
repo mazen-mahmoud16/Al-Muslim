@@ -1,8 +1,11 @@
 package com.example.elaislami.Fragment;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.hardware.Sensor;
+import android.hardware.SensorManager;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -52,6 +55,7 @@ public class HomeFragment extends Fragment {
     private TextView loc,salatName,salatTime,test,sibhaCounter;
     private ImageButton reset;
     private ImageButton add;
+    ProgressDialog dialog;
 
     String currentPrayer = "";
 
@@ -60,6 +64,7 @@ public class HomeFragment extends Fragment {
 
     public static final String PREFS_NAME = "MyPreferenceFile";
     SharedPreferences settings;
+    SharedPreferences.OnSharedPreferenceChangeListener sharedPreferenceChangeListener;
     SharedPreferences.Editor editor;
 
 
@@ -83,7 +88,6 @@ public class HomeFragment extends Fragment {
 
         loc=view.findViewById(R.id.loc);
         settings = getActivity().getSharedPreferences(PREFS_NAME, 0);
-        loc.setText(settings.getString("address", "Loading"));
 
         Gson gson = new Gson();
 
@@ -335,18 +339,26 @@ public class HomeFragment extends Fragment {
         });
 
 
-        SharedPreferences.OnSharedPreferenceChangeListener sharedPreferenceChangeListener = new SharedPreferences.OnSharedPreferenceChangeListener() {
+        sharedPreferenceChangeListener = new SharedPreferences.OnSharedPreferenceChangeListener() {
             @Override
             public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
                 if (key.equals("address")) {
-                    loc.setText(settings.getString("address", "Loading"));
-
+                    if(settings.getString("address", "Loading").equals("Loading")){
+                        ProgressDialog dialog = new ProgressDialog(getActivity());
+                        dialog.setMessage("please wait...");
+                        dialog.show();
+                    }
+                    else{
+                        if(dialog !=null){
+                            dialog.dismiss();
+                        }
+                        loc.setText(settings.getString("address", "Loading"));
+                    }
                 }
 
             }
         };
 
-        settings.registerOnSharedPreferenceChangeListener(sharedPreferenceChangeListener);
 
         todo_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -375,5 +387,18 @@ public class HomeFragment extends Fragment {
         return view;
     }
 
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        settings.registerOnSharedPreferenceChangeListener(sharedPreferenceChangeListener);
+        loc.setText(settings.getString("address", "Loading"));
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        settings.unregisterOnSharedPreferenceChangeListener(sharedPreferenceChangeListener);
+    }
 
 }

@@ -1,9 +1,6 @@
-package com.example.elaislami.JsonManager;
+package com.example.elaislami.Utils;
 
 import android.content.Context;
-import android.util.Log;
-
-import com.example.elaislami.R;
 
 import java.io.IOException;
 import java.io.InputStream;

@@ -69,7 +69,6 @@ public class PrayerFragment extends Fragment {
         loc = view.findViewById(R.id.loc);
 
         settings = getActivity().getSharedPreferences(PREFS_NAME, 0);
-        loc.setText(settings.getString("address", "Loading"));
 
 
         sharedPreferenceChangeListener = new SharedPreferences.OnSharedPreferenceChangeListener() {
@@ -248,6 +247,7 @@ public class PrayerFragment extends Fragment {
     public void onResume() {
         super.onResume();
         settings.registerOnSharedPreferenceChangeListener(sharedPreferenceChangeListener);
+        loc.setText(settings.getString("address", "Loading"));
     }
 
     @Override

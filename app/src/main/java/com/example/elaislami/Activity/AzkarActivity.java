@@ -13,7 +13,7 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 
 import com.example.elaislami.Adapter.AzkarAdapter;
-import com.example.elaislami.JsonManager.Utils;
+import com.example.elaislami.Utils.Utils;
 import com.example.elaislami.Model.AzkarModel;
 import com.example.elaislami.R;
 import com.google.gson.Gson;

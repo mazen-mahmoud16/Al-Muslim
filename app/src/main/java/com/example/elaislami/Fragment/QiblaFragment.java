@@ -12,6 +12,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,6 +37,9 @@ public class QiblaFragment extends Fragment implements SensorEventListener {
     // device sensor manager
     private SensorManager mSensorManager;
 
+    SharedPreferences settings;
+    SharedPreferences.OnSharedPreferenceChangeListener sharedPreferenceChangeListener;
+
     TextView tvHeading;
     TextView hint;
 
@@ -50,13 +54,12 @@ public class QiblaFragment extends Fragment implements SensorEventListener {
         View view = inflater.inflate(R.layout.fragment_qibla, container, false);
 
         loc=view.findViewById(R.id.loc);
-        SharedPreferences settings = getActivity().getSharedPreferences(PREFS_NAME, 0);
-        loc.setText(settings.getString("address", "Loading"));
+        settings = getActivity().getSharedPreferences(PREFS_NAME, 0);
 
          longDouble = Double.parseDouble(settings.getString("long", "0.0"));
          latDouble = Double.parseDouble(settings.getString("lat", "0.0"));
 
-        SharedPreferences.OnSharedPreferenceChangeListener sharedPreferenceChangeListener = new SharedPreferences.OnSharedPreferenceChangeListener() {
+        sharedPreferenceChangeListener = new SharedPreferences.OnSharedPreferenceChangeListener() {
             @Override
             public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
                 if (key.equals("address")) {
@@ -94,6 +97,8 @@ public class QiblaFragment extends Fragment implements SensorEventListener {
         // for the system's orientation sensor registered listeners
         mSensorManager.registerListener(this, mSensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION),
                 SensorManager.SENSOR_DELAY_GAME);
+        settings.registerOnSharedPreferenceChangeListener(sharedPreferenceChangeListener);
+        loc.setText(settings.getString("address", "Loading"));
     }
 
     @Override
@@ -102,12 +107,12 @@ public class QiblaFragment extends Fragment implements SensorEventListener {
 
         // to stop the listener and save battery
         mSensorManager.unregisterListener(this);
+        settings.unregisterOnSharedPreferenceChangeListener(sharedPreferenceChangeListener);
     }
 
 
     @Override
     public void onSensorChanged(SensorEvent event) {
-
 
         // get the angle around the z-axis rotated
         float degree = Math.round(event.values[0]);

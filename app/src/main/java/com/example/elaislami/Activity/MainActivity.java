@@ -7,6 +7,7 @@ import androidx.core.content.ContextCompat;
 import androidx.viewpager.widget.ViewPager;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -18,6 +19,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.example.elaislami.Listener.BroadCastListener;
@@ -40,6 +42,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
     SharedPreferences settings;
     SharedPreferences.Editor editor;
     LocationReceiver locationReceiver;
+    ProgressDialog progressdialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -126,7 +129,6 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
 
 
     private void getLocation() {
-
         try {
             locationManager = (LocationManager) getApplicationContext().getSystemService(LOCATION_SERVICE);
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -144,6 +146,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
     public void onLocationChanged(Location location) {
         editor.putString("long", String.valueOf(location.getLongitude()));
         editor.putString("lat", String.valueOf(location.getLatitude()));
+
         try {
             Geocoder geocoder = new Geocoder(MainActivity.this, Locale.getDefault());
             List<Address> addresses = geocoder.getFromLocation(location.getLatitude(),location.getLongitude(),1);
@@ -151,13 +154,13 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
 
             editor.putString("address", address_temp);
 
+
         }catch (Exception e){
             e.printStackTrace();
         }
 
 
         editor.commit();
-
     }
 
     @Override
