@@ -10,19 +10,23 @@ import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.example.elaislami.DAO.AyahDAO;
+import com.example.elaislami.DAO.PrayerStatsDAO;
 import com.example.elaislami.DAO.SurahDAO;
 import com.example.elaislami.DAO.TodoDAO;
 import com.example.elaislami.RoomDBModels.AyahDBModel;
+import com.example.elaislami.RoomDBModels.PrayerStatisticsDBModel;
 import com.example.elaislami.RoomDBModels.SurahDBModel;
 import com.example.elaislami.RoomDBModels.TodoItemDBModel;
 
-@Database(entities = {SurahDBModel.class, AyahDBModel.class, TodoItemDBModel.class}, version = 5, exportSchema = false)
+@Database(entities = {SurahDBModel.class, AyahDBModel.class, TodoItemDBModel.class, PrayerStatisticsDBModel.class}, version = 7, exportSchema = false)
 
 public abstract class SurahRoomDatabase extends RoomDatabase {
 
     public abstract SurahDAO surahDAO();
     public abstract AyahDAO ayahDAO();
     public abstract TodoDAO todoDAO();
+    public abstract PrayerStatsDAO prayerStatsDAO();
+
     private static SurahRoomDatabase INSTANCE;
 
     public static SurahRoomDatabase getDatabase(final Context context) {
@@ -61,11 +65,14 @@ public abstract class SurahRoomDatabase extends RoomDatabase {
         private final SurahDAO sDao;
         private final AyahDAO aDao;
         private final TodoDAO tDao;
+        private final PrayerStatsDAO pDao;
+
 
         PopulateDbAsync(SurahRoomDatabase db) {
             sDao = db.surahDAO();
             aDao = db.ayahDAO();
             tDao = db.todoDAO();
+            pDao=db.prayerStatsDAO();
         }
 
         @Override
@@ -73,6 +80,8 @@ public abstract class SurahRoomDatabase extends RoomDatabase {
             //sDao.deleteAll();
             //aDao.deleteAll();
             //tDao.deleteAll();
+
+            //pDao.deleteAll();
             return null;
         }
     }
