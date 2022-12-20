@@ -42,7 +42,6 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
     SharedPreferences settings;
     SharedPreferences.Editor editor;
     LocationReceiver locationReceiver;
-    ProgressDialog progressdialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +53,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
         editor = settings.edit();
 
         editor.putInt("surahNumber",-1);
+        //editor.putString("date_week",null);
         editor.commit();
         editor = settings.edit();
 

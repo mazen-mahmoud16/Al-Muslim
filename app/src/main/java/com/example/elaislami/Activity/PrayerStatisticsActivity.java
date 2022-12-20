@@ -26,6 +26,7 @@ import com.example.elaislami.Adapter.PrayerViewPagerAdapter;
 import com.example.elaislami.Model.PrayerModel;
 import com.example.elaislami.R;
 import com.example.elaislami.RoomDBModels.PrayerStatisticsDBModel;
+import com.example.elaislami.RoomDBModels.SurahDBModel;
 import com.example.elaislami.RoomDBModels.TodoItemDBModel;
 import com.example.elaislami.ViewModel.PrayerStatsViewModel;
 import com.example.elaislami.ViewModel.SurahViewModel;
@@ -93,10 +94,13 @@ public class PrayerStatisticsActivity extends AppCompatActivity {
         prayerStatsViewModel.getAllPrayerStatsList().observe(this, new Observer<List<PrayerStatisticsDBModel>>() {
             @Override
             public void onChanged(@Nullable final List<PrayerStatisticsDBModel> prayerStatistics) {
+
+
                 // Update the cached copy of the words in the adapter.
                 adapter.setPrayerStatisticsDBModels(prayerStatistics);
                 prayerStatisticsDBModels = prayerStatistics;
                 initViewPager();
+                getPosition();
 
             }
         });
@@ -122,16 +126,16 @@ public class PrayerStatisticsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-               /* numberSalat.setVisibility(View.VISIBLE);
+                int prayerCounter =settings.getInt("prayer_counter",0);
+                numberSalat.setVisibility(View.VISIBLE);
                 progressBar.setVisibility(View.VISIBLE);
-                numberSalat.setText("20/35");
-                ObjectAnimator.ofInt(progressBar, "progress", 20)
+                numberSalat.setText(prayerCounter+getString(R.string.outOf));
+                ObjectAnimator.ofInt(progressBar, "progress", prayerCounter)
                         .setDuration(1000)
-                        .start();*/
+                        .start();
             }
         });
 
-        getPosition();
 
         prevDay.setOnClickListener(view1 -> {
             viewPager.setCurrentItem(viewPager.getCurrentItem() - 1);
@@ -251,6 +255,7 @@ public class PrayerStatisticsActivity extends AppCompatActivity {
 
         Calendar current=Calendar.getInstance();
 
+
         if(days>=7)
         {
 
@@ -259,14 +264,37 @@ public class PrayerStatisticsActivity extends AppCompatActivity {
 
             }
 
+            /*
+            Compute the previous week report
+             */
+
+            int prayerCounter=0;
+            for (PrayerStatisticsDBModel prayerStatisticsDBModel:prayerStatisticsDBModels) {
+                if (prayerStatisticsDBModel.isFajr()) {
+                    prayerCounter++;
+                }
+                if (prayerStatisticsDBModel.isDhuhr()) {
+                    prayerCounter++;
+                }
+                if (prayerStatisticsDBModel.isAsr()) {
+                    prayerCounter++;
+                }
+                if (prayerStatisticsDBModel.isMaghrib()) {
+                    prayerCounter++;
+                }
+                if (prayerStatisticsDBModel.isIsha()) {
+                    prayerCounter++;
+                }
+            }
+
+            editor.putInt("prayer_counter",prayerCounter);
+
             prayerStatsViewModel.deleteAllPrayer();
             SimpleDateFormat format1 = new SimpleDateFormat("E, d MMMM");
 
-            Log.d("keyy",format1.format(current.getTime()));
             editor.putString("date_week",format1.format(current.getTime()));
             editor.commit();
             editor=settings.edit();
-            Log.d("keyy",settings.getString("date_week","Loading"));
 
             for(int i=0;i<=6;i++){
                 prayerStatsViewModel.insertPrayer(new PrayerStatisticsDBModel(format1.format(current.getTime()), false,
@@ -275,8 +303,14 @@ public class PrayerStatisticsActivity extends AppCompatActivity {
 
             }
 
-        }
 
+            prayerStatsViewModel = new ViewModelProvider(this).get(PrayerStatsViewModel.class);
+            adapter = new PrayerStatsViewPagerAdapter(prayerStatisticsDBModels, PrayerStatisticsActivity.this);
+            viewPager.setAdapter(adapter);
+
+
+
+        }
     }
 
 }
