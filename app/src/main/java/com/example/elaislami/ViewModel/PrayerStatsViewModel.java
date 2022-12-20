@@ -21,7 +21,8 @@ public class PrayerStatsViewModel extends AndroidViewModel {
     }
 
     public void insertPrayer(PrayerStatisticsDBModel prayerStatisticsDBModel) { pRepository.insert(prayerStatisticsDBModel); }
+    public void updatePrayer(PrayerStatisticsDBModel prayerStatisticsDBModel) { pRepository.update(prayerStatisticsDBModel); }
 
-    public void deleteAllPrayer() { pRepository.deleteAllPrayer();}
+    public void deleteAllPrayer() { pRepository.deleteAllPrayer(); }
 
 }

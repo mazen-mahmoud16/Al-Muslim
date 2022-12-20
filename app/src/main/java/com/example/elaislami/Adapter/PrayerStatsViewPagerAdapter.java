@@ -7,7 +7,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -18,7 +20,6 @@ import com.example.elaislami.R;
 import com.example.elaislami.RoomDBModels.AyahDBModel;
 import com.example.elaislami.RoomDBModels.PrayerStatisticsDBModel;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -28,10 +29,9 @@ public class PrayerStatsViewPagerAdapter extends PagerAdapter {
     private final Context context;
 
     public PrayerStatsViewPagerAdapter(List<PrayerStatisticsDBModel> models, Context context) {
-        if( prayerStatisticsDBModels==null){
-            this.prayerStatisticsDBModels=new ArrayList<>();
-        }
+
         this.prayerStatisticsDBModels = models;
+        Log.d("hiii",   this.prayerStatisticsDBModels.size()+"");
 
         this.context = context;
 
@@ -54,7 +54,6 @@ public class PrayerStatsViewPagerAdapter extends PagerAdapter {
     public Object instantiateItem(@NonNull ViewGroup container, final int position) {
 
 
-        Log.d("key",prayerStatisticsDBModels.get(position).getDate());
         LayoutInflater layoutInflater = LayoutInflater.from(context);
         View view = layoutInflater.inflate(R.layout.prayer_stats_viewpager_item, container, false);
 
@@ -66,8 +65,40 @@ public class PrayerStatsViewPagerAdapter extends PagerAdapter {
         chk4 = view.findViewById(R.id.chk4);
         chk5 = view.findViewById(R.id.chk5);
 
-        Log.d("hii",prayerStatisticsDBModels.get(position).isAsr()+"");
+        chk1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                prayerStatisticsDBModels.get(position).setFajr(b);
+            }
+        });
 
+        chk2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                prayerStatisticsDBModels.get(position).setDhuhr(b);
+            }
+        });
+
+        chk3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                prayerStatisticsDBModels.get(position).setAsr(b);
+            }
+        });
+
+        chk4.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                prayerStatisticsDBModels.get(position).setMaghrib(b);
+            }
+        });
+
+        chk5.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                prayerStatisticsDBModels.get(position).setIsha(b);
+            }
+        });
         if(prayerStatisticsDBModels.get(position).isFajr()){
             chk1.setChecked(true);
 

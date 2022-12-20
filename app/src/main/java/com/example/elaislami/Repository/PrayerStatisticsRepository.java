@@ -33,6 +33,9 @@ public class PrayerStatisticsRepository {
     public void insert (PrayerStatisticsDBModel prayerStatisticsDBModel) {
         new PrayerStatisticsRepository.insertAsyncTask(mPrayerStatsDao).execute(prayerStatisticsDBModel);
     }
+    public void update (PrayerStatisticsDBModel prayerStatisticsDBModel) {
+        new PrayerStatisticsRepository.updateAsyncTask(mPrayerStatsDao).execute(prayerStatisticsDBModel);
+    }
 
     private static class deleteAsyncTask extends AsyncTask {
 
@@ -65,5 +68,21 @@ public class PrayerStatisticsRepository {
             return null;
         }
     }
+
+    private static class updateAsyncTask extends AsyncTask<PrayerStatisticsDBModel, Void, Void> {
+
+        private PrayerStatsDAO mAsyncTaskDao;
+
+        updateAsyncTask(PrayerStatsDAO dao) {
+            mAsyncTaskDao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(final PrayerStatisticsDBModel... params) {
+            mAsyncTaskDao.update(params[0]);
+            return null;
+        }
+    }
+
 
 }

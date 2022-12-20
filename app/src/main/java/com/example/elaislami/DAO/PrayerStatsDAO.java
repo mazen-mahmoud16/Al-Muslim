@@ -4,7 +4,10 @@ import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
+import androidx.room.Update;
+
 import com.example.elaislami.RoomDBModels.PrayerStatisticsDBModel;
+import com.example.elaislami.RoomDBModels.TodoItemDBModel;
 
 import java.util.List;
 @Dao
@@ -19,5 +22,7 @@ public interface PrayerStatsDAO {
     @Query("SELECT * from prayer_stats_table")
     LiveData<List<PrayerStatisticsDBModel>> getAllPrayerStats();
 
+    @Update
+    void update(PrayerStatisticsDBModel prayerStatsModel);
 
 }

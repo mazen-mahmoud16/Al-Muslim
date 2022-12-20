@@ -64,6 +64,30 @@ public class PrayerStatisticsDBModel {
         return isha;
     }
 
+    public void setDate(@NonNull String date) {
+        this.date = date;
+    }
+
+    public void setFajr(boolean fajr) {
+        this.fajr = fajr;
+    }
+
+    public void setDhuhr(boolean dhuhr) {
+        this.dhuhr = dhuhr;
+    }
+
+    public void setAsr(boolean asr) {
+        this.asr = asr;
+    }
+
+    public void setMaghrib(boolean maghrib) {
+        this.maghrib = maghrib;
+    }
+
+    public void setIsha(boolean isha) {
+        this.isha = isha;
+    }
+
     public int getId() {
         return id;
     }

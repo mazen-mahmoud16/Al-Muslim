@@ -47,8 +47,8 @@ public class PrayerStatisticsActivity extends AppCompatActivity {
     int backState;
     ImageButton back_btn;
     ProgressBar progressBar;
-    Button generate;
-    TextView date,numberSalat;
+    Button generate, save;
+    TextView tv_date,numberSalat;
     ViewPager viewPager;
     ImageButton prevDay;
     ImageButton nextDay;
@@ -71,13 +71,12 @@ public class PrayerStatisticsActivity extends AppCompatActivity {
 
         settings = getSharedPreferences(PREFS_NAME, 0);
         editor =settings.edit();
-        editor.putString("date_week", "Sun, 11 December");
-        editor.commit();
+        save=findViewById(R.id.save);
 
         viewPager = findViewById(R.id.view_pager_prayer_stats);
         prevDay = findViewById(R.id.prev_day);
         nextDay = findViewById(R.id.next_day);
-        date = findViewById(R.id.day_stats);
+        tv_date = findViewById(R.id.day_stats);
 
 
         backState = getIntent().getIntExtra("back_state", -1);
@@ -97,7 +96,7 @@ public class PrayerStatisticsActivity extends AppCompatActivity {
                 // Update the cached copy of the words in the adapter.
                 adapter.setPrayerStatisticsDBModels(prayerStatistics);
                 prayerStatisticsDBModels = prayerStatistics;
-
+                initViewPager();
 
             }
         });
@@ -136,26 +135,34 @@ public class PrayerStatisticsActivity extends AppCompatActivity {
 
         prevDay.setOnClickListener(view1 -> {
             viewPager.setCurrentItem(viewPager.getCurrentItem() - 1);
-            date.setText(prayerStatisticsDBModels.get(viewPager.getCurrentItem()).getDate());
+            tv_date.setText(prayerStatisticsDBModels.get(viewPager.getCurrentItem()).getDate());
 
         });
 
         nextDay.setOnClickListener(view1 -> {
             viewPager.setCurrentItem(viewPager.getCurrentItem() + 1);
-            date.setText(prayerStatisticsDBModels.get(viewPager.getCurrentItem()).getDate());
+            tv_date.setText(prayerStatisticsDBModels.get(viewPager.getCurrentItem()).getDate());
 
         });
 
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                for (PrayerStatisticsDBModel prayerStatisticsDBModel: prayerStatisticsDBModels)
+                {
+                    prayerStatsViewModel.updatePrayer(prayerStatisticsDBModel);
+                }
+                Toasty.success(PrayerStatisticsActivity.this,"Saved Successfully",Toasty.LENGTH_SHORT,true).show();
 
-/*
+            }
+        });
+
         viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                Log.d("keyy",prayerStatisticsDBModels.size()+"");
-                if(!(prayerStatisticsDBModels.size()==0)){
-                    date.setText(prayerStatisticsDBModels.get(position).getDate());
-                }else {
-                    date.setText("hhh");
+                if(!prayerStatisticsDBModels.isEmpty()){
+                    tv_date.setText(prayerStatisticsDBModels.get(viewPager.getCurrentItem()).getDate());
+
                 }
 
             }
@@ -173,14 +180,46 @@ public class PrayerStatisticsActivity extends AppCompatActivity {
         });
     }
 
- */
+
+    public void initViewPager(){
+        SimpleDateFormat formatter = new SimpleDateFormat("E, d MMMM");
+        Calendar currentTime=Calendar.getInstance();
+
+        switch (currentTime.get(Calendar.DAY_OF_WEEK)){
+            case Calendar.SUNDAY:
+                viewPager.setCurrentItem(0);
+                break;
+            case Calendar.MONDAY:
+                viewPager.setCurrentItem(1);
+                break;
+            case Calendar.TUESDAY:
+                viewPager.setCurrentItem(2);
+                break;
+            case Calendar.WEDNESDAY:
+                viewPager.setCurrentItem(3);
+                break;
+            case Calendar.THURSDAY:
+                viewPager.setCurrentItem(4);
+                break;
+            case Calendar.FRIDAY:
+                viewPager.setCurrentItem(5);
+                break;
+            case Calendar.SATURDAY:
+                viewPager.setCurrentItem(6);
+                break;
+
+        }
+        tv_date.setText(formatter.format(currentTime.getTime()));
+
+
     }
+
+
 
     public void getPosition(){
         SimpleDateFormat formatter = new SimpleDateFormat("E, d MMMM");
-        settings.getString("date_week", "Loading");
-
-        String stringDate=settings.getString("date_week","Loading");
+        editor=settings.edit();
+        String stringDate=settings.getString("date_week","Sun, 11 December");
         Date date = null;
         try {
             date = formatter.parse(stringDate);
@@ -204,29 +243,35 @@ public class PrayerStatisticsActivity extends AppCompatActivity {
         currentTime.set(Calendar.SECOND, 0);
         currentTime.set(Calendar.MILLISECOND, 0);
 
-        Log.d("jj",currentTime.getTime().toString());
-        Log.d("jj",calender.getTime().toString());
-
         long days=0;
 
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
              days = Duration.between(calender.toInstant(),currentTime.toInstant()).toDays();
         }
-        Log.d("jj",days+"");
+
+        Calendar current=Calendar.getInstance();
 
         if(days>=7)
         {
-            Log.d("jj","ok");
+
+            while(current.get(Calendar.DAY_OF_WEEK) != Calendar.SUNDAY){
+                current.add(Calendar.DATE,-1);
+
+            }
+
             prayerStatsViewModel.deleteAllPrayer();
-            for(int i=0;i<6;i++){
+            SimpleDateFormat format1 = new SimpleDateFormat("E, d MMMM");
 
-                Calendar current=Calendar.getInstance();
-                current.add(Calendar.DATE,i);
+            Log.d("keyy",format1.format(current.getTime()));
+            editor.putString("date_week",format1.format(current.getTime()));
+            editor.commit();
+            editor=settings.edit();
+            Log.d("keyy",settings.getString("date_week","Loading"));
 
-                SimpleDateFormat format1 = new SimpleDateFormat("E, d MMMM");
-
+            for(int i=0;i<=6;i++){
                 prayerStatsViewModel.insertPrayer(new PrayerStatisticsDBModel(format1.format(current.getTime()), false,
                         false, false, false, false));
+                current.add(Calendar.DATE,1);
 
             }
 
