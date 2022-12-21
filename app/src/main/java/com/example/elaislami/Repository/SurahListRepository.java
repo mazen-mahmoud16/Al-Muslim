@@ -52,13 +52,13 @@ public class SurahListRepository {
         // Make a JSON placeholder API reference to JsonPlaceHolderAPI interface to access API methods
         JsonPlaceHolderAPI jsonPlaceHolderAPI = retrofit.create(JsonPlaceHolderAPI.class);
         call = jsonPlaceHolderAPI.getSurahs();
-
     }
 
     /*
      * Here is the function to get the data from API
      */
     public void getAllSurahsApi(){
+        // Asynchronously send the request and notify callback of its response or if an error occurred talking to the server, creating the request, or processing the response
         call.enqueue(new Callback<SurahFirstResponse>() {
             @Override
             public void onResponse(Call<SurahFirstResponse> call, Response<SurahFirstResponse> response) {
@@ -70,11 +70,15 @@ public class SurahListRepository {
                     assert mAllSurahsRes != null;
                     mAllSurahsList=mAllSurahsRes.getData();
 
+                    // Looping over the list got from the API response body
                     for (SurahDBModel surahDBModel:mAllSurahsList) {
+                        // Inserting in the ROOM DB
                         insert(surahDBModel);
                     }
                 }
             }
+
+            // OnFailure which get the data from ROOM DB in case of lost internet connection
             @Override
             public void onFailure(Call<SurahFirstResponse> call, Throwable t) {
                 Log.d("MVVMX", "--- FAILED " + t.getMessage());

@@ -71,29 +71,32 @@ public class AyahListRepository {
      * Here is the function to get the data from API
      */
     public void getAllAyahsApi(){
-        call.enqueue(new Callback<AyahFirstResponse>() {
+
+        // Asynchronously send the request and notify callback of its response or if an error occurred talking to the server, creating the request, or processing the response
+        call.enqueue(new Callback<AyahFirstResponse>()
+        {
             @Override
             public void onResponse(Call<AyahFirstResponse> call, Response<AyahFirstResponse> response)
             {
                 if (!response.isSuccessful()){
                     Log.d("MVVMX", "--- Not successful");
                 } else {
-
                     AyahFirstResponse mAllAyahsRes = response.body();
                     assert mAllAyahsRes != null;
                     mAllAyahsList=mAllAyahsRes.getData().getAyahs();
 
+                    // Looping over the list got from the API response body
                     for (AyahDBModel ayahDBModel:mAllAyahsList)
                     {
                         ayahDBModel.setSurahNumber(surahNumber);
+                        // Inserting in the ROOM DB
                         insert(ayahDBModel);
                     }
                 }
             }
+            // OnFailure which get the data from ROOM DB in case of lost internet connection
             @Override
             public void onFailure(Call<AyahFirstResponse> call, Throwable t) {
-                mAllAyahs = mAyahDao.getAllAyahs();
-
                 mAllAyahs = mAyahDao.getSpecificAyahs(surahNumber);
                 Log.d("MVVMX", "--- FAILED " + t.getMessage());
             }
