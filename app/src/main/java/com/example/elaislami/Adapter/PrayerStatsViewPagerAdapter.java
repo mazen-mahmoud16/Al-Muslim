@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
 
 import com.example.elaislami.R;
-import com.example.elaislami.RoomDBModels.PrayerStatisticsDBModel;
+import com.example.elaislami.RoomDBManager.RoomDBModels.PrayerStatisticsDBModel;
 
 import java.util.List;
 
@@ -63,11 +63,11 @@ public class PrayerStatsViewPagerAdapter extends PagerAdapter {
 
         CheckBox chk1,chk2,chk3,chk4,chk5;
 
-        chk1 = view.findViewById(R.id.chk1);
-        chk2 = view.findViewById(R.id.chk2);
-        chk3 = view.findViewById(R.id.chk3);
-        chk4 = view.findViewById(R.id.chk4);
-        chk5 = view.findViewById(R.id.chk5);
+        chk1 = view.findViewById(R.id.chk_fajr);
+        chk2 = view.findViewById(R.id.chk_dhuhr);
+        chk3 = view.findViewById(R.id.chk_asr);
+        chk4 = view.findViewById(R.id.chk_maghrib);
+        chk5 = view.findViewById(R.id.chk_isha);
 
         // If fajr is pressed
         chk1.setOnCheckedChangeListener((compoundButton, b) -> prayerStatisticsDBModels.get(position).setFajr(b));

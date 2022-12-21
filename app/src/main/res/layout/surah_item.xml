@@ -22,7 +22,7 @@
         app:layout_constraintTop_toTopOf="@+id/english_name">
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/img_aya_placeholder"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginStart="19dp"
@@ -36,14 +36,14 @@
             android:id="@+id/surah_number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignStart="@id/imageView"
-            android:layout_alignTop="@id/imageView"
-            android:layout_alignEnd="@id/imageView"
-            android:layout_alignBottom="@id/imageView"
+            android:layout_alignStart="@id/img_aya_placeholder"
+            android:layout_alignTop="@id/img_aya_placeholder"
+            android:layout_alignEnd="@id/img_aya_placeholder"
+            android:layout_alignBottom="@id/img_aya_placeholder"
             android:gravity="center"
             android:fontFamily="@font/montserrat_medium"
             android:textStyle="bold"
-            android:textColor="#FFFFFF" />
+            android:textColor="@color/black" />
 
     </RelativeLayout>
 

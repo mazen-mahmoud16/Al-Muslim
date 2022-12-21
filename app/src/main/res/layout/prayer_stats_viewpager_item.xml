@@ -33,10 +33,10 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <CheckBox
-                    android:id="@+id/chk1"
+                    android:id="@+id/chk_fajr"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:buttonTint="#5E8D65"
+                    android:buttonTint="@color/primary_dark_green"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -52,7 +52,7 @@
                     android:textSize="21sp"
                     android:layout_marginStart="15dp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/chk1"
+                    app:layout_constraintStart_toEndOf="@+id/chk_fajr"
                     app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -74,10 +74,10 @@
                 app:layout_constraintTop_toBottomOf="@id/salat_container">
 
                 <CheckBox
-                    android:id="@+id/chk2"
+                    android:id="@+id/chk_dhuhr"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:buttonTint="#5E8D65"
+                    android:buttonTint="@color/primary_dark_green"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -93,7 +93,7 @@
                     android:textColor="@color/black"
                     android:textSize="21sp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/chk2"
+                    app:layout_constraintStart_toEndOf="@+id/chk_dhuhr"
                     app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -117,10 +117,10 @@
                 app:layout_constraintTop_toBottomOf="@id/salat_container2">
 
                 <CheckBox
-                    android:id="@+id/chk3"
+                    android:id="@+id/chk_asr"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:buttonTint="#5E8D65"
+                    android:buttonTint="@color/primary_dark_green"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -136,7 +136,7 @@
                     android:textColor="@color/black"
                     android:textSize="21sp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/chk3"
+                    app:layout_constraintStart_toEndOf="@+id/chk_asr"
                     app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -157,10 +157,10 @@
                 app:layout_constraintTop_toBottomOf="@id/salat_container3">
 
                 <CheckBox
-                    android:id="@+id/chk4"
+                    android:id="@+id/chk_maghrib"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:buttonTint="#5E8D65"
+                    android:buttonTint="@color/primary_dark_green"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -176,7 +176,7 @@
                     android:textColor="@color/black"
                     android:textSize="21sp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/chk4"
+                    app:layout_constraintStart_toEndOf="@+id/chk_maghrib"
                     app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -198,10 +198,10 @@
                 app:layout_constraintTop_toBottomOf="@id/salat_container4">
 
                 <CheckBox
-                    android:id="@+id/chk5"
+                    android:id="@+id/chk_isha"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:buttonTint="#5E8D65"
+                    android:buttonTint="@color/primary_dark_green"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -217,7 +217,7 @@
                     android:textColor="@color/black"
                     android:textSize="21sp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/chk5"
+                    app:layout_constraintStart_toEndOf="@+id/chk_isha"
                     app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>

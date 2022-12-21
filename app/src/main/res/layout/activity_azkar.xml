@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.AzkarActivity">
+    tools:context=".View.Activity.AzkarActivity">
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/tool_bar_azkar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         android:minHeight="?attr/actionBarSize"
-        android:background="#f5f5f5"
+        android:background="@color/whitesmoke"
         android:elevation="10dp"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
@@ -24,9 +24,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
-                android:background="#00000000"
+                android:background="@color/transparent"
                 android:contentDescription="@string/back_button"
-                android:foreground="?android:attr/selectableItemBackground"
                 android:src="@drawable/ic_baseline_arrow_back"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -40,7 +39,7 @@
                 android:layout_margin="10dp"
                 android:fontFamily="@font/montserrat_bold"
                 android:text="@string/azkar"
-                android:textColor="#5E8D65"
+                android:textColor="@color/primary_dark_green"
                 android:textSize="30sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -53,7 +52,7 @@
     </androidx.appcompat.widget.Toolbar>
 
     <RelativeLayout
-        android:id="@+id/relativeLayout"
+        android:id="@+id/relativeLayout_spinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
@@ -65,8 +64,8 @@
         app:layout_constraintTop_toBottomOf="@+id/tool_bar_azkar">
 
         <Spinner
-            android:fontFamily="@font/montserrat_medium"
             android:id="@+id/azkar_spinner"
+            android:fontFamily="@font/montserrat_medium"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -97,7 +96,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/relativeLayout"
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout_spinner"
         tools:listitem="@layout/azkar_item"
         />
     </androidx.constraintlayout.widget.ConstraintLayout>

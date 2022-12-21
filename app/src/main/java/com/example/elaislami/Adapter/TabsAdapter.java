@@ -5,10 +5,10 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
-import com.example.elaislami.Fragment.HomeFragment;
-import com.example.elaislami.Fragment.PrayerFragment;
-import com.example.elaislami.Fragment.QiblaFragment;
-import com.example.elaislami.Fragment.SurahsListFragment;
+import com.example.elaislami.View.Fragment.HomeFragment;
+import com.example.elaislami.View.Fragment.PrayerFragment;
+import com.example.elaislami.View.Fragment.QiblaFragment;
+import com.example.elaislami.View.Fragment.SurahsListFragment;
 
 /*
  * This is the tabs list for the view pager

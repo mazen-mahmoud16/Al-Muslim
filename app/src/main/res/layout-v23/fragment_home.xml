@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".Fragment.HomeFragment">
+    tools:context=".View.Fragment.HomeFragment">
 
     <ImageView
         android:id="@+id/loc_ic"
@@ -13,7 +13,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/loc"
         android:layout_marginStart="33dp"
-        android:background="#00000000"
+        android:background="@color/transparent"
         android:src="@drawable/ic_baseline_location"
         android:contentDescription="@string/location_logo" />
 
@@ -127,13 +127,13 @@
 
 
             <ImageButton
-                android:id="@+id/img1"
+                android:id="@+id/img_todo"
                 android:layout_width="100dp"
                 android:layout_height="80dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
                 android:layout_marginEnd="10dp"
-                android:backgroundTint="@color/white"
+                android:backgroundTint="@color/transparent"
                 android:contentDescription="@string/the_todolist_icon"
                 android:padding="4dp"
                 android:src="@drawable/ic_todo"
@@ -143,96 +143,96 @@
                 tools:ignore="ImageContrastCheck" />
 
             <TextView
-                android:id="@+id/txt01"
+                android:id="@+id/txt_todo"
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="@id/img1"
-                app:layout_constraintEnd_toEndOf="@id/img1"
+                app:layout_constraintStart_toStartOf="@id/img_todo"
+                app:layout_constraintEnd_toEndOf="@id/img_todo"
                 android:textSize="15sp"
                 android:gravity="center"
                 android:textColor="@color/black"
                 android:text="@string/todo_list_title"
                 android:fontFamily="@font/montserrat_regular"
-                app:layout_constraintTop_toBottomOf="@id/img1"/>
+                app:layout_constraintTop_toBottomOf="@id/img_todo"/>
 
 
             <ImageButton
-                android:id="@+id/img2"
+                android:id="@+id/img_prayer_stat"
                 android:layout_width="100dp"
                 android:layout_height="80dp"
                 android:layout_marginTop="10dp"
-                android:backgroundTint="@color/white"
+                android:backgroundTint="@color/transparent"
                 android:contentDescription="@string/the_prayer_statistics_icon"
                 android:padding="4dp"
                 android:src="@drawable/ic_stat"
                 android:textColor="@color/black"
-                app:layout_constraintStart_toEndOf="@id/img1"
+                app:layout_constraintStart_toEndOf="@id/img_todo"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="ImageContrastCheck" />
 
             <TextView
-                android:id="@+id/txt02"
+                android:id="@+id/txt_prayer_stat"
                 android:layout_width="70dp"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                app:layout_constraintStart_toStartOf="@id/img2"
-                app:layout_constraintEnd_toEndOf="@id/img2"
+                app:layout_constraintStart_toStartOf="@id/img_prayer_stat"
+                app:layout_constraintEnd_toEndOf="@id/img_prayer_stat"
                 android:textSize="15sp"
                 android:textColor="@color/black"
                 android:text="@string/prayer_statistics_title"
                 android:fontFamily="@font/montserrat_regular"
-                app:layout_constraintTop_toTopOf="@id/txt01"/>
+                app:layout_constraintTop_toTopOf="@id/txt_todo"/>
 
             <ImageButton
-                android:id="@+id/img3"
+                android:id="@+id/img_azkar"
                 android:layout_width="100dp"
                 android:layout_height="80dp"
                 android:layout_marginTop="10dp"
-                android:backgroundTint="@color/white"
+                android:backgroundTint="@color/transparent"
                 android:contentDescription="@string/the_azkar_icon"
                 android:paddingTop="17dp"
                 android:src="@drawable/ic_pray"
                 android:textColor="@color/black"
-                app:layout_constraintStart_toEndOf="@id/img2"
+                app:layout_constraintStart_toEndOf="@id/img_prayer_stat"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="ImageContrastCheck" />
 
             <TextView
-                android:id="@+id/txt03"
+                android:id="@+id/txt_azkar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="@id/img3"
-                app:layout_constraintEnd_toEndOf="@id/img3"
+                app:layout_constraintStart_toStartOf="@id/img_azkar"
+                app:layout_constraintEnd_toEndOf="@id/img_azkar"
                 android:textSize="15sp"
                 android:textColor="@color/black"
                 android:text="@string/azkar"
                 android:fontFamily="@font/montserrat_regular"
-                app:layout_constraintTop_toTopOf="@id/txt01"/>
+                app:layout_constraintTop_toTopOf="@id/txt_todo"/>
 
             <ImageButton
-                android:id="@+id/img4"
+                android:id="@+id/img_tasabeeh"
                 android:layout_width="100dp"
                 android:layout_height="80dp"
                 android:src="@drawable/ic_tasbeeh"
                 android:paddingTop="10dp"
                 android:layout_marginTop="10dp"
-                app:layout_constraintStart_toEndOf="@id/img3"
+                app:layout_constraintStart_toEndOf="@id/img_azkar"
                 app:layout_constraintTop_toTopOf="parent"
-                android:backgroundTint="@color/white"
+                android:backgroundTint="@color/transparent"
                 android:textColor="@color/black"
                 android:contentDescription="@string/the_tasabeeh_icon" />
 
             <TextView
-                android:id="@+id/txt04"
+                android:id="@+id/txt_tasabeeh"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="@id/img4"
-                app:layout_constraintEnd_toEndOf="@id/img4"
+                app:layout_constraintStart_toStartOf="@id/img_tasabeeh"
+                app:layout_constraintEnd_toEndOf="@id/img_tasabeeh"
                 android:textSize="15sp"
                 android:textColor="@color/black"
                 android:fontFamily="@font/montserrat_regular"
                 android:text="@string/tasabeeh_title"
-                app:layout_constraintTop_toTopOf="@id/txt01"/>
+                app:layout_constraintTop_toTopOf="@id/txt_todo"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </HorizontalScrollView>

@@ -1,5 +1,5 @@
 package com.example.elaislami.Model;
-import com.example.elaislami.RoomDBModels.SurahDBModel;
+import com.example.elaislami.RoomDBManager.RoomDBModels.SurahDBModel;
 import com.google.gson.annotations.SerializedName;
 import java.util.List;
 

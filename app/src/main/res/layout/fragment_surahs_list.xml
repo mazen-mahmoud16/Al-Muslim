@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragment.SurahsListFragment"
+    tools:context=".View.Fragment.SurahsListFragment"
     android:paddingTop="-20dp">
 
     <TextView
@@ -15,7 +15,7 @@
         android:fontFamily="@font/montserrat_medium"
         android:textSize="25sp"
         android:layout_marginStart="23sp"
-        android:textColor="#5E8D65"
+        android:textColor="@color/primary_dark_green"
         android:textStyle="normal"
         android:layout_marginTop="10dp"
         app:layout_constraintStart_toStartOf="parent"

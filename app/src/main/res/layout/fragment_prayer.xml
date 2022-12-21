@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingTop="-20dp"
-    tools:context=".Fragment.SurahsListFragment">
+    tools:context=".View.Fragment.SurahsListFragment">
 
     <TextView
         android:id="@+id/prayer_times_title_english"
@@ -14,7 +14,7 @@
         android:layout_marginTop="10dp"
         android:fontFamily="@font/montserrat_medium"
         android:text="@string/prayer_times_title"
-        android:textColor="#5E8D65"
+        android:textColor="@color/primary_dark_green"
         android:textSize="25sp"
         android:textStyle="normal"
         app:layout_constraintStart_toStartOf="@id/prev_day"
@@ -28,7 +28,7 @@
         android:layout_marginTop="10dp"
         android:fontFamily="@font/montserrat_medium"
         android:text="@string/prayer_times_title_arabic"
-        android:textColor="#5E8D65"
+        android:textColor="@color/primary_dark_green"
         android:textSize="25sp"
         android:textStyle="normal"
         app:layout_constraintBottom_toBottomOf="@+id/prayer_times_title_english"
@@ -43,7 +43,7 @@
         android:layout_height="30dp"
         app:layout_constraintStart_toStartOf="@id/prev_day"
         app:layout_constraintTop_toTopOf="@id/loc"
-        android:background="#00000000"
+        android:background="@color/transparent"
         android:src="@drawable/ic_baseline_location"
         android:contentDescription="@string/location_logo" />
 
@@ -66,7 +66,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:background="#00000000"
+        android:background="@color/transparent"
         android:contentDescription="@string/previous_day_icon"
         android:src="@drawable/ic_baseline_arrow_back_black"
         app:layout_constraintBottom_toTopOf="@id/view_pager_prayer"
@@ -93,7 +93,7 @@
         android:layout_marginEnd="15dp"
         android:fontFamily="@font/montserrat_medium"
         android:text="@string/date_test"
-        android:textColor="#000000"
+        android:textColor="@color/black"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/prev_day"
         app:layout_constraintEnd_toStartOf="@id/line2"
@@ -114,7 +114,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="20dp"
-        android:background="#00000000"
+        android:background="@color/transparent"
         android:contentDescription="@string/next_day_icon"
         android:src="@drawable/ic_baseline_arrow_forward_black"
         app:layout_constraintBottom_toBottomOf="@id/prev_day"

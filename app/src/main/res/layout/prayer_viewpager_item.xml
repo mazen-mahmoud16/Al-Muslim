@@ -40,7 +40,6 @@
                     android:text="@string/fajr"
                     android:textColor="@color/black"
                     android:textSize="18sp"
-
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -117,7 +116,6 @@
                     android:text="@string/dhuhr"
                     android:textColor="@color/black"
                     android:textSize="18sp"
-
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -156,7 +154,6 @@
                     android:text="@string/asr"
                     android:textColor="@color/black"
                     android:textSize="18sp"
-
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -233,7 +230,6 @@
                     android:text="@string/isha"
                     android:textColor="@color/black"
                     android:textSize="18sp"
-
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -251,8 +247,5 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
-
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

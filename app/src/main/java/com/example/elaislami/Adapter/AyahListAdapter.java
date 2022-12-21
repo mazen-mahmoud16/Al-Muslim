@@ -11,7 +11,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.elaislami.R;
-import com.example.elaislami.RoomDBModels.AyahDBModel;
+import com.example.elaislami.RoomDBManager.RoomDBModels.AyahDBModel;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;

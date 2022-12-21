@@ -11,7 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.elaislami.RoomDBModels.SurahDBModel;
+import com.example.elaislami.RoomDBManager.RoomDBModels.SurahDBModel;
 
 import java.text.Normalizer;
 import java.util.ArrayList;

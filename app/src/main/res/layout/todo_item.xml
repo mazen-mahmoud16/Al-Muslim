@@ -40,7 +40,7 @@
         android:id="@+id/item_delete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="#00000000"
+        android:background="@color/transparent"
         android:contentDescription="@string/delete_todo_icon"
         android:src="@drawable/ic_baseline_delete"
         app:layout_constraintBottom_toBottomOf="parent"

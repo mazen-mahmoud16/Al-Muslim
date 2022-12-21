@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.PrayerStatisticsActivity">
+    tools:context=".View.Activity.PrayerStatisticsActivity">
 
 
     <androidx.appcompat.widget.Toolbar
@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         android:minHeight="?attr/actionBarSize"
-        android:background="#f5f5f5"
+        android:background="@color/whitesmoke"
         android:elevation="10dp"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
@@ -26,9 +26,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:background="#00000000"
+                android:background="@color/transparent"
                 android:contentDescription="@string/back_button"
-                android:foreground="?android:attr/selectableItemBackground"
                 android:src="@drawable/ic_baseline_arrow_back"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -43,7 +42,7 @@
                 android:layout_margin="10dp"
                 android:fontFamily="@font/montserrat_bold"
                 android:text="@string/prayer_statistics_title"
-                android:textColor="#5E8D65"
+                android:textColor="@color/primary_dark_green"
                 android:textSize="30sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@id/back_btn"
@@ -59,7 +58,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:background="#00000000"
+        android:background="@color/transparent"
         android:contentDescription="@string/previous_day_icon"
         android:src="@drawable/ic_baseline_arrow_back_black"
         app:layout_constraintBottom_toTopOf="@id/view_pager_prayer_stats"
@@ -85,7 +84,7 @@
         android:layout_marginStart="15dp"
         android:layout_marginEnd="15dp"
         android:fontFamily="@font/montserrat_medium"
-        android:textColor="#000000"
+        android:textColor="@color/black"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/prev_day"
         app:layout_constraintEnd_toStartOf="@id/line2"
@@ -106,7 +105,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="20dp"
-        android:background="#00000000"
+        android:background="@color/transparent"
         android:contentDescription="@string/next_day_icon"
         android:src="@drawable/ic_baseline_arrow_forward_black"
         app:layout_constraintBottom_toBottomOf="@id/prev_day"
@@ -146,7 +145,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:backgroundTint="#D6CDA4"
+        android:backgroundTint="@color/dark_vanilla"
         android:fontFamily="@font/montserrat_bold"
         android:padding="10dp"
         android:textColor="@color/black"
@@ -182,8 +181,6 @@
         app:layout_constraintTop_toBottomOf="@id/progress_bar"
         app:layout_constraintBottom_toBottomOf="parent"
         />
-
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
