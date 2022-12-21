@@ -37,7 +37,7 @@ import java.util.TimeZone;
 public class PrayerFragment extends Fragment {
 
     /*
-     * Text views to show angle and heading of qibla
+     * Text views to show location and date
      */
     private TextView tvLocation;
     private TextView tvDate;
@@ -64,6 +64,7 @@ public class PrayerFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        // Inflate the layout for this fragment
         View view=inflater.inflate(R.layout.fragment_prayer, container, false);
 
         /*

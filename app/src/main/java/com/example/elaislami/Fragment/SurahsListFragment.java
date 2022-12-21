@@ -1,66 +1,79 @@
 package com.example.elaislami.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SearchView;
-import android.widget.Toast;
-
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import com.example.elaislami.Activity.SurahDetailActivity;
 import com.example.elaislami.Adapter.SurahListAdapter;
 import com.example.elaislami.Listener.SurahListener;
-
 import com.example.elaislami.R;
 import com.example.elaislami.RoomDBModels.SurahDBModel;
 import com.example.elaislami.ViewModel.SurahViewModel;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
-import es.dmoral.toasty.Toasty;
-
+/*
+ * Here is surah list fragment class that is triggered when we open the fourth tab in the view pager
+ */
 public class SurahsListFragment extends Fragment implements SurahListener {
 
-    RecyclerView rv_surahs;
-    List<SurahDBModel> list=new ArrayList<>();
-    SurahViewModel surahViewModel;
-    SearchView searchView;
-    SurahListAdapter surahAdapter;
+    // Recycler View
+    private RecyclerView rvSurahs;
 
+    // List of surah models
+    private List<SurahDBModel> surahDBModels =new ArrayList<>();
+
+    // View Model
+    private SurahViewModel surahViewModel;
+
+    // Search View
+    private SearchView searchView;
+
+    // Adapter
+    private SurahListAdapter surahAdapter;
+
+    /*
+     * Here is on create view function
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         View view=inflater.inflate(R.layout.fragment_surahs_list, container, false);
 
+        /*
+         * Assign recycler view and search view
+         */
+        rvSurahs =view.findViewById(R.id.surahRV);
+        searchView=view.findViewById(R.id.search_bar);
+
+        // Initialize the adapter
+        surahAdapter=new SurahListAdapter(surahDBModels,getContext(), this);
+
+        // Set layout manager
+        rvSurahs.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        // Set adapter
+        rvSurahs.setAdapter(surahAdapter);
+
+        // Initialize the view model
         surahViewModel = new ViewModelProvider(this).get(SurahViewModel.class);
 
-        rv_surahs=view.findViewById(R.id.surahRV);
-        surahAdapter=new SurahListAdapter(list,getContext(),this::onSurahListener);
-        rv_surahs.setLayoutManager(new LinearLayoutManager(getContext()));
-        rv_surahs.setAdapter(surahAdapter);
+        surahViewModel.getAllSurahs().observe(requireActivity(), surahModels -> {
+            // Update the cached copy of the words in the adapter.
+                surahAdapter.setSurahs(surahModels);
+                surahDBModels =surahModels;
+            });
 
-        surahViewModel.getAllSurahs().observe(getActivity(), new Observer<List<SurahDBModel>>() {
-            @Override
-            public void onChanged(@Nullable final List<SurahDBModel> surahModels) {
-                // Update the cached copy of the words in the adapter.
-                    surahAdapter.setSurahs(surahModels);
-                    list=surahModels;
-                }
-        });
-
-        searchView=view.findViewById(R.id.search_bar);
+        /*
+         * Search view listener fired if any text added or removed
+         */
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
@@ -71,7 +84,6 @@ public class SurahsListFragment extends Fragment implements SurahListener {
             public boolean onQueryTextChange(String s) {
                 if(s != null){
                     filter(s);
-
                 }
                 return false;
             }
@@ -80,30 +92,41 @@ public class SurahsListFragment extends Fragment implements SurahListener {
         return view;
     }
 
+    /*
+     * Here is the function to open the surah detail activity based on the surah that user clicked on.
+     */
     @Override
     public void onSurahListener(int position) {
         Intent intent = new Intent(getActivity(), SurahDetailActivity.class);
-        intent.putExtra("surah_englishName", list.get(position).getEnglishName());
-        intent.putExtra("surah_arabicName", list.get(position).getName());
-        intent.putExtra("surah_number", list.get(position).getNumber());
+        intent.putExtra("surah_englishName", surahDBModels.get(position).getEnglishName());
+        intent.putExtra("surah_arabicName", surahDBModels.get(position).getName());
+        intent.putExtra("surah_number", surahDBModels.get(position).getNumber());
         startActivity(intent);
     }
 
+    /*
+     * Here is the function to filter the list in the adapter based on the words entered by user in the search view
+     */
     private void filter(String text) {
-        ArrayList<SurahDBModel> filteredlist = new ArrayList<SurahDBModel>();
 
-            for (SurahDBModel surah : list) {
+        // Initialize new list that will be filled  with the filtered results of search
+        ArrayList<SurahDBModel> filteredList = new ArrayList<>();
+
+            // Looping on the main adapter list
+            for (SurahDBModel surah : surahDBModels) {
                 if (surah.getEnglishName().toLowerCase().contains(text.toLowerCase())||surah.getName().toLowerCase().contains(text.toLowerCase())) {
-                    filteredlist.add(surah);
+                    filteredList.add(surah);
                 }
             }
-            if (filteredlist.isEmpty()) {
-                surahAdapter.setSurahs(filteredlist);
+
+            /*
+             * setting the adapter again with the resulted list
+             */
+            if (filteredList.isEmpty()) {
+                surahAdapter.setSurahs(filteredList);
             } else {
-                surahAdapter.setSurahs(filteredlist);
+                surahAdapter.setSurahs(filteredList);
             }
-
-
     }
 
 }

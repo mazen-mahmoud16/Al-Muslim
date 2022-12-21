@@ -1,29 +1,19 @@
 package com.example.elaislami.Fragment;
-
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.hardware.Sensor;
-import android.hardware.SensorManager;
 import android.os.Build;
 import android.os.Bundle;
-
-import androidx.annotation.RequiresApi;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.fragment.app.Fragment;
-
 import android.os.Handler;
-import android.os.SystemClock;
-import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-
+import androidx.annotation.RequiresApi;
+import androidx.fragment.app.Fragment;
 import com.example.elaislami.Activity.AzkarActivity;
 import com.example.elaislami.Activity.PrayerStatisticsActivity;
 import com.example.elaislami.Activity.TasabehActivity;
@@ -31,283 +21,260 @@ import com.example.elaislami.Activity.TodoActivity;
 import com.example.elaislami.Model.PrayerModel;
 import com.example.elaislami.R;
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
-import java.io.IOException;
-import java.lang.reflect.Type;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
-import java.time.Instant;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 
 
 public class HomeFragment extends Fragment {
-    private ImageView todo_btn;
-    private ImageView statistics_btn;
-    private ImageView azkar_btn,tasabeh_btn;
-    private TextView loc,salatName,salatTime,test,sibhaCounter;
-    private ImageButton reset;
-    private ImageButton add;
-    ProgressDialog dialog;
 
-    String currentPrayer = "";
+    // Image views to icons of horizontal scroll view
+    private ImageView imgStatistics,imgTasabeeh,imgAzkar,imgTodo;
 
+    // Text Views to show location, prayer name, prayer time, prayer count down, sibha counter
+    private TextView tvLocation, tvPrayerName, tvPrayerTime, tvPrayerCountdown, tvSibhaCounter;
 
-    Intent intent;
+    // Image views to icons of reset and add butons
+    private ImageButton tvResetSibha,tvIncrementSibha;
 
+    // To store the current prayer got from shared preferences from prayer fragment to check whether the current prayer changed or not
+    private String currentPrayer = "";
+
+    // Intent to go through other activities
+    private Intent intent;
+
+    /*
+     * To use shared preference
+     */
     public static final String PREFS_NAME = "MyPreferenceFile";
     SharedPreferences settings;
     SharedPreferences.OnSharedPreferenceChangeListener sharedPreferenceChangeListener;
     SharedPreferences.Editor editor;
 
+    // To store the prayer times of the current day
+    Double fajrTime,dhuhrTime,asrTime,maghribTime,ishaTime,currentDate;
 
+    @SuppressLint("SimpleDateFormat")
+    SimpleDateFormat mainFormatter = new SimpleDateFormat("HH:mm aa");
+    SimpleDateFormat secondaryFormatter = new SimpleDateFormat("hh:mm", Locale.ENGLISH);
+
+
+
+    /*
+     * Here is on create view function
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-        todo_btn = view.findViewById(R.id.img1);
-        statistics_btn = view.findViewById(R.id.img2);
-        azkar_btn = view.findViewById(R.id.img3);
-        tasabeh_btn = view.findViewById(R.id.img4);
-        salatName = view.findViewById(R.id.salat);
-        salatTime = view.findViewById(R.id.salat_tim);
-        test=view.findViewById(R.id.counter);
 
-        sibhaCounter = view.findViewById(R.id.sibha);
-        reset = view.findViewById(R.id.reset);
-        add = view.findViewById(R.id.add);
+        /*
+         * Assign Image views
+         */
+        imgTodo = view.findViewById(R.id.img1);
+        imgStatistics = view.findViewById(R.id.img2);
+        imgAzkar = view.findViewById(R.id.img3);
+        imgTasabeeh = view.findViewById(R.id.img4);
 
+        /*
+         * Assign Image views
+         */
+        tvPrayerName = view.findViewById(R.id.salat);
+        tvPrayerTime = view.findViewById(R.id.salat_tim);
+        tvPrayerCountdown =view.findViewById(R.id.counter);
+        tvSibhaCounter = view.findViewById(R.id.sibha);
+        tvResetSibha = view.findViewById(R.id.reset);
+        tvIncrementSibha = view.findViewById(R.id.add);
+        tvLocation =view.findViewById(R.id.loc);
 
-        loc=view.findViewById(R.id.loc);
-        settings = getActivity().getSharedPreferences(PREFS_NAME, 0);
+        // Assign shared preference settings
+        settings = requireActivity().getSharedPreferences(PREFS_NAME, 0);
 
+        // Setting sibha counter by the value stored in the shared preferences
+        tvSibhaCounter.setText(String.valueOf(settings.getInt("sibha", 0)));
+
+        // Initialize Gson to be used in getting the current day prayers from shared preference coming from prayer fragment
         Gson gson = new Gson();
-
-        Handler handler = new Handler();
         editor=settings.edit();
 
-
+        /*
+         * Initializing and running new thread
+         */
+        Handler handler = new Handler();
         final Runnable r = new Runnable() {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @SuppressLint({"SetTextI18n", "DefaultLocale"})
             public void run() {
 
-
-
+                /*
+                 * Getting the current day prayer times
+                 */
                 String json = settings.getString("prayers", "Loading");
-                PrayerModel obj = gson.fromJson(json, PrayerModel.class);
+                PrayerModel todaysPrayers = gson.fromJson(json, PrayerModel.class);
 
-                if (obj != null) {
+                // Checking if the object obtained equals null or not
+                if (todaysPrayers != null)
+                {
                     currentPrayer = settings.getString("currentPrayer", "Loading");
-                    String fajr = obj.getFajr().substring(0, 5);
-                    String dhuhr = obj.getDhuhr().substring(0, 5);
-                    String asr = obj.getAsr().substring(0, 5);
-                    String maghrib = obj.getMaghrib().substring(0, 5);
-                    String isha = obj.getIsha().substring(0, 5);
+
+                    // Getting the current date and time
                     Date current_date = new Date();
-                    @SuppressLint("SimpleDateFormat") SimpleDateFormat formatTime = new SimpleDateFormat("HH:mm aa");
-                    String result_time = formatTime.format(current_date);
-                    String current = result_time.substring(0, 5);
-                    String current2 = current.replace(":", ".");
-                    Double current_int = Double.parseDouble(current2);
 
-                    String fajr2 = fajr.replace(":", ".");
-                    Double fajr_int = Double.parseDouble(fajr2);
+                    // Formatting today's time
+                    String result_time = mainFormatter.format(current_date);
 
-                    dhuhr = dhuhr.replace(":", ".");
-                    asr = asr.replace(":", ".");
-                    maghrib = maghrib.replace(":", ".");
-                    isha = isha.replace(":", ".");
+                    /*
+                     * Calling prayerTimeGenerator method and pass with it the string current time or the string prayer time (in 24-hour format)
+                     * to convert the string time into double format to be used in comparison easily later in the if statements
+                     */
+                    currentDate = prayerTimeGenerator(result_time);
+                    fajrTime=prayerTimeGenerator(todaysPrayers.getFajr());
+                    dhuhrTime=prayerTimeGenerator(todaysPrayers.getDhuhr());
+                    asrTime=prayerTimeGenerator(todaysPrayers.getAsr());
+                    maghribTime=prayerTimeGenerator(todaysPrayers.getMaghrib());
+                    ishaTime=prayerTimeGenerator(todaysPrayers.getIsha());
 
-                    Double dhuhr_int = Double.parseDouble(dhuhr);
-                    Double asr_int = Double.parseDouble(asr);
-                    Double maghrib_int = Double.parseDouble(maghrib);
-                    Double isha_int = Double.parseDouble(isha);
-                    String hour11="";
-                    String hour22="";
+                    // get the current time without taking AM or PM to be used later in the count down function
+                    result_time=result_time.substring(0,5);
 
-                    if ((current_int <= fajr_int && current_int < isha_int) || (current_int > fajr_int && current_int > isha_int)) {
+                    // Initialize the prayerTime to be assigned later with the string time of the upcoming prayer time
+                    String prayerTime="";
 
-                        if(!currentPrayer.equals("Fajr")) {
+                    /*
+                     * Checking whether the current time is between isha time and fajr time or not
+                     */
+                    if ((currentDate <= fajrTime && currentDate < ishaTime) || (currentDate > fajrTime && currentDate > ishaTime))
+                    {
+                        // Checking whether the current shared preferences value changed or not
+                        if(!currentPrayer.equals("Fajr"))
+                        {
                             editor.putString("currentPrayer", "Fajr");
                             editor.commit();
                         }
 
-                            hour11 = current.substring(0, 2)+":"+current.substring(3, 5);
-                            hour22 = fajr.substring(0, 2)+":"+fajr.substring(3, 5);
+                        // Checking whether the prayer time before 10 AM or not to see if there is 0 at the beginning of the string or not
+                        if(fajrTime<=9)
+                        {
+                            prayerTime = fajrTime.toString().charAt(0)+":"+fajrTime.toString().charAt(3);
+                        }
+                        else
+                        {
+                            prayerTime = fajrTime.toString().substring(0, 2)+":"+fajrTime.toString().substring(3, 5);
+                        }
+                            tvPrayerName.setText("Fajr");
+                            prayerTimeSetter(todaysPrayers.getFajr());
+                    }
 
-
-                            salatName.setText("Fajr");
-                            SimpleDateFormat formatter2 = new SimpleDateFormat("hh:mm", Locale.ENGLISH);
-
-                            String dateInString = obj.getFajr().substring(0, 5);
-                            String AoP = obj.getFajr().substring(6, 8);
-
-                            Date date = null;
-                            try {
-                                date = formatter2.parse(dateInString);
-                            } catch (ParseException e) {
-                                e.printStackTrace();
-                            }
-                            String formattedDateString = formatter2.format(date);
-
-                            salatTime.setText(formattedDateString + " " + AoP);
-
-
-
-
-                    } else if (current_int > fajr_int && current_int <= dhuhr_int) {
-
-                        if(!currentPrayer.equals("Dhuhr")) {
+                    /*
+                     * Checking whether the current time is between fajr time and dhuhr time or not
+                     */
+                    else if (currentDate > fajrTime && currentDate <= dhuhrTime)
+                    {
+                        // Checking whether the current shared preferences value changed or not
+                        if(!currentPrayer.equals("Dhuhr"))
+                        {
                             editor.putString("currentPrayer", "Dhuhr");
                             editor.commit();
                         }
 
-                        hour11 = current.substring(0, 2)+":"+current.substring(3, 5);
-                        hour22 = dhuhr.substring(0, 2)+":"+dhuhr.substring(3, 5);
+                        // Checking whether the prayer time before 10 AM or not to see if there is 0 at the beginning of the string or not
+                        if(dhuhrTime<=9)
+                        {
+                            prayerTime = dhuhrTime.toString().charAt(0)+":"+dhuhrTime.toString().charAt(3);
+                        }
+                        else
+                        {
+                            prayerTime = dhuhrTime.toString().substring(0, 2)+":"+dhuhrTime.toString().substring(3, 5);
+                        }
+                            tvPrayerName.setText("Dhuhr");
+                            prayerTimeSetter(todaysPrayers.getDhuhr());
+                    }
 
-                            salatName.setText("Dhuhr");
+                    /*
+                     * Checking whether the current time is between dhuhr time and asr time or not
+                     */
+                    else if (currentDate > dhuhrTime && currentDate <= asrTime) {
 
-                            SimpleDateFormat formatter2 = new SimpleDateFormat("hh:mm", Locale.ENGLISH);
-
-                            String dateInString = obj.getDhuhr().substring(0, 5);
-                            String AoP = obj.getDhuhr().substring(6, 8);
-
-                            Date date = null;
-                            try {
-                                date = formatter2.parse(dateInString);
-                            } catch (ParseException e) {
-                                e.printStackTrace();
-                            }
-                            String formattedDateString = formatter2.format(date);
-
-                            salatTime.setText(formattedDateString + " " + AoP);
-
-
-
-                    } else if (current_int > dhuhr_int && current_int <= asr_int) {
-
-
+                        // Checking whether the current shared preferences value changed or not
                         if(!currentPrayer.equals("Asr")) {
                             editor.putString("currentPrayer", "Asr");
                             editor.commit();
                         }
 
-                        hour11 = current.substring(0, 2)+":"+current.substring(3, 5);
-                        hour22 = asr.substring(0, 2)+":"+asr.substring(3, 5);
+                        // Checking whether the prayer time before 10 AM or not to see if there is 0 at the beginning of the string or not
+                        if(asrTime<=9){
+                            prayerTime = asrTime.toString().charAt(0)+":"+asrTime.toString().charAt(3);
 
+                        }
+                        else{
+                            prayerTime = asrTime.toString().substring(0, 2)+":"+asrTime.toString().substring(3, 5);
 
-                        salatName.setText("Asr");
-                            SimpleDateFormat formatter2 = new SimpleDateFormat("hh:mm", Locale.ENGLISH);
+                        }
 
-                            String dateInString = obj.getAsr().substring(0, 5);
-                            String AoP = obj.getAsr().substring(6, 8);
-
-                            Date date = null;
-                            try {
-                                date = formatter2.parse(dateInString);
-                            } catch (ParseException e) {
-                                e.printStackTrace();
-                            }
-                            String formattedDateString = formatter2.format(date);
-
-                            salatTime.setText(formattedDateString + " " + AoP);
-
-
-
+                        tvPrayerName.setText("Asr");
+                        prayerTimeSetter(todaysPrayers.getAsr());
                     }
-                    if (current_int > asr_int && current_int <= maghrib_int) {
+                    /*
+                     * Checking whether the current time is between asr time and maghrib time or not
+                     */
+                   else if (currentDate > asrTime && currentDate <= maghribTime) {
 
+                        // Checking whether the current shared preferences value changed or not
                         if(!currentPrayer.equals("Maghrib")) {
                             editor.putString("currentPrayer", "Maghrib");
                             editor.commit();
 
                         }
 
-                        hour22 = maghrib.substring(0, 2)+":"+maghrib.substring(3, 5);
-                        hour11 = current.substring(0, 2)+":"+current.substring(3, 5);
+                        // Checking whether the prayer time before 10 AM or not to see if there is 0 at the beginning of the string or not
+                        if(maghribTime<=9){
+                            prayerTime = maghribTime.toString().charAt(0)+":"+maghribTime.toString().charAt(3);
 
+                        }
+                        else
+                        {
+                            prayerTime = maghribTime.toString().substring(0, 2)+":"+maghribTime.toString().substring(3, 5);
 
-                            salatName.setText("Maghrib");
-                            SimpleDateFormat formatter2 = new SimpleDateFormat("hh:mm", Locale.ENGLISH);
-                            String dateInString = obj.getMaghrib().substring(0, 5);
-                            String AoP = obj.getMaghrib().substring(6, 8);
+                        }
 
-                            Date date = null;
-                            try {
-                                date = formatter2.parse(dateInString);
-                            } catch (ParseException e) {
-                                e.printStackTrace();
-                            }
-                            String formattedDateString = formatter2.format(date);
+                        tvPrayerName.setText("Maghrib");
+                        prayerTimeSetter(todaysPrayers.getMaghrib());
+                    }
 
-                            salatTime.setText(formattedDateString + " " + AoP);
+                    /*
+                     * Checking whether the current time is between maghrib time and isha time or not
+                     */
+                    else if (currentDate > maghribTime && currentDate <= ishaTime) {
 
-
-
-                    } else if (current_int > maghrib_int && current_int <= isha_int) {
-
+                        // Checking whether the current shared preferences value changed or not
                         if(!currentPrayer.equals("Isha")) {
                             editor.putString("currentPrayer", "Isha");
                             editor.commit();
                         }
-                        hour22 = isha.substring(0, 2)+":"+isha.substring(3, 5);
-                        hour11 = current.substring(0, 2)+":"+current.substring(3, 5);
 
-                            salatName.setText("Isha");
+                        // Checking whether the prayer time before 10 AM or not to see if there is 0 at the beginning of the string or not
+                        if(ishaTime<=9)
+                        {
+                            prayerTime = ishaTime.toString().charAt(0)+":"+ishaTime.toString().charAt(3);
 
-                            SimpleDateFormat formatter2 = new SimpleDateFormat("hh:mm", Locale.ENGLISH);
+                        }
+                        else
+                        {
+                            prayerTime = ishaTime.toString().substring(0, 2)+":"+ishaTime.toString().substring(3, 5);
 
-                            String dateInString = obj.getIsha().substring(0, 5);
-                            String AoP = obj.getIsha().substring(6, 8);
-
-                            Date date = null;
-                            try {
-                                date = formatter2.parse(dateInString);
-                            } catch (ParseException e) {
-                                e.printStackTrace();
-                            }
-                            String formattedDateString = formatter2.format(date);
-                            salatTime.setText(formattedDateString + " " + AoP);
-
-
+                        }
+                            tvPrayerName.setText("Isha");
+                            prayerTimeSetter(todaysPrayers.getIsha());
                     }
 
-                  if(!hour11.isEmpty()){
-                    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm");
-                    LocalTime lt1 = LocalTime.parse(hour11, dtf);
-                    LocalTime lt2 = LocalTime.parse(hour22, dtf);
-
-                    Duration between = Duration.between(lt1, lt2);
-
-                    if (lt2.isBefore(lt1)) {
-                        between = Duration.ofMinutes(TimeUnit.DAYS.toMinutes(1)).plus(between);
-                    }
-                    String finalTime=between.toString().replace("PT","");
-                    if(finalTime.contains("H")&&finalTime.contains("M")){
-                        finalTime=finalTime.replace("H"," hrs and ");
-                        finalTime=finalTime.replace("M"," mins left");
-                    }
-                    else if(finalTime.contains("H")){
-                        finalTime=finalTime.replace("H"," hrs and 0 mins left");
-
-                    }else{
-                        finalTime=finalTime.replace("M"," mins left");
-                    }
-
-                    test.setText(finalTime);
-                }
-
+                    setCountdown(result_time,prayerTime);
                 }
 
                 handler.postDelayed(this, 1000);
@@ -316,96 +283,164 @@ public class HomeFragment extends Fragment {
 
         handler.postDelayed(r, 1000);
 
-        sibhaCounter.setText(String.valueOf(settings.getInt("sibha", 0)));
-
-        reset.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                SharedPreferences.Editor editor = settings.edit();
-                editor.putInt("sibha", 0);
-                editor.commit();
-                sibhaCounter.setText(String.valueOf(0));
-            }
+        /*
+         * Handling when user clicks on reset icon to reset sibha counter
+         */
+        tvResetSibha.setOnClickListener(view1 -> {
+            SharedPreferences.Editor editor = settings.edit();
+            editor.putInt("sibha", 0);
+            editor.apply();
+            tvSibhaCounter.setText(String.valueOf(0));
         });
 
-        add.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                int curr_counter = Integer.parseInt(sibhaCounter.getText().toString());
-                curr_counter++;
-                SharedPreferences.Editor editor = settings.edit();
-                editor.putInt("sibha", curr_counter);
-                editor.commit();
-                sibhaCounter.setText(String.valueOf(curr_counter));
-            }
+        /*
+         * Handling when user clicks on + icon to increment sibha counter
+         */
+        tvIncrementSibha.setOnClickListener(view12 -> {
+            int curr_counter = Integer.parseInt(tvSibhaCounter.getText().toString());
+            curr_counter++;
+            SharedPreferences.Editor editor = settings.edit();
+            editor.putInt("sibha", curr_counter);
+            editor.apply();
+            tvSibhaCounter.setText(String.valueOf(curr_counter));
         });
 
+        /*
+         * Listen on address (location)
+         */
+        sharedPreferenceChangeListener = (sharedPreferences, key) -> {
 
-        sharedPreferenceChangeListener = new SharedPreferences.OnSharedPreferenceChangeListener() {
-            @Override
-            public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-                if (key.equals("address")) {
-                    if(settings.getString("address", "Loading").equals("Loading")){
-                        ProgressDialog dialog = new ProgressDialog(getActivity());
-                        dialog.setMessage("please wait...");
-                        dialog.show();
-                    }
-                    else{
-                        if(dialog !=null){
-                            dialog.dismiss();
-                        }
-                        loc.setText(settings.getString("address", "Loading"));
-                    }
+           // If address is changed
+            if (key.equals("address")) {
+                if(settings.getString("address", "Loading").equals("Loading")){
+                    ProgressDialog dialog = new ProgressDialog(getActivity());
+                    dialog.setMessage("please wait...");
+                    dialog.show();
                 }
-
+                else{
+                    tvLocation.setText(settings.getString("address", "Loading"));
+                }
             }
+
         };
 
-
-        tasabeh_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                intent = new Intent(getActivity(), TasabehActivity.class);
-                startActivity(intent);
-            }
+        /*
+         * Handling when user clicks on tasbeeh image
+         */
+        imgTasabeeh.setOnClickListener(view13 -> {
+            intent = new Intent(getActivity(), TasabehActivity.class);
+            startActivity(intent);
         });
 
-
-        todo_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                intent = new Intent(getActivity(), TodoActivity.class);
-                startActivity(intent);
-            }
+        /*
+         * Handling when user clicks on todo image
+         */
+        imgTodo.setOnClickListener(view14 -> {
+            intent = new Intent(getActivity(), TodoActivity.class);
+            startActivity(intent);
         });
 
-        statistics_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                intent = new Intent(getActivity(), PrayerStatisticsActivity.class);
-                startActivity(intent);
-            }
+        /*
+         * Handling when user clicks on statistics image
+         */
+        imgStatistics.setOnClickListener(view15 -> {
+            intent = new Intent(getActivity(), PrayerStatisticsActivity.class);
+            startActivity(intent);
         });
 
-        azkar_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                intent = new Intent(getActivity(), AzkarActivity.class);
-                startActivity(intent);
-            }
+        /*
+         * Handling when user clicks on azkar image
+         */
+        imgAzkar.setOnClickListener(view16 -> {
+            intent = new Intent(getActivity(), AzkarActivity.class);
+            startActivity(intent);
         });
 
         return view;
     }
 
+    /*
+     * Here is the function to calculate the time remaining for the upcoming prayer then to set its text view
+     */
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private void setCountdown(String result_time, String prayerTime) {
+        /*
+         * Used Duration method to calculate difference between two 24-hour format times
+         */
+        if(!result_time.isEmpty())
+        {
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm");
+            LocalTime lt1 = LocalTime.parse(result_time, dtf);
+            LocalTime lt2 = LocalTime.parse(prayerTime, dtf);
+            Duration between = Duration.between(lt1, lt2);
 
+            if (lt2.isBefore(lt1))
+            {
+                between = Duration.ofMinutes(TimeUnit.DAYS.toMinutes(1)).plus(between);
+            }
+            String finalTime=between.toString().replace("PT","");
+            if(finalTime.contains("H")&&finalTime.contains("M")){
+                finalTime=finalTime.replace("H"," hrs and ");
+                finalTime=finalTime.replace("M"," mins left");
+            }
+            else if(finalTime.contains("H"))
+            {
+                finalTime=finalTime.replace("H"," hrs and 0 mins left");
+
+            }
+            else
+            {
+                finalTime=finalTime.replace("M"," mins left");
+            }
+
+            tvPrayerCountdown.setText(finalTime);
+        }
+
+    }
+
+    /*
+     * Here is the function to generate time in Double format to be used in comparisons easily
+     */
+    public Double prayerTimeGenerator(String prayerTime)
+    {
+        // Remove the AM/PM part
+        String timePart=prayerTime.substring(0, 5);
+        String modifiedTime = timePart.replace(":", ".");
+        return Double.parseDouble(modifiedTime);
+    }
+
+    /*
+     * Here is the function to format and set the upcoming prayer time with the 12-hour format
+     */
+    private void prayerTimeSetter(String prayerTime) {
+        String dateInString = prayerTime.substring(0, 5);
+        String AoP = prayerTime.substring(6, 8);
+
+        Date date = null;
+        try {
+            date = secondaryFormatter.parse(dateInString);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        assert date != null;
+        String formattedDateString = secondaryFormatter.format(date);
+
+        tvPrayerTime.setText(String.format("%s %s", formattedDateString, AoP));
+    }
+
+    /*
+     * Overriding function on Resume to register a listener to shared preference and set textview location
+     */
     @Override
     public void onResume() {
         super.onResume();
         settings.registerOnSharedPreferenceChangeListener(sharedPreferenceChangeListener);
-        loc.setText(settings.getString("address", "Loading"));
+        tvLocation.setText(settings.getString("address", "Loading"));
     }
 
+    /*
+     * Overriding function on Pause to unregister a listener to shared preference
+     */
     @Override
     public void onPause() {
         super.onPause();
