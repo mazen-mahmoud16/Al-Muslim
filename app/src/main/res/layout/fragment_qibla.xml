@@ -6,111 +6,125 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".View.Fragment.QiblaFragment">
 
-
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/qibla_title"
-        android:textSize="25sp"
-        android:layout_marginStart="23sp"
-        android:textColor="@color/primary_dark_green"
-        android:textStyle="normal"
-        android:layout_marginTop="10dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/title_arabic"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/qibla_title_arabic"
-        android:textSize="25sp"
-        android:layout_marginEnd="30sp"
-        android:textColor="@color/primary_dark_green"
-        android:textStyle="normal"
-        app:layout_constraintTop_toTopOf="@id/title"
-        app:layout_constraintEnd_toEndOf="parent"/>
-
-    <ImageView
-        android:id="@+id/loc_ic"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        app:layout_constraintStart_toStartOf="@id/title"
-        app:layout_constraintTop_toTopOf="@id/loc"
-        android:background="@color/transparent"
-        android:src="@drawable/ic_baseline_location"
-        android:contentDescription="@string/location_logo" />
-
-    <TextView
-        android:id="@+id/loc"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/montserrat_medium"
-        android:gravity="center"
-        app:layout_constraintEnd_toEndOf="@id/title_arabic"
-        android:layout_marginTop="15dp"
-        app:layout_constraintStart_toEndOf="@id/loc_ic"
-        app:layout_constraintTop_toBottomOf="@id/title"/>
-
-
-    <TextView
-        android:id="@+id/hint"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/bg_rounded_primary"
-        android:fontFamily="@font/montserrat_medium"
-        android:gravity="center"
-        android:padding="10dp"
-        android:text="@string/qibla_hint"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toTopOf="@id/rel_layout"
-        app:layout_constraintEnd_toEndOf="@id/title_arabic"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@id/title"
-        app:layout_constraintTop_toBottomOf="@id/loc"
-        tools:ignore="TextContrastCheck" />
-
-    <RelativeLayout
-        android:id="@+id/rel_layout"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_marginTop="10dp"
-        app:layout_constraintBottom_toTopOf="@id/heading"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/hint">
+        android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/image_compass"
-            android:layout_width="300dp"
-            android:layout_height="300dp"
-            android:layout_centerInParent="true"
-            android:src="@drawable/img_compass"
-            android:contentDescription="@string/compass_image" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/qibla_title"
+                android:textSize="25sp"
+                android:layout_marginStart="23sp"
+                android:textColor="@color/primary_dark_green"
+                android:textStyle="normal"
+                android:layout_marginTop="10dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/title_arabic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/qibla_title_arabic"
+                android:textSize="25sp"
+                android:layout_marginEnd="30sp"
+                android:textColor="@color/primary_dark_green"
+                android:textStyle="normal"
+                app:layout_constraintTop_toTopOf="@id/title"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <ImageView
+                android:id="@+id/loc_ic"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                app:layout_constraintStart_toStartOf="@id/title"
+                app:layout_constraintTop_toTopOf="@id/loc"
+                android:background="@color/transparent"
+                android:src="@drawable/ic_baseline_location"
+                android:contentDescription="@string/location_logo" />
+
+            <TextView
+                android:id="@+id/loc"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_medium"
+                android:gravity="center"
+
+                app:layout_constraintEnd_toEndOf="@id/title_arabic"
+                android:layout_marginTop="15dp"
+                app:layout_constraintStart_toEndOf="@id/loc_ic"
+                app:layout_constraintTop_toBottomOf="@id/title"/>
 
 
-        <ImageView
-            android:id="@+id/image_cursor"
-            android:layout_width="350dp"
-            android:layout_height="350dp"
-            android:layout_alignTop="@+id/image_compass"
-            android:layout_centerInParent="true"
-            android:contentDescription="@string/cursor_image"
-            android:rotation="0"
-            android:src="@drawable/img_qibla_needle" />
+            <TextView
+                android:id="@+id/hint"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/bg_rounded_primary"
+                android:fontFamily="@font/montserrat_medium"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="@string/qibla_hint"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toTopOf="@id/rel_layout"
+                app:layout_constraintEnd_toEndOf="@id/title_arabic"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="@id/title"
+                app:layout_constraintTop_toBottomOf="@id/loc"
+                tools:ignore="TextContrastCheck" />
+
+            <RelativeLayout
+                android:id="@+id/rel_layout"
+                android:layout_width="match_parent"
+                android:layout_marginTop="10dp"
+                app:layout_constraintBottom_toTopOf="@id/heading"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/hint">
+
+                <ImageView
+                    android:id="@+id/image_compass"
+                    android:layout_width="300dp"
+                    android:layout_height="300dp"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/img_compass"
+                    android:contentDescription="@string/compass_image" />
 
 
-    </RelativeLayout>
+                <ImageView
+                    android:id="@+id/image_cursor"
+                    android:layout_width="350dp"
+                    android:layout_height="350dp"
+                    android:layout_alignTop="@+id/image_compass"
+                    android:layout_centerInParent="true"
+                    android:contentDescription="@string/cursor_image"
+                    android:rotation="0"
+                    android:src="@drawable/img_qibla_needle" />
 
-    <TextView
-        android:id="@+id/heading"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/rel_layout"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        />
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/heading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/rel_layout"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
