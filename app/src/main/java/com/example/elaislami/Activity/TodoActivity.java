@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -27,31 +26,54 @@ import java.util.List;
 
 import es.dmoral.toasty.Toasty;
 
+/*
+ * Here is Todo activity that is triggered when we choose todo list option from home fragment
+ */
 public class TodoActivity extends AppCompatActivity implements TodoListener {
 
-    int backState;
-    ImageButton back_btn;
-    RecyclerView rv_todo;
-    TodoListAdapter todoListAdapter;
-    List<TodoItemDBModel> todoItems=new ArrayList<>();
-    SurahViewModel surahViewModel;
-    EditText addedItem;
-    Button add;
+    /*
+     * Edit texts, image buttons, recycler view and buttons used
+     */
+    private ImageButton imgBackBtn;
+    private EditText etAddedItem;
+    private Button add;
+    private RecyclerView rv_todo;
+    private Toolbar toolbar;
 
+    // Declare adapter for recycler view
+    private TodoListAdapter todoListAdapter;
+
+    // Declare an empty list to be passed to adapter
+    private List<TodoItemDBModel> todoItems=new ArrayList<>();
+
+    // Maintain a reference to the surah view model
+    private SurahViewModel surahViewModel;
+
+
+    /*
+     * Here is on create function
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_todo);
 
-        backState=getIntent().getIntExtra("back_state",-1);
+        /*
+         * Assign elements in layout
+         */
+        toolbar = findViewById(R.id.tool_bar_todo);
+        imgBackBtn =findViewById(R.id.back_btn);
+        rv_todo = findViewById(R.id.list_rec);
+        etAddedItem = findViewById(R.id.todo_item);
+        add = findViewById(R.id.add_todo);
 
-        Toolbar toolbar = findViewById(R.id.tool_bar_todo);
-
+        // Set toolbar
         setSupportActionBar(toolbar);
 
-        back_btn=findViewById(R.id.back_btn);
-
-        back_btn.setOnClickListener(new View.OnClickListener() {
+        /*
+         * Handle when user clicks back
+         */
+        imgBackBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i=new Intent(TodoActivity.this,MainActivity.class);
@@ -61,16 +83,17 @@ public class TodoActivity extends AppCompatActivity implements TodoListener {
             }
         });
 
-
-
-        rv_todo = findViewById(R.id.list_rec);
-
+        /*
+         * Initialize vew model and adapter to pass it to recycler view
+         */
         surahViewModel = new ViewModelProvider(this).get(SurahViewModel.class);
-
         todoListAdapter=new TodoListAdapter(todoItems, this);
         rv_todo.setLayoutManager(new LinearLayoutManager(this));
         rv_todo.setAdapter(todoListAdapter);
 
+        /*
+         * Observe on the live data change
+         */
         surahViewModel.getAllTodoList().observe(this, new Observer<List<TodoItemDBModel>>() {
             @Override
             public void onChanged(@Nullable final List<TodoItemDBModel> todoModels) {
@@ -80,13 +103,15 @@ public class TodoActivity extends AppCompatActivity implements TodoListener {
             }
         });
 
-        addedItem = findViewById(R.id.todo_item);
-        add = findViewById(R.id.add_todo);
-
+        /*
+         * Handle when user wants to enter a new todo item
+         */
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String addedText = addedItem.getText().toString();
+                String addedText = etAddedItem.getText().toString();
+
+                // Check whether it is empty or not
                 if(addedText.isEmpty()){
                     Toasty.error(TodoActivity.this, "Please enter a todo item to be added", Toasty.LENGTH_LONG, true).show();
                 }
@@ -94,7 +119,7 @@ public class TodoActivity extends AppCompatActivity implements TodoListener {
                     TodoItemDBModel newItem = new TodoItemDBModel();
                     newItem.setContent(addedText);
                     surahViewModel.insertTodoItem(newItem);
-                    addedItem.setText("");
+                    etAddedItem.setText("");
                     Toasty.success(TodoActivity.this, "Item added successfully", Toasty.LENGTH_SHORT, true).show();
                 }
             }
@@ -102,6 +127,9 @@ public class TodoActivity extends AppCompatActivity implements TodoListener {
 
     }
 
+    /*
+     * Handle when user wants to delete a specific todo item
+     */
     @Override
     public void onDeleteTodoItem(int position) {
         surahViewModel.deleteTodoItem(todoItems.get(position).getId());

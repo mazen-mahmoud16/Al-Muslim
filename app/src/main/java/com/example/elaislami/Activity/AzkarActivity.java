@@ -22,74 +22,108 @@ import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.util.List;
 
-
+/*
+ * Here is azkar statistics activity that is triggered when we choose azkar option from home fragment
+ */
 public class AzkarActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
-    String[] azkar = {"Morning Azkar", "Night Azkar"};
 
+    // Assign drop down list values
+    private String[] azkar = {"Morning Azkar", "Night Azkar"};
 
-    ImageButton back_btn;
-    RecyclerView azkarRV;
-    String jsonFileString;
-    Gson gson;
-    Type listAzkarType;
-    List<AzkarModel> azkarModelList;
-    AzkarAdapter azkarAdapterList;
+    /*
+     * Edit texts, image buttons, recycler view and spinners used
+     */
+    private Toolbar toolbar;
+    private ImageButton imgBackBtn;
+    private RecyclerView rvAzkar;
+    private Spinner spin;
 
+    /*
+     * To get Azkar Json
+     */
+    private String jsonFileString;
+    private Gson gson;
+    private Type listAzkarType;
+
+    // Declare adapter
+    private AzkarAdapter azkarAdapter;
+
+    // Declare list to be passed to adapter
+    private List<AzkarModel> azkarModelList;
+
+    /*
+     * Here is on create function
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_azkar);
 
-        Spinner spin = (Spinner) findViewById(R.id.azkar_spinner);
+        /*
+         * Assign elements in layout
+         */
+        spin = findViewById(R.id.azkar_spinner);
+        toolbar = findViewById(R.id.tool_bar_azkar);
+        rvAzkar =findViewById(R.id.AzkarRV);
+        imgBackBtn = findViewById(R.id.back_btn);
+
+        // Set listener on spinner (drop diwn list)
         spin.setOnItemSelectedListener(this);
 
-        ArrayAdapter azkarAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, azkar);
-        azkarAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spin.setAdapter(azkarAdapter);
+        // Set adapter to spinner
+        ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, azkar);
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spin.setAdapter(arrayAdapter);
 
-        Toolbar toolbar = findViewById(R.id.tool_bar_azkar);
-
+        // Set toolbar
         setSupportActionBar(toolbar);
 
-        back_btn = findViewById(R.id.back_btn);
+        // Set layout to recycler view
+        rvAzkar.setLayoutManager(new LinearLayoutManager(AzkarActivity.this));
 
-        back_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(AzkarActivity.this, MainActivity.class);
-                i.putExtra("back_state", 0);
-                startActivity(i);
-
-            }
-        });
-
-        azkarRV =findViewById(R.id.AzkarRV);
-        azkarRV.setLayoutManager(new LinearLayoutManager(AzkarActivity.this));
+        // Manage json file
         gson = new Gson();
         listAzkarType = new TypeToken<List<AzkarModel>>() { }.getType();
 
-
+        /*
+         * Handle when user clicks back
+         */
+        imgBackBtn.setOnClickListener(view -> {
+            Intent i = new Intent(AzkarActivity.this, MainActivity.class);
+            i.putExtra("back_state", 0);
+            startActivity(i);
+        });
     }
 
+    /*
+     * When new item is selected from drop down list
+     */
     @Override
     public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long id) {
-        // Morning
+
+        // If morning azkar is pressed
         if(position == 0){
+
+            // Get morning list and assign it to adapter
             jsonFileString = Utils.getJsonFromAssets(getApplicationContext(), "morningazkar.json");
             azkarModelList = gson.fromJson(jsonFileString, listAzkarType);
-            azkarAdapterList=new AzkarAdapter(azkarModelList);
-            azkarRV.setAdapter(azkarAdapterList);
+            azkarAdapter =new AzkarAdapter(azkarModelList);
+            rvAzkar.setAdapter(azkarAdapter);
         }
+
+        // If evening azkar is pressed
         else if(position==1){
+
+            // Get morning list and assign it to adapter
             jsonFileString = Utils.getJsonFromAssets(getApplicationContext(), "nightazkar.json");
             azkarModelList = gson.fromJson(jsonFileString, listAzkarType);
-            azkarAdapterList=new AzkarAdapter(azkarModelList);
-            azkarRV.setAdapter(azkarAdapterList);
+            azkarAdapter =new AzkarAdapter(azkarModelList);
+            rvAzkar.setAdapter(azkarAdapter);
         }
     }
 
     @Override
     public void onNothingSelected(AdapterView<?> arg0) {
-        // TODO Auto-generated method stub
+
     }
 }

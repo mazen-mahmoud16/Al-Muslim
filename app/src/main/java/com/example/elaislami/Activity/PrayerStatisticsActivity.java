@@ -1,9 +1,7 @@
 package com.example.elaislami.Activity;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager.widget.ViewPager;
 
@@ -12,24 +10,16 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.batoulapps.adhan.PrayerTimes;
-import com.batoulapps.adhan.data.DateComponents;
 import com.example.elaislami.Adapter.PrayerStatsViewPagerAdapter;
-import com.example.elaislami.Adapter.PrayerViewPagerAdapter;
-import com.example.elaislami.Model.PrayerModel;
 import com.example.elaislami.R;
 import com.example.elaislami.RoomDBModels.PrayerStatisticsDBModel;
-import com.example.elaislami.RoomDBModels.SurahDBModel;
-import com.example.elaislami.RoomDBModels.TodoItemDBModel;
 import com.example.elaislami.ViewModel.PrayerStatsViewModel;
-import com.example.elaislami.ViewModel.SurahViewModel;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -37,138 +27,149 @@ import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Formatter;
 import java.util.List;
-import java.util.TimeZone;
 
 import es.dmoral.toasty.Toasty;
 
+/*
+ * Here is prayer statistics activity that is triggered when we choose prayer statistics option from home fragment
+ */
 public class PrayerStatisticsActivity extends AppCompatActivity {
 
-    int backState;
-    ImageButton back_btn;
-    ProgressBar progressBar;
-    Button generate, save;
-    TextView tv_date,numberSalat;
-    ViewPager viewPager;
-    ImageButton prevDay;
-    ImageButton nextDay;
-    PrayerStatsViewPagerAdapter adapter;
-    List<PrayerStatisticsDBModel> prayerStatisticsDBModels= new ArrayList<>();
+    /*
+     * Edit texts, image buttons, recycler view and buttons used
+     */
+    private ImageButton imgBackBtn;
+    private ProgressBar progressBar;
+    private Button btnGenerate, btnSave;
+    private TextView tvDate, tvNumberSalat;
+    private ViewPager viewPager;
+    private ImageButton imgPrevDayBtn;
+    private ImageButton imgNextDayBtn;
+    private Toolbar toolbar;
 
-    PrayerStatsViewModel prayerStatsViewModel;
+    // Declare adapter and empty list to be passed to adapter
+    private PrayerStatsViewPagerAdapter adapter;
+    private List<PrayerStatisticsDBModel> prayerStatisticsDBModels= new ArrayList<>();
 
-    SharedPreferences settings;
-    SharedPreferences.Editor editor;
-    SharedPreferences.OnSharedPreferenceChangeListener sharedPreferenceChangeListener;
+    // Declare view model
+    private PrayerStatsViewModel prayerStatsViewModel;
 
+    /*
+     * To use shared preference
+     */
     public static final String PREFS_NAME = "MyPreferenceFile";
+    private SharedPreferences settings;
+    private SharedPreferences.Editor editor;
 
-
+    /*
+     * Here is on create function
+     */
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_prayer_statistics);
 
+        // Initialize shared preference
         settings = getSharedPreferences(PREFS_NAME, 0);
         editor =settings.edit();
-        save=findViewById(R.id.save);
 
+        /*
+         * Assign elements in layout
+         */
+        btnSave =findViewById(R.id.save);
         viewPager = findViewById(R.id.view_pager_prayer_stats);
-        prevDay = findViewById(R.id.prev_day);
-        nextDay = findViewById(R.id.next_day);
-        tv_date = findViewById(R.id.day_stats);
+        imgPrevDayBtn = findViewById(R.id.prev_day);
+        imgNextDayBtn = findViewById(R.id.next_day);
+        tvDate = findViewById(R.id.day_stats);
+        imgBackBtn = findViewById(R.id.back_btn);
+        toolbar = findViewById(R.id.tool_bar_prayer);
+        btnGenerate = findViewById(R.id.generate);
+        progressBar = findViewById(R.id.prog_bar);
+        tvNumberSalat = findViewById(R.id.num_salat);
 
-
-        backState = getIntent().getIntExtra("back_state", -1);
-
-        Toolbar toolbar = findViewById(R.id.tool_bar_prayer);
-
+        // Set toolbar
         setSupportActionBar(toolbar);
 
-        back_btn = findViewById(R.id.back_btn);
+        /*
+         * Initialize view model and adapter and set adapter to view pager
+         */
         prayerStatsViewModel = new ViewModelProvider(this).get(PrayerStatsViewModel.class);
         adapter = new PrayerStatsViewPagerAdapter(prayerStatisticsDBModels, PrayerStatisticsActivity.this);
         viewPager.setAdapter(adapter);
 
-        prayerStatsViewModel.getAllPrayerStatsList().observe(this, new Observer<List<PrayerStatisticsDBModel>>() {
-            @Override
-            public void onChanged(@Nullable final List<PrayerStatisticsDBModel> prayerStatistics) {
-
-
-                // Update the cached copy of the words in the adapter.
-                adapter.setPrayerStatisticsDBModels(prayerStatistics);
-                prayerStatisticsDBModels = prayerStatistics;
-                initViewPager();
-                getPosition();
-
-            }
+        /*
+         * Observe on the live data change
+         */
+        prayerStatsViewModel.getAllPrayerStatsList().observe(this, prayerStatistics -> {
+            adapter.setPrayerStatisticsDBModels(prayerStatistics);
+            prayerStatisticsDBModels = prayerStatistics;
+            initViewPager();
+            getPosition();
         });
 
-
-        back_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(PrayerStatisticsActivity.this, MainActivity.class);
-                i.putExtra("back_state", 0);
-                startActivity(i);
-
-            }
+        /*
+         * Handle when user clicks back
+         */
+        imgBackBtn.setOnClickListener(view -> {
+            Intent i = new Intent(PrayerStatisticsActivity.this, MainActivity.class);
+            i.putExtra("back_state", 0);
+            startActivity(i);
         });
 
-        generate = findViewById(R.id.generate);
+        /*
+         * Handle when user clicks generate to generate previous week report
+         */
+        btnGenerate.setOnClickListener(view -> {
 
-        progressBar = findViewById(R.id.prog_bar);
-
-        numberSalat = findViewById(R.id.num_salat);
-
-        generate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                int prayerCounter =settings.getInt("prayer_counter",0);
-                numberSalat.setVisibility(View.VISIBLE);
-                progressBar.setVisibility(View.VISIBLE);
-                numberSalat.setText(prayerCounter+getString(R.string.outOf));
-                ObjectAnimator.ofInt(progressBar, "progress", prayerCounter)
-                        .setDuration(1000)
-                        .start();
-            }
+            // Animate progress bar
+            int prayerCounter =settings.getInt("prayer_counter",0);
+            tvNumberSalat.setVisibility(View.VISIBLE);
+            progressBar.setVisibility(View.VISIBLE);
+            tvNumberSalat.setText(prayerCounter+getString(R.string.outOf));
+            ObjectAnimator.ofInt(progressBar, "progress", prayerCounter)
+                    .setDuration(1000)
+                    .start();
         });
 
-
-        prevDay.setOnClickListener(view1 -> {
+        /*
+         * Handles when user wants to view previous item in view pager
+         */
+        imgPrevDayBtn.setOnClickListener(view1 -> {
             viewPager.setCurrentItem(viewPager.getCurrentItem() - 1);
-            tv_date.setText(prayerStatisticsDBModels.get(viewPager.getCurrentItem()).getDate());
-
+            tvDate.setText(prayerStatisticsDBModels.get(viewPager.getCurrentItem()).getDate());
         });
 
-        nextDay.setOnClickListener(view1 -> {
+        /*
+         * Handles when user wants to view next item in view pager
+         */
+        imgNextDayBtn.setOnClickListener(view1 -> {
             viewPager.setCurrentItem(viewPager.getCurrentItem() + 1);
-            tv_date.setText(prayerStatisticsDBModels.get(viewPager.getCurrentItem()).getDate());
+            tvDate.setText(prayerStatisticsDBModels.get(viewPager.getCurrentItem()).getDate());
 
         });
 
-        save.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                for (PrayerStatisticsDBModel prayerStatisticsDBModel: prayerStatisticsDBModels)
-                {
-                    prayerStatsViewModel.updatePrayerStatistics(prayerStatisticsDBModel);
-                }
-                Toasty.success(PrayerStatisticsActivity.this,"Saved Successfully",Toasty.LENGTH_SHORT,true).show();
-
+        /*
+         * Handles when user clicks save
+         */
+        btnSave.setOnClickListener(view -> {
+            for (PrayerStatisticsDBModel prayerStatisticsDBModel: prayerStatisticsDBModels)
+            {
+                prayerStatsViewModel.updatePrayerStatistics(prayerStatisticsDBModel);
             }
+            Toasty.success(PrayerStatisticsActivity.this,"Saved Successfully",Toasty.LENGTH_SHORT,true).show();
         });
 
+        /*
+         * Listen on changes on view pager
+         */
         viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                 if(!prayerStatisticsDBModels.isEmpty()){
-                    tv_date.setText(prayerStatisticsDBModels.get(viewPager.getCurrentItem()).getDate());
-
+                    tvDate.setText(prayerStatisticsDBModels.get(viewPager.getCurrentItem()).getDate());
                 }
-
             }
 
             @Override
@@ -184,9 +185,11 @@ public class PrayerStatisticsActivity extends AppCompatActivity {
         });
     }
 
-
+    /*
+     * Show current day in view pager
+     */
     public void initViewPager(){
-        SimpleDateFormat formatter = new SimpleDateFormat("E, d MMMM");
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("E, d MMMM");
         Calendar currentTime=Calendar.getInstance();
 
         switch (currentTime.get(Calendar.DAY_OF_WEEK)){
@@ -211,63 +214,74 @@ public class PrayerStatisticsActivity extends AppCompatActivity {
             case Calendar.SATURDAY:
                 viewPager.setCurrentItem(6);
                 break;
-
         }
-        tv_date.setText(formatter.format(currentTime.getTime()));
 
-
+        // Set date in textview
+        tvDate.setText(formatter.format(currentTime.getTime()));
     }
 
-
-
+    /*
+     * Check whether Sunday has come or not, and if yes generate previous week report and reset database
+     */
     public void getPosition(){
-        SimpleDateFormat formatter = new SimpleDateFormat("E, d MMMM");
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormatter = new SimpleDateFormat("E, d MMMM");
+
+        // Get last Sunday date
         editor=settings.edit();
         String stringDate=settings.getString("date_week","Sun, 11 December");
+
+        /*
+         * The following code is to compare number of days between today and the last sunday
+         */
         Date date = null;
         try {
-            date = formatter.parse(stringDate);
+            date = dateFormatter.parse(stringDate);
         } catch (ParseException e) {
             e.printStackTrace();
         }
 
-        Calendar calender = Calendar.getInstance();
-        calender.setTime(date);
-        calender.set(Calendar.YEAR,Calendar.getInstance().get(Calendar.YEAR));
+        /*
+         * Parse dates to calendar to compare dates
+         */
+        Calendar lastSundayDate = Calendar.getInstance();
+        assert date != null;
+        lastSundayDate.setTime(date);
+        lastSundayDate.set(Calendar.YEAR,Calendar.getInstance().get(Calendar.YEAR));
 
         Calendar currentTime=Calendar.getInstance();
 
-        calender.set(Calendar.HOUR_OF_DAY, 0);
-        calender.set(Calendar.MINUTE, 0);
-        calender.set(Calendar.SECOND, 0);
-        calender.set(Calendar.MILLISECOND, 0);
+        /*
+         * Ignore time in calendar
+         */
+        lastSundayDate.set(Calendar.HOUR_OF_DAY, 0);
+        lastSundayDate.set(Calendar.MINUTE, 0);
+        lastSundayDate.set(Calendar.SECOND, 0);
+        lastSundayDate.set(Calendar.MILLISECOND, 0);
 
         currentTime.set(Calendar.HOUR_OF_DAY, 0);
         currentTime.set(Calendar.MINUTE, 0);
         currentTime.set(Calendar.SECOND, 0);
         currentTime.set(Calendar.MILLISECOND, 0);
 
+        // Get number of days between last sunday and today
         long days=0;
-
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-             days = Duration.between(calender.toInstant(),currentTime.toInstant()).toDays();
+             days = Duration.between(lastSundayDate.toInstant(),currentTime.toInstant()).toDays();
         }
 
+        // Declare a new calendar with the current date and make it point to last sunday
         Calendar current=Calendar.getInstance();
 
-
+        // A week is passed
         if(days>=7)
         {
-
             while(current.get(Calendar.DAY_OF_WEEK) != Calendar.SUNDAY){
                 current.add(Calendar.DATE,-1);
-
             }
 
             /*
             Compute the previous week report
              */
-
             int prayerCounter=0;
             for (PrayerStatisticsDBModel prayerStatisticsDBModel:prayerStatisticsDBModels) {
                 if (prayerStatisticsDBModel.isFajr()) {
@@ -287,28 +301,28 @@ public class PrayerStatisticsActivity extends AppCompatActivity {
                 }
             }
 
+            // Put it in a shared preference
             editor.putInt("prayer_counter",prayerCounter);
 
+            // Delete all table
             prayerStatsViewModel.deleteAllPrayerStatistics();
-            SimpleDateFormat format1 = new SimpleDateFormat("E, d MMMM");
 
-            editor.putString("date_week",format1.format(current.getTime()));
+            // Put last Sunday date in a shared preference
+            editor.putString("date_week",dateFormatter.format(current.getTime()));
             editor.commit();
             editor=settings.edit();
 
+            // Insert in the database all new week starting from sunday
             for(int i=0;i<=6;i++){
-                prayerStatsViewModel.insertPrayerStatistics(new PrayerStatisticsDBModel(format1.format(current.getTime()), false,
+                prayerStatsViewModel.insertPrayerStatistics(new PrayerStatisticsDBModel(dateFormatter.format(current.getTime()), false,
                         false, false, false, false));
                 current.add(Calendar.DATE,1);
-
             }
 
-
+            // Declare view model and set adapter to view pager
             prayerStatsViewModel = new ViewModelProvider(this).get(PrayerStatsViewModel.class);
             adapter = new PrayerStatsViewPagerAdapter(prayerStatisticsDBModels, PrayerStatisticsActivity.this);
             viewPager.setAdapter(adapter);
-
-
 
         }
     }

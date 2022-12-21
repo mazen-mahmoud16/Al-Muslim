@@ -30,7 +30,9 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
-
+/*
+ * Here is Home fragment class that is triggered when we open the first tab in the view pager
+ */
 public class HomeFragment extends Fragment {
 
     // Image views to icons of horizontal scroll view
@@ -57,7 +59,7 @@ public class HomeFragment extends Fragment {
     SharedPreferences.Editor editor;
 
     // To store the prayer times of the current day
-    Double fajrTime,dhuhrTime,asrTime,maghribTime,ishaTime,currentDate;
+    Double fajrTime,dhuhrTime,asrTime,maghribTime,ishaTime, currentTime;
 
     @SuppressLint("SimpleDateFormat")
     SimpleDateFormat mainFormatter = new SimpleDateFormat("HH:mm aa");
@@ -84,7 +86,7 @@ public class HomeFragment extends Fragment {
         imgTasabeeh = view.findViewById(R.id.img4);
 
         /*
-         * Assign Image views
+         * Assign Text views
          */
         tvPrayerName = view.findViewById(R.id.salat);
         tvPrayerTime = view.findViewById(R.id.salat_tim);
@@ -134,7 +136,7 @@ public class HomeFragment extends Fragment {
                      * Calling prayerTimeGenerator method and pass with it the string current time or the string prayer time (in 24-hour format)
                      * to convert the string time into double format to be used in comparison easily later in the if statements
                      */
-                    currentDate = prayerTimeGenerator(result_time);
+                    currentTime = prayerTimeGenerator(result_time);
                     fajrTime=prayerTimeGenerator(todaysPrayers.getFajr());
                     dhuhrTime=prayerTimeGenerator(todaysPrayers.getDhuhr());
                     asrTime=prayerTimeGenerator(todaysPrayers.getAsr());
@@ -148,9 +150,9 @@ public class HomeFragment extends Fragment {
                     String prayerTime="";
 
                     /*
-                     * Checking whether the current time is between isha time and fajr time or not
+                     * Checking whether the current time is between ishaa time and fajr time or not
                      */
-                    if ((currentDate <= fajrTime && currentDate < ishaTime) || (currentDate > fajrTime && currentDate > ishaTime))
+                    if ((currentTime <= fajrTime && currentTime < ishaTime) || (currentTime > fajrTime && currentTime > ishaTime))
                     {
                         // Checking whether the current shared preferences value changed or not
                         if(!currentPrayer.equals("Fajr"))
@@ -175,7 +177,7 @@ public class HomeFragment extends Fragment {
                     /*
                      * Checking whether the current time is between fajr time and dhuhr time or not
                      */
-                    else if (currentDate > fajrTime && currentDate <= dhuhrTime)
+                    else if (currentTime > fajrTime && currentTime <= dhuhrTime)
                     {
                         // Checking whether the current shared preferences value changed or not
                         if(!currentPrayer.equals("Dhuhr"))
@@ -200,7 +202,7 @@ public class HomeFragment extends Fragment {
                     /*
                      * Checking whether the current time is between dhuhr time and asr time or not
                      */
-                    else if (currentDate > dhuhrTime && currentDate <= asrTime) {
+                    else if (currentTime > dhuhrTime && currentTime <= asrTime) {
 
                         // Checking whether the current shared preferences value changed or not
                         if(!currentPrayer.equals("Asr")) {
@@ -224,7 +226,7 @@ public class HomeFragment extends Fragment {
                     /*
                      * Checking whether the current time is between asr time and maghrib time or not
                      */
-                   else if (currentDate > asrTime && currentDate <= maghribTime) {
+                   else if (currentTime > asrTime && currentTime <= maghribTime) {
 
                         // Checking whether the current shared preferences value changed or not
                         if(!currentPrayer.equals("Maghrib")) {
@@ -251,7 +253,7 @@ public class HomeFragment extends Fragment {
                     /*
                      * Checking whether the current time is between maghrib time and isha time or not
                      */
-                    else if (currentDate > maghribTime && currentDate <= ishaTime) {
+                    else if (currentTime > maghribTime && currentTime <= ishaTime) {
 
                         // Checking whether the current shared preferences value changed or not
                         if(!currentPrayer.equals("Isha")) {
