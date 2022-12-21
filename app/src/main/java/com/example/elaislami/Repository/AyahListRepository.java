@@ -3,6 +3,8 @@ import android.app.Application;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.util.Log;
+
+import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import com.example.elaislami.APIHolders.JsonPlaceHolderAPI;
 import com.example.elaislami.DAO.AyahDAO;
@@ -27,38 +29,33 @@ public class AyahListRepository {
     // Make a live data list to keep updates of the current list contents
     private LiveData<List<AyahDBModel>> mAllAyahs;
 
-    // Make a retrofit to call builder to get data from API
-    private Retrofit retrofit;
-
-    // Make a JSON placeholder API reference to JsonPlaceHolderAPI interface to access API methods
-    private JsonPlaceHolderAPI jsonPlaceHolderAPI;
-
     // Make a call of the type AyahFirstResponse that will map returned data from API after calling api method
     private Call<AyahFirstResponse> call;
 
     // Make a list to store the data from API
     private List<AyahDBModel> mAllAyahsList;
 
-    /*
-     * Make a shared preference to store surah number
-     */
-    private SharedPreferences settings;
     public static final String PREFS_NAME = "MyPreferenceFile";
-    private int surahNumber;
+    private final int surahNumber;
 
     // Here is the constructor
     public AyahListRepository(Application application) {
 
         SurahRoomDatabase db = SurahRoomDatabase.getDatabase(application);
-        settings = application.getApplicationContext().getSharedPreferences(PREFS_NAME, 0);
+        /*
+         * Make a shared preference to store surah number
+         */
+        SharedPreferences settings = application.getApplicationContext().getSharedPreferences(PREFS_NAME, 0);
         surahNumber = settings.getInt("surahNumber",1);
 
         if(mAllAyahs == null){
-           retrofit = new Retrofit.Builder()
-                   .baseUrl("https://api.alquran.cloud/v1/surah/")
-                   .addConverterFactory(GsonConverterFactory.create())
-                   .build();
-           jsonPlaceHolderAPI = retrofit.create(JsonPlaceHolderAPI.class);
+            // Make a retrofit to call builder to get data from API
+            Retrofit retrofit = new Retrofit.Builder()
+                    .baseUrl("https://api.alquran.cloud/v1/surah/")
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
+            // Make a JSON placeholder API reference to JsonPlaceHolderAPI interface to access API methods
+            JsonPlaceHolderAPI jsonPlaceHolderAPI = retrofit.create(JsonPlaceHolderAPI.class);
             call = jsonPlaceHolderAPI.getAyas(surahNumber);
 
         }
@@ -76,7 +73,7 @@ public class AyahListRepository {
         call.enqueue(new Callback<AyahFirstResponse>()
         {
             @Override
-            public void onResponse(Call<AyahFirstResponse> call, Response<AyahFirstResponse> response)
+            public void onResponse(@NonNull Call<AyahFirstResponse> call, @NonNull Response<AyahFirstResponse> response)
             {
                 if (!response.isSuccessful()){
                     Log.d("MVVMX", "--- Not successful");
@@ -96,7 +93,7 @@ public class AyahListRepository {
             }
             // OnFailure which get the data from ROOM DB in case of lost internet connection
             @Override
-            public void onFailure(Call<AyahFirstResponse> call, Throwable t) {
+            public void onFailure(@NonNull Call<AyahFirstResponse> call, @NonNull Throwable t) {
                 mAllAyahs = mAyahDao.getSpecificAyahs(surahNumber);
                 Log.d("MVVMX", "--- FAILED " + t.getMessage());
             }
@@ -113,7 +110,9 @@ public class AyahListRepository {
         new AyahListRepository.insertAsyncTask(mAyahDao).execute(ayahDBModel);
     }
 
-    // Here is the function to get insert surah Asynchronously in ROOM DB
+    /*
+     * Here is the function to get insert surah Asynchronously in ROOM DB
+     */
     private static class insertAsyncTask extends AsyncTask<AyahDBModel, Void, Void> {
 
         private final AyahDAO mAsyncTaskDao;
