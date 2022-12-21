@@ -39,7 +39,8 @@
         app:layout_constraintStart_toStartOf="@id/title"
         app:layout_constraintTop_toTopOf="@id/loc"
         android:background="#00000000"
-        android:src="@drawable/ic_baseline_location_on_24"/>
+        android:src="@drawable/ic_baseline_location"
+        android:contentDescription="@string/location_logo" />
 
     <TextView
         android:id="@+id/loc"
@@ -47,7 +48,6 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/montserrat_medium"
         android:gravity="center"
-        android:text="@string/loc_placeholder"
         app:layout_constraintEnd_toEndOf="@id/title_arabic"
         android:layout_marginTop="15dp"
         app:layout_constraintStart_toEndOf="@id/loc_ic"
@@ -59,7 +59,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:background="@drawable/rounded_btn"
+        android:background="@drawable/bg_rounded_primary"
         android:fontFamily="@font/montserrat_medium"
         android:gravity="center"
         android:padding="10dp"
@@ -85,8 +85,8 @@
             android:layout_width="300dp"
             android:layout_height="300dp"
             android:layout_centerInParent="true"
-            android:src="@drawable/dial"
-            android:contentDescription="@string/content_compass" />
+            android:src="@drawable/img_compass"
+            android:contentDescription="@string/compass_image" />
 
 
         <ImageView
@@ -95,9 +95,9 @@
             android:layout_height="350dp"
             android:layout_alignTop="@+id/image_compass"
             android:layout_centerInParent="true"
-            android:contentDescription="@string/content_cursor"
+            android:contentDescription="@string/cursor_image"
             android:rotation="0"
-            android:src="@drawable/qibla_arrow" />
+            android:src="@drawable/img_qibla_needle" />
 
 
     </RelativeLayout>

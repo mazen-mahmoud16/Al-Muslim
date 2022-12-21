@@ -86,7 +86,7 @@ public class PrayerStatisticsActivity extends AppCompatActivity {
         imgBackBtn = findViewById(R.id.back_btn);
         toolbar = findViewById(R.id.tool_bar_prayer);
         btnGenerate = findViewById(R.id.generate);
-        progressBar = findViewById(R.id.prog_bar);
+        progressBar = findViewById(R.id.progress_bar);
         tvNumberSalat = findViewById(R.id.num_salat);
 
         // Set toolbar
@@ -127,7 +127,7 @@ public class PrayerStatisticsActivity extends AppCompatActivity {
             int prayerCounter =settings.getInt("prayer_counter",0);
             tvNumberSalat.setVisibility(View.VISIBLE);
             progressBar.setVisibility(View.VISIBLE);
-            tvNumberSalat.setText(prayerCounter+getString(R.string.outOf));
+            tvNumberSalat.setText(prayerCounter+getString(R.string.out_of));
             ObjectAnimator.ofInt(progressBar, "progress", prayerCounter)
                     .setDuration(1000)
                     .start();

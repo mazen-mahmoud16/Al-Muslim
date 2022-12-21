@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/rounded_edittext"
+    android:background="@drawable/bg_rounded_white_green_border"
     android:padding="10dp"
     android:layout_marginTop="10dp"
     android:layout_marginBottom="10dp"
@@ -16,7 +16,6 @@
         android:id="@+id/item_num"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/_1_dot"
         android:textSize="20sp"
         android:textColor="@color/black"
         android:textStyle="bold"
@@ -35,15 +34,15 @@
         app:layout_constraintHorizontal_bias="0.1"
         app:layout_constraintEnd_toStartOf="@id/item_delete"
         app:layout_constraintStart_toEndOf="@id/item_num"
-        android:text="@string/read_surat_el_kahf_3_times"/>
+        android:text="@string/todo_list_item_test"/>
 
     <ImageButton
         android:id="@+id/item_delete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="#00000000"
-        android:contentDescription="@string/erase_icon"
-        android:src="@drawable/ic_baseline_delete_24"
+        android:contentDescription="@string/delete_todo_icon"
+        android:src="@drawable/ic_baseline_delete"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"

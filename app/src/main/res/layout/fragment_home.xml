@@ -14,14 +14,14 @@
         app:layout_constraintTop_toTopOf="@id/loc"
         android:layout_marginStart="33dp"
         android:background="#00000000"
-        android:src="@drawable/ic_baseline_location_on_24"/>
+        android:src="@drawable/ic_baseline_location"
+        android:contentDescription="@string/location_logo" />
 
     <TextView
         android:id="@+id/loc"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:fontFamily="@font/montserrat_medium"
-        android:text="@string/loc_placeholder"
         app:layout_constraintEnd_toEndOf="parent"
         android:gravity="center"
         android:layout_marginTop="15dp"
@@ -39,7 +39,7 @@
         android:layout_marginStart="30dp"
         app:layout_constraintBottom_toTopOf="@id/activities"
         android:elevation="10dp"
-        android:background="@drawable/rounded_btn"
+        android:background="@drawable/bg_rounded_primary"
         android:padding="15dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="30dp">
@@ -50,7 +50,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
-            android:text="@string/upcoming"
+            android:text="@string/upcoming_prayer"
             android:textColor="@color/white"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -134,7 +134,7 @@
                 android:layout_marginBottom="10dp"
                 android:layout_marginEnd="10dp"
                 android:backgroundTint="@color/white"
-                android:contentDescription="@string/todo_list"
+                android:contentDescription="@string/the_todolist_icon"
                 android:padding="4dp"
                 android:src="@drawable/ic_todo"
                 android:textColor="@color/black"
@@ -151,7 +151,7 @@
                 android:textSize="15sp"
                 android:gravity="center"
                 android:textColor="@color/black"
-                android:text="@string/todo"
+                android:text="@string/todo_list_title"
                 android:fontFamily="@font/montserrat_regular"
                 app:layout_constraintTop_toBottomOf="@id/img1"/>
 
@@ -162,7 +162,7 @@
                 android:layout_height="80dp"
                 android:layout_marginTop="10dp"
                 android:backgroundTint="@color/white"
-                android:contentDescription="@string/prayer_stats"
+                android:contentDescription="@string/the_prayer_statistics_icon"
                 android:padding="4dp"
                 android:src="@drawable/ic_stat"
                 android:textColor="@color/black"
@@ -179,7 +179,7 @@
                 app:layout_constraintEnd_toEndOf="@id/img2"
                 android:textSize="15sp"
                 android:textColor="@color/black"
-                android:text="@string/statist"
+                android:text="@string/prayer_statistics_title"
                 android:fontFamily="@font/montserrat_regular"
                 app:layout_constraintTop_toTopOf="@id/txt01"/>
 
@@ -189,7 +189,7 @@
                 android:layout_height="80dp"
                 android:layout_marginTop="10dp"
                 android:backgroundTint="@color/white"
-                android:contentDescription="@string/azkar_icon"
+                android:contentDescription="@string/the_azkar_icon"
                 android:paddingTop="17dp"
                 android:src="@drawable/ic_pray"
                 android:textColor="@color/black"
@@ -205,7 +205,7 @@
                 app:layout_constraintEnd_toEndOf="@id/img3"
                 android:textSize="15sp"
                 android:textColor="@color/black"
-                android:text="@string/azkar_sabah"
+                android:text="@string/azkar"
                 android:fontFamily="@font/montserrat_regular"
                 app:layout_constraintTop_toTopOf="@id/txt01"/>
 
@@ -213,14 +213,14 @@
                 android:id="@+id/img4"
                 android:layout_width="100dp"
                 android:layout_height="80dp"
-                android:src="@drawable/icons8_tasbeeh_64"
+                android:src="@drawable/ic_tasbeeh"
                 android:paddingTop="10dp"
                 android:layout_marginTop="10dp"
                 app:layout_constraintStart_toEndOf="@id/img3"
                 app:layout_constraintTop_toTopOf="parent"
                 android:backgroundTint="@color/white"
                 android:textColor="@color/black"
-                android:contentDescription="@string/duaa_icon" />
+                android:contentDescription="@string/the_tasabeeh_icon" />
 
             <TextView
                 android:id="@+id/txt04"
@@ -231,7 +231,7 @@
                 android:textSize="15sp"
                 android:textColor="@color/black"
                 android:fontFamily="@font/montserrat_regular"
-                android:text="@string/tasbeeh"
+                android:text="@string/tasabeeh_title"
                 app:layout_constraintTop_toTopOf="@id/txt01"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -246,7 +246,7 @@
         android:layout_marginStart="30dp"
         android:elevation="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:background="@drawable/rounded_btn"
+        android:background="@drawable/bg_rounded_primary"
         android:padding="15dp"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="20dp"
@@ -258,7 +258,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
-            android:text="@string/sibha_place"
+            android:text="@string/your_digital_sibha"
             android:textColor="@color/white"
             android:textSize="18sp"
             android:fontFamily="@font/montserrat_medium"
@@ -270,7 +270,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/sibha_place"
-            android:text="@string/sibha_num"
             android:textColor="@color/white"
             android:layout_marginTop="5dp"
             android:textSize="22sp"
@@ -286,7 +285,7 @@
             android:layout_marginTop="7dp"
             android:foreground="?android:attr/selectableItemBackground"
             android:background="@drawable/ic_reset"
-            android:contentDescription="@string/reset_icon"
+            android:contentDescription="@string/sibha_reset_icon"
             app:layout_constraintStart_toStartOf="@id/sibha"
             app:layout_constraintTop_toBottomOf="@id/sibha"
             tools:ignore="TouchTargetSizeCheck" />
@@ -297,8 +296,8 @@
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:layout_marginTop="7dp"
-            android:background="@drawable/ic_add"
-            android:contentDescription="@string/add_icon"
+            android:background="@drawable/ic_sibha_increment"
+            android:contentDescription="@string/sibha_increment_icon"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/sibha"
             tools:ignore="TouchTargetSizeCheck,ImageContrastCheck" />

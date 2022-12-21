@@ -56,7 +56,6 @@ public class PrayerFragment extends Fragment {
     private SharedPreferences settings;
     private SharedPreferences.OnSharedPreferenceChangeListener sharedPreferenceChangeListener;
 
-
     /*
      * Here is on create view function
      */

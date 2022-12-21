@@ -27,14 +27,13 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:background="#00000000"
-                android:contentDescription="@string/back_btn"
+                android:contentDescription="@string/back_button"
                 android:foreground="?android:attr/selectableItemBackground"
-                android:src="@drawable/ic_baseline_arrow_back_ios_24"
+                android:src="@drawable/ic_baseline_arrow_back"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="TouchTargetSizeCheck" />
-
 
             <TextView
                 android:id="@+id/title"
@@ -42,7 +41,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:fontFamily="@font/montserrat_bold"
-                android:text="@string/todo_title"
+                android:text="@string/todo_list_title"
                 android:textColor="#5E8D65"
                 android:textSize="30sp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -53,20 +52,6 @@
 
     </androidx.appcompat.widget.Toolbar>
 
-    <TextView
-        android:id="@+id/todo_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/montserrat_medium"
-        android:text="@string/add_todo_title"
-        android:textSize="22sp"
-        android:layout_marginStart="23sp"
-        android:textColor="#5E8D65"
-        android:textStyle="normal"
-        android:layout_marginTop="10dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tool_bar_todo" />
-
     <EditText
         android:id="@+id/todo_item"
         android:layout_width="0dp"
@@ -74,16 +59,16 @@
         android:layout_marginStart="30dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="30dp"
-        android:background="@drawable/rounded_edittext"
+        android:background="@drawable/bg_rounded_white_green_border"
         android:fontFamily="@font/montserrat_regular"
-        android:hint="@string/todo_place"
+        android:hint="@string/enter_the_todo_item_you_want_to_save"
         android:maxLength="300"
         android:minHeight="48dp"
         android:paddingStart="15dp"
         android:paddingEnd="15dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/todo_title"
+        app:layout_constraintTop_toBottomOf="@id/tool_bar_todo"
         tools:ignore="TextContrastCheck"
         android:importantForAutofill="no"
         android:inputType="text" />
@@ -93,10 +78,10 @@
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:background="@drawable/rounded_btn"
+        android:background="@drawable/bg_rounded_primary"
         android:fontFamily="@font/montserrat_bold"
         android:padding="10dp"
-        android:text="@string/add_todo"
+        android:text="@string/add_item_todo"
         android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -107,7 +92,7 @@
         android:id="@+id/todo_list_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/todo_list_title"
+        android:text="@string/your_list_todo"
         android:textSize="22sp"
         android:layout_marginStart="23sp"
         android:textColor="#5E8D65"

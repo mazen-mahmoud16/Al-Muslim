@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:id="@+id/ayah_container"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/rounded_edittext"
+    android:background="@drawable/bg_rounded_white_green_border"
     android:padding="10dp"
     android:layout_marginTop="10dp"
     android:layout_marginBottom="10dp"

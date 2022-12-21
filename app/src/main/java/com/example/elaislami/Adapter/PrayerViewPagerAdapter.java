@@ -91,19 +91,19 @@ public class PrayerViewPagerAdapter extends PagerAdapter {
         if(position==2){
             switch (currentPrayer) {
                 case "Fajr":
-                    fajr.setBackground(context.getResources().getDrawable(R.drawable.rounded_btn));
+                    fajr.setBackground(context.getResources().getDrawable(R.drawable.bg_rounded_primary));
                     break;
                 case "Asr":
-                    asr.setBackground(context.getResources().getDrawable(R.drawable.rounded_btn));
+                    asr.setBackground(context.getResources().getDrawable(R.drawable.bg_rounded_primary));
                     break;
                 case "Dhuhr":
-                    dhuhr.setBackground(context.getResources().getDrawable(R.drawable.rounded_btn));
+                    dhuhr.setBackground(context.getResources().getDrawable(R.drawable.bg_rounded_primary));
                     break;
                 case "Maghrib":
-                    maghrib.setBackground(context.getResources().getDrawable(R.drawable.rounded_btn));
+                    maghrib.setBackground(context.getResources().getDrawable(R.drawable.bg_rounded_primary));
                     break;
                 case "Isha":
-                    isha.setBackground(context.getResources().getDrawable(R.drawable.rounded_btn));
+                    isha.setBackground(context.getResources().getDrawable(R.drawable.bg_rounded_primary));
                     break;
             }
         }

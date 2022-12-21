@@ -164,7 +164,7 @@ public class HomeFragment extends Fragment {
                         // Checking whether the prayer time before 10 AM or not to see if there is 0 at the beginning of the string or not
                         if(fajrTime<=9)
                         {
-                            prayerTime = fajrTime.toString().charAt(0)+":"+fajrTime.toString().charAt(3);
+                            prayerTime = "0"+ fajrTime.toString().charAt(0)+":"+fajrTime.toString().substring(2,4);
                         }
                         else
                         {
@@ -189,7 +189,7 @@ public class HomeFragment extends Fragment {
                         // Checking whether the prayer time before 10 AM or not to see if there is 0 at the beginning of the string or not
                         if(dhuhrTime<=9)
                         {
-                            prayerTime = dhuhrTime.toString().charAt(0)+":"+dhuhrTime.toString().charAt(3);
+                            prayerTime = "0"+ dhuhrTime.toString().charAt(0)+":"+dhuhrTime.toString().substring(2,4);
                         }
                         else
                         {
@@ -212,7 +212,7 @@ public class HomeFragment extends Fragment {
 
                         // Checking whether the prayer time before 10 AM or not to see if there is 0 at the beginning of the string or not
                         if(asrTime<=9){
-                            prayerTime = asrTime.toString().charAt(0)+":"+asrTime.toString().charAt(3);
+                            prayerTime = "0"+ asrTime.toString().charAt(0)+":"+asrTime.toString().substring(2,4);
 
                         }
                         else{
@@ -237,7 +237,7 @@ public class HomeFragment extends Fragment {
 
                         // Checking whether the prayer time before 10 AM or not to see if there is 0 at the beginning of the string or not
                         if(maghribTime<=9){
-                            prayerTime = maghribTime.toString().charAt(0)+":"+maghribTime.toString().charAt(3);
+                            prayerTime = "0"+ maghribTime.toString().charAt(0)+":"+maghribTime.toString().substring(2,4);
 
                         }
                         else
@@ -264,7 +264,7 @@ public class HomeFragment extends Fragment {
                         // Checking whether the prayer time before 10 AM or not to see if there is 0 at the beginning of the string or not
                         if(ishaTime<=9)
                         {
-                            prayerTime = ishaTime.toString().charAt(0)+":"+ishaTime.toString().charAt(3);
+                            prayerTime = "0"+ ishaTime.toString().charAt(0)+":"+ishaTime.toString().substring(2,4);
 
                         }
                         else
@@ -390,9 +390,12 @@ public class HomeFragment extends Fragment {
                 finalTime=finalTime.replace("H"," hrs and 0 mins left");
 
             }
-            else
+            else if(finalTime.contains("M"))
             {
                 finalTime=finalTime.replace("M"," mins left");
+            }
+            else {
+                finalTime="Prayer is now";
             }
 
             tvPrayerCountdown.setText(finalTime);

@@ -27,9 +27,9 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:background="#00000000"
-                android:contentDescription="@string/back_btn"
+                android:contentDescription="@string/back_button"
                 android:foreground="?android:attr/selectableItemBackground"
-                android:src="@drawable/ic_baseline_arrow_back_ios_24"
+                android:src="@drawable/ic_baseline_arrow_back"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -42,7 +42,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:fontFamily="@font/montserrat_bold"
-                android:text="@string/prayer_title"
+                android:text="@string/prayer_statistics_title"
                 android:textColor="#5E8D65"
                 android:textSize="30sp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -54,32 +54,17 @@
 
     </androidx.appcompat.widget.Toolbar>
 
-    <TextView
-        android:id="@+id/day_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="23sp"
-        android:fontFamily="@font/montserrat_medium"
-        android:text="@string/day_title"
-        android:textColor="#5E8D65"
-        android:textSize="25sp"
-        android:textStyle="normal"
-        android:layout_marginTop="10dp"
-        app:layout_constraintTop_toBottomOf="@id/tool_bar_prayer"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="10dp" />
-
     <ImageButton
         android:id="@+id/prev_day"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:background="#00000000"
-        android:contentDescription="@string/previous_day"
-        android:src="@drawable/ic_baseline_arrow_back_ios_24_black"
+        android:contentDescription="@string/previous_day_icon"
+        android:src="@drawable/ic_baseline_arrow_back_black"
         app:layout_constraintBottom_toTopOf="@id/view_pager_prayer_stats"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/day_title"
+        app:layout_constraintTop_toBottomOf="@id/tool_bar_prayer"
         android:layout_marginTop="10dp"
         tools:ignore="TouchTargetSizeCheck" />
 
@@ -122,8 +107,8 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="20dp"
         android:background="#00000000"
-        android:contentDescription="@string/next_day"
-        android:src="@drawable/ic_baseline_arrow_forward_ios_24_black"
+        android:contentDescription="@string/next_day_icon"
+        android:src="@drawable/ic_baseline_arrow_forward_black"
         app:layout_constraintBottom_toBottomOf="@id/prev_day"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/line2"
@@ -135,7 +120,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="7dp"
-        android:contentDescription="@string/prayer_viewpager"
+        android:contentDescription="@string/prayer_statistics_view_pager"
         app:layout_constraintTop_toBottomOf="@id/prev_day"
         app:layout_constraintBottom_toTopOf="@id/save"
         />
@@ -145,7 +130,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:background="@drawable/rounded_btn"
+        android:background="@drawable/bg_rounded_primary"
         android:fontFamily="@font/montserrat_bold"
         android:padding="0dp"
         android:text="@string/save"
@@ -161,19 +146,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:backgroundTint="#EE4B2B"
+        android:backgroundTint="#D6CDA4"
         android:fontFamily="@font/montserrat_bold"
         android:padding="10dp"
-        android:text="@string/generate"
+        android:textColor="@color/black"
+        android:text="@string/generate_last_week_statistics"
         android:textSize="13sp"
-        app:layout_constraintBottom_toTopOf="@id/prog_bar"
+        app:layout_constraintBottom_toTopOf="@id/progress_bar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/save"
         tools:ignore="TextContrastCheck" />
 
     <ProgressBar
-        android:id="@+id/prog_bar"
+        android:id="@+id/progress_bar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         style="?android:attr/progressBarStyleHorizontal"
@@ -189,15 +175,12 @@
         android:id="@+id/num_salat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="@id/prog_bar"
+        app:layout_constraintStart_toStartOf="@id/progress_bar"
         android:visibility="invisible"
         android:fontFamily="@font/montserrat_bold"
-        app:layout_constraintEnd_toEndOf="@id/prog_bar"
-        app:layout_constraintTop_toBottomOf="@id/prog_bar"
+        app:layout_constraintEnd_toEndOf="@id/progress_bar"
+        app:layout_constraintTop_toBottomOf="@id/progress_bar"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:text="@string/dummy_rate"/>
-
-
-
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

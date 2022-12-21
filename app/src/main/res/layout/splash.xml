@@ -5,26 +5,25 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Activity.SplashScreenActivity">
-    
-
     <ImageView
         android:id="@+id/splash_logo"
         android:layout_width="200dp"
         android:layout_height="200dp"
-        android:src="@drawable/final_logo_icon"
+        android:src="@drawable/ic_al_muslim_logo"
         app:layout_constraintBottom_toTopOf="@+id/splash_title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintVertical_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/application_logo" />
 
     <TextView
         android:id="@+id/splash_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/elmessiri_medium"
-        android:text="@string/al_muslim"
+        android:text="@string/app_title"
         android:textColor="#5e8d65"
         android:textSize="62sp"
         app:layout_constraintBottom_toBottomOf="parent"

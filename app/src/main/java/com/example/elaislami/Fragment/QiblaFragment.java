@@ -184,7 +184,7 @@ public class QiblaFragment extends Fragment implements SensorEventListener {
 
         // If accuracy is bad, change the rounded text background from green to red
         if(SensorManager.SENSOR_STATUS_UNRELIABLE == accuracy || SensorManager.SENSOR_STATUS_ACCURACY_LOW == accuracy){
-            tvHint.setBackgroundColor(R.drawable.rounded_btn_error);
+            tvHint.setBackgroundColor(R.drawable.bg_rounded_error);
         }
     }
 
