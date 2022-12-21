@@ -68,7 +68,7 @@ public class PrayerStatisticsRepository {
      */
     private static class insertAsyncTask extends AsyncTask<PrayerStatisticsDBModel, Void, Void> {
 
-        private PrayerStatsDAO mAsyncTaskDao;
+        private final PrayerStatsDAO mAsyncTaskDao;
 
         insertAsyncTask(PrayerStatsDAO dao) {
             mAsyncTaskDao = dao;
