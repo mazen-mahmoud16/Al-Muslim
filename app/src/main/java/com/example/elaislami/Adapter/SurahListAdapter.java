@@ -20,7 +20,7 @@ import java.util.List;
 import es.dmoral.toasty.Toasty;
 
 /*
- * This is the todolist adapter for the recycler view
+ * This is the surah list adapter for the recycler view
  */
 public class SurahListAdapter extends RecyclerView.Adapter<SurahListAdapter.ViewHolder>{
 

@@ -1,7 +1,6 @@
 package com.example.elaislami.Adapter;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,12 +14,24 @@ import com.example.elaislami.R;
 
 import java.util.List;
 
+/*
+ * This is the azkar list adapter for the recycler view
+ */
 public class AzkarAdapter extends RecyclerView.Adapter<AzkarAdapter.ViewHolder>{
-    List<AzkarModel> azkarModelModelInternal;
 
-    public AzkarAdapter(List<AzkarModel> azkarModelModelInternal) {
-        this.azkarModelModelInternal = azkarModelModelInternal;
+    /*
+     * attributes for adapter
+     */
+    List<AzkarModel> azkarList;
+
+    // Here is the constructor
+    public AzkarAdapter(List<AzkarModel> azkarList) {
+        this.azkarList = azkarList;
     }
+
+    /*
+     * Here is the on create view holder method to inflate the view
+     */
     @NonNull
     @Override
     public AzkarAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType){
@@ -30,25 +41,30 @@ public class AzkarAdapter extends RecyclerView.Adapter<AzkarAdapter.ViewHolder>{
         return new AzkarAdapter.ViewHolder(view);
     }
 
+    /*
+     * Here is the om bind view holder function to set the text with the content
+     */
     @Override
     public void onBindViewHolder(@NonNull AzkarAdapter.ViewHolder holder, int position){
 
-        holder.zekrContent.setText(azkarModelModelInternal.get(position).getContent());
+        holder.zekrContent.setText(azkarList.get(position).getContent());
 
-        int count=Integer.parseInt(azkarModelModelInternal.get(position).getCount());
+        int count=Integer.parseInt(azkarList.get(position).getCount());
 
         if(count<10){
-            holder.noOfTimes.setText(String.valueOf(azkarModelModelInternal.get(position).getCount()).replace("0",""));
-
+            holder.noOfTimes.setText(String.valueOf(azkarList.get(position).getCount()).replace("0",""));
         }else{
-            holder.noOfTimes.setText(String.valueOf(azkarModelModelInternal.get(position).getCount()));
+            holder.noOfTimes.setText(String.valueOf(azkarList.get(position).getCount()));
 
         }
     }
 
+    /*
+     * Get size of azkar array
+     */
     @Override
     public int getItemCount(){
-        return azkarModelModelInternal.size();
+        return azkarList.size();
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {

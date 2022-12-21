@@ -10,15 +10,25 @@ import com.example.elaislami.Fragment.PrayerFragment;
 import com.example.elaislami.Fragment.QiblaFragment;
 import com.example.elaislami.Fragment.SurahsListFragment;
 
+/*
+ * This is the tabs list for the view pager
+ */
 public class TabsAdapter extends FragmentStatePagerAdapter {
 
-    int nNumOfTabs;
+    /*
+     * attributes for adapter
+     */
+    private final int nNumOfTabs;
 
+    // Here is the constructor
     public TabsAdapter(FragmentManager fm, int nNumOfTabs) {
         super(fm);
         this.nNumOfTabs = nNumOfTabs;
     }
 
+    /*
+     * Change current visible fragment
+     */
     @NonNull
     @Override
     public Fragment getItem(int position) {
@@ -41,6 +51,9 @@ public class TabsAdapter extends FragmentStatePagerAdapter {
 
     }
 
+    /*
+     * Get the total number of tabs
+     */
     @Override
     public int getCount() {
         return nNumOfTabs;
