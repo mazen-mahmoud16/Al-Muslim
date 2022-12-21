@@ -79,18 +79,72 @@
 
     </androidx.appcompat.widget.Toolbar>
 
-
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/SurahDetailRV"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tool_bar_surah_detail"
+        app:layout_constraintBottom_toTopOf="@id/seek_bar_layout"
         tools:listitem="@layout/surah_detail_item"
-
         />
+
+    <LinearLayout
+        android:id="@+id/seek_bar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
+        android:paddingEnd="20dp"
+        android:paddingBottom="3dp"
+        android:paddingTop="3dp"
+        android:background="@color/whitesmoke"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/SurahDetailRV"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:ignore="RtlSymmetry">
+
+        <ImageButton
+            android:id="@+id/play_button"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/ic_play_circle"
+            android:background="@null"
+            android:contentDescription="@string/play_button" />
+        <TextView
+            android:id="@+id/start_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/_0_00_test"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:layout_gravity="center"
+            android:layout_marginStart="4dp"/>
+
+        <SeekBar
+            android:id="@+id/seekBar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="2"
+            android:thumbTint="@color/primary_dark_green"
+            android:progressTint="@color/primary_dark_green"
+            android:progressBackgroundTint="@color/primary_dark_green"
+            />
+        <TextView
+            android:id="@+id/total_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/_0_00_test"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:layout_gravity="center"
+            android:layout_marginStart="4dp"/>
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
