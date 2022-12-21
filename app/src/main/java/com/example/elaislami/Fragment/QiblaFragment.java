@@ -2,8 +2,8 @@ package com.example.elaislami.Fragment;
 
 import static android.content.Context.SENSOR_SERVICE;
 
+import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -12,7 +12,6 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,136 +22,175 @@ import android.widget.TextView;
 
 import com.example.elaislami.R;
 
+
+
+/*
+ * Here is qibla fragment class that is triggered when we open the third tab in the view pager
+ */
 public class QiblaFragment extends Fragment implements SensorEventListener {
 
     // define the display assembly compass picture
-    private ImageView image;
-    private ImageView image2;
-    private TextView loc;
-    public static final String PREFS_NAME = "MyPreferenceFile";
+    private ImageView imgCompass;
+    private ImageView imgCursor;
+
+    // Location text view
+    private TextView tvLocation;
+
+    /*
+     * Text views to show angle and heading of qibla
+     */
+    private TextView tvHeading;
+    private TextView tvHint;
 
     // record the compass picture angle turned
-    private float currentDegree = 0f;
+    private float currentCompassDegree = 0f;
 
     // device sensor manager
     private SensorManager mSensorManager;
 
-    SharedPreferences settings;
-    SharedPreferences.OnSharedPreferenceChangeListener sharedPreferenceChangeListener;
+    /*
+     * To use shared preference
+     */
+    public static final String PREFS_NAME = "MyPreferenceFile";
+    private SharedPreferences settings;
+    private SharedPreferences.OnSharedPreferenceChangeListener sharedPreferenceChangeListener;
 
-    TextView tvHeading;
-    TextView hint;
+    /*
+     * Record the longitude and latitude of current location
+     */
+    private double longDouble;
+    private double latDouble;
 
-    double longDouble;
-    double latDouble;
 
-
+    /*
+     * Here is on create view function
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_qibla, container, false);
 
-        loc=view.findViewById(R.id.loc);
-        settings = getActivity().getSharedPreferences(PREFS_NAME, 0);
+        /*
+         * Assign text views and image views
+         */
+        tvLocation = view.findViewById(R.id.loc);
+        imgCompass = view.findViewById(R.id.image_compass);
+        imgCursor = view.findViewById(R.id.image_cursor);
+        tvHeading = view.findViewById(R.id.heading);
+        tvHint = view.findViewById(R.id.hint);
 
+        // Assign shared preference settings
+        settings = requireActivity().getSharedPreferences(PREFS_NAME, 0);
+
+        // Assign longitude and latitude
          longDouble = Double.parseDouble(settings.getString("long", "0.0"));
          latDouble = Double.parseDouble(settings.getString("lat", "0.0"));
 
-        sharedPreferenceChangeListener = new SharedPreferences.OnSharedPreferenceChangeListener() {
-            @Override
-            public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-                if (key.equals("address")) {
-                    loc.setText(settings.getString("address", "Loading"));
-
-                     longDouble = Double.parseDouble(settings.getString("long", "0.0"));
-                     latDouble = Double.parseDouble(settings.getString("lat", "0.0"));
-                }
+         /*
+          * Listen on address (location) change on shared preference
+          */
+        sharedPreferenceChangeListener = (sharedPreferences, key) -> {
+            if (key.equals("address")) {
+                tvLocation.setText(settings.getString("address", "Loading"));
+                longDouble = Double.parseDouble(settings.getString("long", "0.0"));
+                latDouble = Double.parseDouble(settings.getString("lat", "0.0"));
             }
         };
 
-        // Inflate the layout for this fragment
-
-        image = (ImageView) view.findViewById(R.id.image_compass);
-        image2 = (ImageView) view.findViewById(R.id.image_cursor);
-
-        // TextView that will tell the user what degree is he heading
-        tvHeading = (TextView) view.findViewById(R.id.heading);
-
-
-        hint = (TextView) view.findViewById(R.id.hint);
-
-
-
-        // initialize your android device sensor capabilities
-        mSensorManager = (SensorManager) getActivity().getSystemService(SENSOR_SERVICE);
+        // Initialize your android device sensor capabilities
+        mSensorManager = (SensorManager) requireActivity().getSystemService(SENSOR_SERVICE);
 
         return view;
     }
 
+    /*
+     * Overriding function on Resume to listen on sensor change and register a listener to shared preference
+     */
     @Override
     public void onResume() {
         super.onResume();
 
-        // for the system's orientation sensor registered listeners
+        // For the system's orientation sensor registered listeners
         mSensorManager.registerListener(this, mSensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION),
                 SensorManager.SENSOR_DELAY_GAME);
+        // Listen on shared preference
         settings.registerOnSharedPreferenceChangeListener(sharedPreferenceChangeListener);
-        loc.setText(settings.getString("address", "Loading"));
+        // Update location textview
+        tvLocation.setText(settings.getString("address", "Loading"));
     }
 
+    /*
+     * Overriding function on Pause to stop listening on sensor change and unregister a listener to shared preference
+     */
     @Override
     public void onPause() {
         super.onPause();
 
-        // to stop the listener and save battery
+        // To stop the listener and save battery
         mSensorManager.unregisterListener(this);
+        // Unregister to shared preference
         settings.unregisterOnSharedPreferenceChangeListener(sharedPreferenceChangeListener);
     }
 
 
+    /*
+     * This function is triggered when readings on sensor changes
+     */
+    @SuppressLint("SetTextI18n")
     @Override
     public void onSensorChanged(SensorEvent event) {
 
-        // get the angle around the z-axis rotated
+        // Get the angle around the z-axis rotated
         float degree = Math.round(event.values[0]);
 
+        // Angle of qibla
         float x =-degree+calculateQibla(latDouble,longDouble);
 
-        tvHeading.setText("Heading: " + Float.toString(x) + " degrees");
+        // Set headings textview
+        tvHeading.setText("Heading: " + x + " degrees");
 
 
-        // create a rotation animation (reverse turn degree degrees)
+        // Create a rotation animation (reverse turn degree degrees)
         RotateAnimation ra = new RotateAnimation(
-                currentDegree,
+                currentCompassDegree,
                 -degree,
                 Animation.RELATIVE_TO_SELF, 0.5f,
                 Animation.RELATIVE_TO_SELF,
                 0.5f);
 
-        // how long the animation will take place
+        // How long the animation will take place
         ra.setDuration(210);
 
-        // set the animation after the end of the reservation status
-        ra.setFillAfter(true);// create a rotation animation (reverse turn degree degrees)
+        // Set the animation after the end of the reservation status
+        ra.setFillAfter(true);
 
         // Start the animation
-        image.startAnimation(ra);
+        imgCompass.startAnimation(ra);
 
-        image2.setRotation(x);
+        // Set the rtation of the cursor
+        imgCursor.setRotation(x);
 
-
-        currentDegree = -degree;
+        // Update current degree
+        currentCompassDegree = -degree;
 
     }
 
+    /*
+     * This function is triggered when accuracy changes
+     */
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
-        if(mSensorManager.SENSOR_STATUS_UNRELIABLE == accuracy || mSensorManager.SENSOR_STATUS_ACCURACY_LOW == accuracy){
-            hint.setBackgroundColor(R.drawable.rounded_btn_error);
+
+        // If accuracy is bad, change the rounded text background from green to red
+        if(SensorManager.SENSOR_STATUS_UNRELIABLE == accuracy || SensorManager.SENSOR_STATUS_ACCURACY_LOW == accuracy){
+            tvHint.setBackgroundColor(R.drawable.rounded_btn_error);
         }
     }
 
+    /*
+     * This method is used to calculate qibla
+     */
     public float calculateQibla(double latitude, double longitude){
         double phiK = 21.4 * Math.PI / 180.0;
         double lambdaK = 39.8 * Math.PI/180.0;
