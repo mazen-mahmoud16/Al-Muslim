@@ -67,7 +67,7 @@ public class TodoActivity extends AppCompatActivity implements TodoListener {
 
         surahViewModel = new ViewModelProvider(this).get(SurahViewModel.class);
 
-        todoListAdapter=new TodoListAdapter(todoItems,this, this);
+        todoListAdapter=new TodoListAdapter(todoItems, this);
         rv_todo.setLayoutManager(new LinearLayoutManager(this));
         rv_todo.setAdapter(todoListAdapter);
 
