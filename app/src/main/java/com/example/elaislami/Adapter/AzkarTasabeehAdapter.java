@@ -9,7 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.elaislami.Model.AzkarModel;
+import com.example.elaislami.Model.AzkarTasabeehModel;
 import com.example.elaislami.R;
 
 import java.util.List;
@@ -22,10 +22,10 @@ public class AzkarTasabeehAdapter extends RecyclerView.Adapter<AzkarTasabeehAdap
     /*
      * attributes for adapter
      */
-    List<AzkarModel> azkarList;
+    List<AzkarTasabeehModel> azkarList;
 
     // Here is the constructor
-    public AzkarTasabeehAdapter(List<AzkarModel> azkarList) {
+    public AzkarTasabeehAdapter(List<AzkarTasabeehModel> azkarList) {
         this.azkarList = azkarList;
     }
 

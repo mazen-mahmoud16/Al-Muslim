@@ -18,7 +18,7 @@ import android.widget.TextView;
 
 import com.example.elaislami.Adapter.PrayerStatsViewPagerAdapter;
 import com.example.elaislami.R;
-import com.example.elaislami.RoomDBManager.RoomDBModels.PrayerStatisticsDBModel;
+import com.example.elaislami.RoomDBManager.RoomDBModel.PrayerStatisticsDBModel;
 import com.example.elaislami.RoomDBManager.ViewModel.PrayerStatsViewModel;
 
 import java.text.ParseException;

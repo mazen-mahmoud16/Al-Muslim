@@ -1,6 +1,5 @@
 package com.example.elaislami.View.Activity;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,7 +14,7 @@ import android.widget.Spinner;
 
 import com.example.elaislami.Adapter.AzkarTasabeehAdapter;
 import com.example.elaislami.Utils.Utils;
-import com.example.elaislami.Model.AzkarModel;
+import com.example.elaislami.Model.AzkarTasabeehModel;
 import com.example.elaislami.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -50,7 +49,7 @@ public class AzkarActivity extends AppCompatActivity implements AdapterView.OnIt
     private AzkarTasabeehAdapter azkarAdapter;
 
     // Declare list to be passed to adapter
-    private List<AzkarModel> azkarModelList;
+    private List<AzkarTasabeehModel> azkarModelList;
 
     /*
      * Here is on create function
@@ -85,7 +84,7 @@ public class AzkarActivity extends AppCompatActivity implements AdapterView.OnIt
 
         // Manage json file
         gson = new Gson();
-        listAzkarType = new TypeToken<List<AzkarModel>>() { }.getType();
+        listAzkarType = new TypeToken<List<AzkarTasabeehModel>>() { }.getType();
 
         /*
          * Handle when user clicks back

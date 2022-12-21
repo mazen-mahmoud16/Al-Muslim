@@ -4,7 +4,7 @@ import android.os.AsyncTask;
 import androidx.lifecycle.LiveData;
 import com.example.elaislami.RoomDBManager.DAO.PrayerStatsDAO;
 import com.example.elaislami.RoomDBManager.RoomDB.MyRoomDatabase;
-import com.example.elaislami.RoomDBManager.RoomDBModels.PrayerStatisticsDBModel;
+import com.example.elaislami.RoomDBManager.RoomDBModel.PrayerStatisticsDBModel;
 
 import java.util.List;
 

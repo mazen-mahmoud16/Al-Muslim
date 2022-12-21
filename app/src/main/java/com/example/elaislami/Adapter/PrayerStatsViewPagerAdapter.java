@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
 
 import com.example.elaislami.R;
-import com.example.elaislami.RoomDBManager.RoomDBModels.PrayerStatisticsDBModel;
+import com.example.elaislami.RoomDBManager.RoomDBModel.PrayerStatisticsDBModel;
 
 import java.util.List;
 

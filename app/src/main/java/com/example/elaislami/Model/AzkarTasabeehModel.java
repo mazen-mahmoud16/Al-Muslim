@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 /*
  * This model is used to represent Azkar
  */
-public class AzkarModel {
+public class AzkarTasabeehModel {
 
     @SerializedName("count")
     private final String count;
@@ -14,7 +14,7 @@ public class AzkarModel {
     private String content;
 
     // Here is the constructor
-    public AzkarModel(String count, String content) {
+    public AzkarTasabeehModel(String count, String content) {
         this.count = count;
         this.content = content;
     }

@@ -6,7 +6,7 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
-import com.example.elaislami.RoomDBManager.RoomDBModels.TodoItemDBModel;
+import com.example.elaislami.RoomDBManager.RoomDBModel.TodoItemDBModel;
 
 import java.util.List;
 

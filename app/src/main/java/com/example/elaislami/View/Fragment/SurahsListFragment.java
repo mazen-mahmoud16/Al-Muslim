@@ -13,7 +13,7 @@ import com.example.elaislami.View.Activity.SurahDetailActivity;
 import com.example.elaislami.Adapter.SurahListAdapter;
 import com.example.elaislami.Listener.SurahListener;
 import com.example.elaislami.R;
-import com.example.elaislami.RoomDBManager.RoomDBModels.SurahDBModel;
+import com.example.elaislami.RoomDBManager.RoomDBModel.SurahDBModel;
 import com.example.elaislami.RoomDBManager.ViewModel.SurahViewModel;
 import java.util.ArrayList;
 import java.util.List;

@@ -3,7 +3,7 @@ import android.app.Application;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import com.example.elaislami.RoomDBManager.Repository.PrayerStatisticsRepository;
-import com.example.elaislami.RoomDBManager.RoomDBModels.PrayerStatisticsDBModel;
+import com.example.elaislami.RoomDBManager.RoomDBModel.PrayerStatisticsDBModel;
 import java.util.List;
 
 /*

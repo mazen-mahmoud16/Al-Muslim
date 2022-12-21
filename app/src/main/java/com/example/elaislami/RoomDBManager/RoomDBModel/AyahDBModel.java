@@ -1,4 +1,4 @@
-package com.example.elaislami.RoomDBManager.RoomDBModels;
+package com.example.elaislami.RoomDBManager.RoomDBModel;
 
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;

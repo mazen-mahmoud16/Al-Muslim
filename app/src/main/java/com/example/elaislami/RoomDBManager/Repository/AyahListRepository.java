@@ -10,7 +10,7 @@ import com.example.elaislami.APIHolder.JsonPlaceHolderAPI;
 import com.example.elaislami.RoomDBManager.DAO.AyahDAO;
 import com.example.elaislami.Model.AyahFirstResponse;
 import com.example.elaislami.RoomDBManager.RoomDB.MyRoomDatabase;
-import com.example.elaislami.RoomDBManager.RoomDBModels.AyahDBModel;
+import com.example.elaislami.RoomDBManager.RoomDBModel.AyahDBModel;
 
 import java.util.List;
 import retrofit2.Call;

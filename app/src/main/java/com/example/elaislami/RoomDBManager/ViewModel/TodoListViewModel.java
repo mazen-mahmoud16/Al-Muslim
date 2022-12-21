@@ -6,7 +6,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 import com.example.elaislami.RoomDBManager.Repository.TodoListRepository;
-import com.example.elaislami.RoomDBManager.RoomDBModels.TodoItemDBModel;
+import com.example.elaislami.RoomDBManager.RoomDBModel.TodoItemDBModel;
 
 import java.util.List;
 

@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.elaislami.Listener.TodoListener;
 import com.example.elaislami.R;
-import com.example.elaislami.RoomDBManager.RoomDBModels.TodoItemDBModel;
+import com.example.elaislami.RoomDBManager.RoomDBModel.TodoItemDBModel;
 
 import java.util.List;
 

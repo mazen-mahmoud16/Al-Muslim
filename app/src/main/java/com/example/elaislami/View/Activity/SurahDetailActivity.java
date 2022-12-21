@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.elaislami.Adapter.AyahListAdapter;
 import com.example.elaislami.R;
-import com.example.elaislami.RoomDBManager.RoomDBModels.AyahDBModel;
+import com.example.elaislami.RoomDBManager.RoomDBModel.AyahDBModel;
 import com.example.elaislami.RoomDBManager.ViewModel.AyahViewModel;
 
 import android.annotation.SuppressLint;

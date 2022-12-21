@@ -7,7 +7,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.elaislami.Adapter.AzkarTasabeehAdapter;
-import com.example.elaislami.Model.AzkarModel;
+import com.example.elaislami.Model.AzkarTasabeehModel;
 import com.example.elaislami.R;
 import com.example.elaislami.Utils.Utils;
 import com.google.gson.Gson;
@@ -34,7 +34,7 @@ public class TasabehActivity extends AppCompatActivity {
     private Type listAzkarType;
 
     // List of tasbeeh
-    private List<AzkarModel> tasabeehModelList;
+    private List<AzkarTasabeehModel> tasabeehModelList;
 
     // Adapter
     private AzkarTasabeehAdapter tasabeehAdapter;
@@ -72,7 +72,7 @@ public class TasabehActivity extends AppCompatActivity {
          * To get data from tasbeeh JSON file
          */
         gson = new Gson();
-        listAzkarType = new TypeToken<List<AzkarModel>>() {
+        listAzkarType = new TypeToken<List<AzkarTasabeehModel>>() {
         }.getType();
         jsonFileString = Utils.getJsonFromAssets(getApplicationContext(), "tasabeeh.json");
         tasabeehModelList = gson.fromJson(jsonFileString, listAzkarType);

@@ -11,10 +11,10 @@ import com.example.elaislami.RoomDBManager.DAO.AyahDAO;
 import com.example.elaislami.RoomDBManager.DAO.PrayerStatsDAO;
 import com.example.elaislami.RoomDBManager.DAO.SurahDAO;
 import com.example.elaislami.RoomDBManager.DAO.TodoDAO;
-import com.example.elaislami.RoomDBManager.RoomDBModels.AyahDBModel;
-import com.example.elaislami.RoomDBManager.RoomDBModels.SurahDBModel;
-import com.example.elaislami.RoomDBManager.RoomDBModels.PrayerStatisticsDBModel;
-import com.example.elaislami.RoomDBManager.RoomDBModels.TodoItemDBModel;
+import com.example.elaislami.RoomDBManager.RoomDBModel.AyahDBModel;
+import com.example.elaislami.RoomDBManager.RoomDBModel.SurahDBModel;
+import com.example.elaislami.RoomDBManager.RoomDBModel.PrayerStatisticsDBModel;
+import com.example.elaislami.RoomDBManager.RoomDBModel.TodoItemDBModel;
 
 /*
  * Here is the Room Database where we initialize our project's database

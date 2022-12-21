@@ -10,7 +10,7 @@ import com.example.elaislami.APIHolder.JsonPlaceHolderAPI;
 import com.example.elaislami.RoomDBManager.DAO.SurahDAO;
 import com.example.elaislami.Model.SurahFirstResponse;
 import com.example.elaislami.RoomDBManager.RoomDB.MyRoomDatabase;
-import com.example.elaislami.RoomDBManager.RoomDBModels.SurahDBModel;
+import com.example.elaislami.RoomDBManager.RoomDBModel.SurahDBModel;
 
 import java.util.List;
 

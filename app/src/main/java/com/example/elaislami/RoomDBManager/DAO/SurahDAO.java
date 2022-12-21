@@ -6,7 +6,7 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
-import com.example.elaislami.RoomDBManager.RoomDBModels.SurahDBModel;
+import com.example.elaislami.RoomDBManager.RoomDBModel.SurahDBModel;
 
 import java.util.List;
 

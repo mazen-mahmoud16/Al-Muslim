@@ -6,9 +6,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 import com.example.elaislami.RoomDBManager.Repository.AyahListRepository;
-import com.example.elaislami.RoomDBManager.Repository.SurahListRepository;
-import com.example.elaislami.RoomDBManager.RoomDBModels.AyahDBModel;
-import com.example.elaislami.RoomDBManager.RoomDBModels.SurahDBModel;
+import com.example.elaislami.RoomDBManager.RoomDBModel.AyahDBModel;
 
 import java.util.List;
 
