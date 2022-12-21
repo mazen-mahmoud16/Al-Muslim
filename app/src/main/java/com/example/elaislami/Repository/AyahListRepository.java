@@ -9,8 +9,6 @@ import com.example.elaislami.DAO.AyahDAO;
 import com.example.elaislami.Model.AyahFirstResponse;
 import com.example.elaislami.RoomDB.SurahRoomDatabase;
 import com.example.elaislami.RoomDBModels.AyahDBModel;
-
-import java.util.ArrayList;
 import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -18,28 +16,42 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+/*
+ * Here is the repository for Ayah list
+ */
 public class AyahListRepository {
 
-    private AyahDAO mAyahDao;
+    // Make a reference for the dao
+    private final AyahDAO mAyahDao;
+
+    // Make a live data list to keep updates of the current list contents
     private LiveData<List<AyahDBModel>> mAllAyahs;
-    Retrofit retrofit;
-    JsonPlaceHolderAPI jsonPlaceHolderAPI;
-    Call<AyahFirstResponse> call;
-    List<AyahDBModel> mAllAyahsList;
-    SharedPreferences settings;
+
+    // Make a retrofit to call builder to get data from API
+    private Retrofit retrofit;
+
+    // Make a JSON placeholder API reference to JsonPlaceHolderAPI interface to access API methods
+    private JsonPlaceHolderAPI jsonPlaceHolderAPI;
+
+    // Make a call of the type AyahFirstResponse that will map returned data from API after calling api method
+    private Call<AyahFirstResponse> call;
+
+    // Make a list to store the data from API
+    private List<AyahDBModel> mAllAyahsList;
+
+    /*
+     * Make a shared preference to store surah number
+     */
+    private SharedPreferences settings;
     public static final String PREFS_NAME = "MyPreferenceFile";
-    int surahNumber;
-    SurahRoomDatabase db ;
+    private int surahNumber;
 
-
+    // Here is the constructor
     public AyahListRepository(Application application) {
 
-         db = SurahRoomDatabase.getDatabase(application);
-
+        SurahRoomDatabase db = SurahRoomDatabase.getDatabase(application);
         settings = application.getApplicationContext().getSharedPreferences(PREFS_NAME, 0);
         surahNumber = settings.getInt("surahNumber",1);
-
-
 
         if(mAllAyahs == null){
            retrofit = new Retrofit.Builder()
@@ -52,33 +64,31 @@ public class AyahListRepository {
         }
         mAyahDao = db.ayahDAO();
         mAllAyahs = mAyahDao.getAllAyahs();
-
         mAllAyahs = mAyahDao.getSpecificAyahs(surahNumber);
-
-        //mAllAyahs = mAyahDao.getAllAyahs();
-       // mAllAyahs = mAyahDao.getSpecificAyahs(surahNumber);
-
     }
 
+    /*
+     * Here is the function to get the data from API
+     */
     public void getAllAyahsApi(){
         call.enqueue(new Callback<AyahFirstResponse>() {
             @Override
-            public void onResponse(Call<AyahFirstResponse> call, Response<AyahFirstResponse> response) {
+            public void onResponse(Call<AyahFirstResponse> call, Response<AyahFirstResponse> response)
+            {
                 if (!response.isSuccessful()){
                     Log.d("MVVMX", "--- Not successful");
                 } else {
 
                     AyahFirstResponse mAllAyahsRes = response.body();
+                    assert mAllAyahsRes != null;
                     mAllAyahsList=mAllAyahsRes.getData().getAyahs();
 
-                    for (AyahDBModel ayahDBModel:mAllAyahsList) {
+                    for (AyahDBModel ayahDBModel:mAllAyahsList)
+                    {
                         ayahDBModel.setSurahNumber(surahNumber);
                         insert(ayahDBModel);
                     }
-
                 }
-
-
             }
             @Override
             public void onFailure(Call<AyahFirstResponse> call, Throwable t) {
@@ -90,18 +100,20 @@ public class AyahListRepository {
         });
     }
 
-
+    // Here is the function to get all ayahs from ROOM DB
     public LiveData<List<AyahDBModel>> getAllAyahs() {
         return mAllAyahs;
     }
 
+    // Here is the function to insert ayah in ROOM DB
     public void insert (AyahDBModel ayahDBModel) {
         new AyahListRepository.insertAsyncTask(mAyahDao).execute(ayahDBModel);
     }
 
+    // Here is the function to get insert surah Asynchronously in ROOM DB
     private static class insertAsyncTask extends AsyncTask<AyahDBModel, Void, Void> {
 
-        private AyahDAO mAsyncTaskDao;
+        private final AyahDAO mAsyncTaskDao;
 
         insertAsyncTask(AyahDAO dao) {
             mAsyncTaskDao = dao;
