@@ -7,14 +7,16 @@ import androidx.room.PrimaryKey;
 
 import com.google.gson.annotations.SerializedName;
 
+/*
+ * Here is the surah database model for surah_table, to hold the table's columns
+ */
 @Entity(tableName = "surah_table")
 public class SurahDBModel {
 
     @PrimaryKey
-    @NonNull
     @ColumnInfo(name = "number")
     @SerializedName("number")
-    private int number;
+    private final int number;
 
     @NonNull
     @ColumnInfo(name = "name")
@@ -24,22 +26,28 @@ public class SurahDBModel {
     @NonNull
     @ColumnInfo(name = "englishName")
     @SerializedName("englishName")
-    private String englishName;
+    private final String englishName;
 
-    public SurahDBModel(int number, String name, String englishName) {
+    // Here is the constructor for surah database model
+    public SurahDBModel(int number, @NonNull String name, @NonNull String englishName) {
         this.number = number;
         this.name = name;
         this.englishName = englishName;
     }
 
+    /*
+     * Here are the setters and getters for the table
+     */
     public int getNumber() {
         return number;
     }
 
+    @NonNull
     public String getName() {
         return name;
     }
 
+    @NonNull
     public String getEnglishName() {
         return englishName;
     }
