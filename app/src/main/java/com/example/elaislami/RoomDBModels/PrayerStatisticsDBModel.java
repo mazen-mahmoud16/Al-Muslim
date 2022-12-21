@@ -1,43 +1,42 @@
 package com.example.elaislami.RoomDBModels;
-
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "prayer_stats_table")
+/*
+ * Here is the Prayer Statistics database model for prayer_stats_table, to hold the table's columns
+ */
 
+@Entity(tableName = "prayer_stats_table")
 public class PrayerStatisticsDBModel {
 
     @PrimaryKey(autoGenerate = true)
-    @NonNull
     @ColumnInfo(name = "prayer_stat_id")
     private int id;
 
-
     @NonNull
     @ColumnInfo(name = "date")
-    private String date;
+    private final String date;
 
-    @NonNull
     @ColumnInfo(name = "fajr")
     boolean fajr;
 
-    @NonNull
     @ColumnInfo(name = "dhuhr")
     boolean dhuhr;
 
-    @NonNull
     @ColumnInfo(name = "asr")
     boolean asr;
 
-    @NonNull
     @ColumnInfo(name = "maghrib")
     boolean maghrib;
 
-    @NonNull
     @ColumnInfo(name = "isha")
     boolean isha;
+
+    /*
+     * Here are the setters and getters for the table
+     */
 
     @NonNull
     public String getDate() {
@@ -62,10 +61,6 @@ public class PrayerStatisticsDBModel {
 
     public boolean isIsha() {
         return isha;
-    }
-
-    public void setDate(@NonNull String date) {
-        this.date = date;
     }
 
     public void setFajr(boolean fajr) {
@@ -95,7 +90,7 @@ public class PrayerStatisticsDBModel {
         this.id = id;
     }
 
-
+    // Here is the constructor for Prayer Statistics table
     public PrayerStatisticsDBModel(@NonNull String date, boolean fajr, boolean dhuhr, boolean asr, boolean maghrib, boolean isha) {
         this.date = date;
         this.fajr = fajr;

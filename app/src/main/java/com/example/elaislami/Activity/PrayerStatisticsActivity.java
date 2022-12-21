@@ -154,7 +154,7 @@ public class PrayerStatisticsActivity extends AppCompatActivity {
             public void onClick(View view) {
                 for (PrayerStatisticsDBModel prayerStatisticsDBModel: prayerStatisticsDBModels)
                 {
-                    prayerStatsViewModel.updatePrayer(prayerStatisticsDBModel);
+                    prayerStatsViewModel.updatePrayerStatistics(prayerStatisticsDBModel);
                 }
                 Toasty.success(PrayerStatisticsActivity.this,"Saved Successfully",Toasty.LENGTH_SHORT,true).show();
 
@@ -289,7 +289,7 @@ public class PrayerStatisticsActivity extends AppCompatActivity {
 
             editor.putInt("prayer_counter",prayerCounter);
 
-            prayerStatsViewModel.deleteAllPrayer();
+            prayerStatsViewModel.deleteAllPrayerStatistics();
             SimpleDateFormat format1 = new SimpleDateFormat("E, d MMMM");
 
             editor.putString("date_week",format1.format(current.getTime()));
@@ -297,7 +297,7 @@ public class PrayerStatisticsActivity extends AppCompatActivity {
             editor=settings.edit();
 
             for(int i=0;i<=6;i++){
-                prayerStatsViewModel.insertPrayer(new PrayerStatisticsDBModel(format1.format(current.getTime()), false,
+                prayerStatsViewModel.insertPrayerStatistics(new PrayerStatisticsDBModel(format1.format(current.getTime()), false,
                         false, false, false, false));
                 current.add(Calendar.DATE,1);
 
