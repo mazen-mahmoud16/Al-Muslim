@@ -394,7 +394,7 @@ public class HomeFragment extends Fragment {
                     dialog.show();
                 }
                 else{
-                    tvLocation.setText(settings.getString("address", "Loading"));
+                    tvLocation.setText(settings.getString("address", "Location not accessible"));
                 }
             }
 
@@ -517,7 +517,7 @@ public class HomeFragment extends Fragment {
     public void onResume() {
         super.onResume();
         settings.registerOnSharedPreferenceChangeListener(sharedPreferenceChangeListener);
-        tvLocation.setText(settings.getString("address", "Loading"));
+        tvLocation.setText(settings.getString("address", "Location not accessible"));
     }
 
     /*

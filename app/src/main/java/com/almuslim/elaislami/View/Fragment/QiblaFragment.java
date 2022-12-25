@@ -92,7 +92,7 @@ public class QiblaFragment extends Fragment implements SensorEventListener {
           */
         sharedPreferenceChangeListener = (sharedPreferences, key) -> {
             if (key.equals("address")) {
-                tvLocation.setText(settings.getString("address", "Loading"));
+                tvLocation.setText(settings.getString("address", "Location not accessible"));
                 longDouble = Double.parseDouble(settings.getString("long", "0.0"));
                 latDouble = Double.parseDouble(settings.getString("lat", "0.0"));
             }
@@ -117,7 +117,7 @@ public class QiblaFragment extends Fragment implements SensorEventListener {
         // Listen on shared preference
         settings.registerOnSharedPreferenceChangeListener(sharedPreferenceChangeListener);
         // Update location textview
-        tvLocation.setText(settings.getString("address", "Loading"));
+        tvLocation.setText(settings.getString("address", "Location not accessible"));
     }
 
     /*

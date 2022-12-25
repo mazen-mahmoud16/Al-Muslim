@@ -92,7 +92,7 @@ public class PrayerFragment extends Fragment {
             if(key.equals("address")){
 
                 // Assign text view and location
-                tvLocation.setText(settings.getString("address", "Loading"));
+                tvLocation.setText(settings.getString("address", "Location not accessible"));
                 double longDouble=Double.parseDouble(settings.getString("long", "0.0"));
                 double latDouble=Double.parseDouble(settings.getString("lat", "0.0"));
 
@@ -270,7 +270,7 @@ public class PrayerFragment extends Fragment {
     public void onResume() {
         super.onResume();
         settings.registerOnSharedPreferenceChangeListener(sharedPreferenceChangeListener);
-        tvLocation.setText(settings.getString("address", "Loading"));
+        tvLocation.setText(settings.getString("address", "Location not accessible"));
     }
 
     /*
