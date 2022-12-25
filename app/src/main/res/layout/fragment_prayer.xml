@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingTop="-20dp"
-    tools:context=".View.Fragment.SurahsListFragment">
+    tools:context="com.almuslim.elaislami.View.Fragment.SurahsListFragment">
 
     <TextView
         android:id="@+id/prayer_times_title_english"

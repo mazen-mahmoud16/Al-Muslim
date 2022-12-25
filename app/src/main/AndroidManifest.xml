@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+<manifest
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.almuslim.elaislami">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -11,14 +13,14 @@
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_al_muslim_launcher"
+        android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_al_muslim_launcher_round"
+        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ElaIslami"
         tools:targetApi="31">
         <activity
-            android:name=".View.Activity.TasabehActivity"
+            android:name="com.almuslim.elaislami.View.Activity.TasabehActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -26,9 +28,10 @@
         </activity>
 
         <receiver
-            android:name=".BroadcastReceiver.LocationReceiver"
+            android:name="com.almuslim.elaislami.BroadcastReceiver.LocationReceiver"
             android:enabled="true"
-            android:exported="false">
+            android:exported="false"
+            tools:ignore="Instantiatable">
             <intent-filter>
                 <action android:name="android.location.PROVIDERS_CHANGED" />
 
@@ -37,7 +40,7 @@
         </receiver>
 
         <activity
-            android:name=".View.Activity.SurahDetailActivity"
+            android:name="com.almuslim.elaislami.View.Activity.SurahDetailActivity"
             android:configChanges="orientation"
             android:exported="false"
             android:screenOrientation="portrait"
@@ -47,7 +50,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".View.Activity.TodoActivity"
+            android:name="com.almuslim.elaislami.View.Activity.TodoActivity"
             android:configChanges="orientation"
             android:exported="false"
             android:screenOrientation="portrait"
@@ -57,7 +60,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".View.Activity.PrayerStatisticsActivity"
+            android:name="com.almuslim.elaislami.View.Activity.PrayerStatisticsActivity"
             android:configChanges="orientation"
             android:exported="false"
             android:screenOrientation="portrait"
@@ -67,7 +70,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".View.Activity.MainActivity"
+            android:name="com.almuslim.elaislami.View.Activity.MainActivity"
             android:configChanges="orientation"
             android:exported="false"
             android:screenOrientation="portrait"
@@ -77,7 +80,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".View.Activity.AzkarActivity"
+            android:name="com.almuslim.elaislami.View.Activity.AzkarActivity"
             android:configChanges="orientation"
             android:exported="false"
             android:screenOrientation="portrait"
@@ -87,7 +90,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".View.Activity.SplashScreenActivity"
+            android:name="com.almuslim.elaislami.View.Activity.SplashScreenActivity"
             android:configChanges="orientation"
             android:exported="true"
             android:screenOrientation="portrait"

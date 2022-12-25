@@ -3,11 +3,11 @@ plugins {
 }
 
 android {
-    namespace 'com.example.elaislami'
+    namespace 'com.almuslim.elaislami'
     compileSdk 32
 
     defaultConfig {
-        applicationId "com.example.elaislami"
+        applicationId "com.almuslim.elaislami"
         minSdk 21
         targetSdk 32
         versionCode 1
