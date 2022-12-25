@@ -175,13 +175,12 @@ public class SurahDetailActivity extends AppCompatActivity {
         /*
          * Calling listen audio method to initiate and start playing the surah audio on click
          */
-        if(haveNetworkConnection()){
-            try {
-                listenAudio();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        try {
+            listenAudio();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+
 
     }
 
@@ -360,11 +359,14 @@ public class SurahDetailActivity extends AppCompatActivity {
      */
     @Override
     protected void onStop() {
-        if(mediaPlayer.isPlaying()) {
-            handler.removeCallbacks(updater);
-            mediaPlayer.pause();
-            playButton.setImageResource(R.drawable.ic_play_circle);
+        if(mediaPlayer!=null){
+            if(mediaPlayer.isPlaying()) {
+                handler.removeCallbacks(updater);
+                mediaPlayer.pause();
+                playButton.setImageResource(R.drawable.ic_play_circle);
+            }
         }
+
         super.onStop();
     }
 

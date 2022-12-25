@@ -138,6 +138,7 @@ public class HomeFragment extends Fragment {
                      * Calling prayerTimeGenerator method and pass with it the string current time or the string prayer time (in 24-hour format)
                      * to convert the string time into double format to be used in comparison easily later in the if statements
                      */
+
                     currentTime = prayerTimeGenerator(result_time);
                     fajrTime=prayerTimeGenerator(todaysPrayers.getFajr());
                     dhuhrTime=prayerTimeGenerator(todaysPrayers.getDhuhr());
@@ -163,13 +164,22 @@ public class HomeFragment extends Fragment {
                             editor.commit();
                         }
 
+
                         // Checking whether the prayer time before 10 AM or not to see if there is 0 at the beginning of the string or not
                         if(fajrTime<=9)
                         {
-                            if(Double.parseDouble(fajrTime.toString().substring(2,4))==0 &&fajrTime.toString().length()==4){
+                            if(Double.parseDouble(String.valueOf(fajrTime.toString().charAt(2)))==0 &&fajrTime.toString().length()==3){
                                 prayerTime = "0"+ fajrTime.toString().charAt(0)+":"+"0"+fajrTime.toString().charAt(2);
 
-                            }else{
+                            }
+
+                            else if(fajrTime.toString().length()==3)
+                            {
+                                prayerTime = "0"+ fajrTime.toString().charAt(0)+":"+fajrTime.toString().charAt(2)+"0";
+
+
+                            }
+                            else{
                                 prayerTime = "0"+ fajrTime.toString().charAt(0)+":"+fajrTime.toString().substring(2,4);
 
                             }
@@ -177,11 +187,18 @@ public class HomeFragment extends Fragment {
                         }
                         else
                         {
-                            if(Double.parseDouble(fajrTime.toString().substring(2,4))<=0){
-                                prayerTime = fajrTime.toString().substring(0, 2)+":"+"0"+fajrTime.toString().substring(3);
+                            if(Double.parseDouble(String.valueOf(fajrTime.toString().charAt(3)))==0 &&fajrTime.toString().length()==4){
+                                prayerTime = fajrTime.toString().substring(0, 2)+":"+"0"+fajrTime.toString().charAt(3);
 
-                            }else{
-                                prayerTime = fajrTime.toString().substring(0, 2)+":"+fajrTime.toString().substring(3, 5);
+                            }
+
+                            else if(fajrTime.toString().length()==4)
+                            {
+                                prayerTime = fajrTime.toString().substring(0, 2)+":"+fajrTime.toString().charAt(3)+"0";
+
+                            }
+                            else{
+                                prayerTime = fajrTime.toString().substring(0, 2)+":"+fajrTime.toString().substring(3,5);
 
                             }
 
@@ -203,12 +220,20 @@ public class HomeFragment extends Fragment {
                         }
 
                         // Checking whether the prayer time before 10 AM or not to see if there is 0 at the beginning of the string or not
-                        if(asrTime<=9)
+                        if(dhuhrTime<=9)
                         {
-                            if(Double.parseDouble(dhuhrTime.toString().substring(2,4))==0 &&dhuhrTime.toString().length()==4){
+                            if(Double.parseDouble(String.valueOf(dhuhrTime.toString().charAt(2)))==0 &&dhuhrTime.toString().length()==3){
                                 prayerTime = "0"+ dhuhrTime.toString().charAt(0)+":"+"0"+dhuhrTime.toString().charAt(2);
 
-                            }else{
+                            }
+
+                            else if(dhuhrTime.toString().length()==3)
+                            {
+                                prayerTime = "0"+ dhuhrTime.toString().charAt(0)+":"+dhuhrTime.toString().charAt(2)+"0";
+
+
+                            }
+                            else{
                                 prayerTime = "0"+ dhuhrTime.toString().charAt(0)+":"+dhuhrTime.toString().substring(2,4);
 
                             }
@@ -216,14 +241,20 @@ public class HomeFragment extends Fragment {
                         }
                         else
                         {
-                            if(Double.parseDouble(dhuhrTime.toString().substring(2,4))==0 &&dhuhrTime.toString().length()==4){
-                                prayerTime = dhuhrTime.toString().substring(0, 2)+":"+"0"+dhuhrTime.toString().substring(3);
-
-                            }else{
-                                prayerTime = dhuhrTime.toString().substring(0, 2)+":"+dhuhrTime.toString().substring(3, 5);
+                            if(Double.parseDouble(String.valueOf(dhuhrTime.toString().charAt(3)))==0 &&dhuhrTime.toString().length()==4){
+                                prayerTime = dhuhrTime.toString().substring(0, 2)+":"+"0"+dhuhrTime.toString().charAt(3);
 
                             }
 
+                            else if(dhuhrTime.toString().length()==4)
+                            {
+                                prayerTime = dhuhrTime.toString().substring(0, 2)+":"+dhuhrTime.toString().charAt(3)+"0";
+
+                            }
+                            else{
+                                prayerTime = dhuhrTime.toString().substring(0, 2)+":"+dhuhrTime.toString().substring(3,5);
+
+                            }
                         }
                         tvPrayerName.setText("Dhuhr");
                         prayerTimeSetter(todaysPrayers.getDhuhr());
@@ -243,10 +274,18 @@ public class HomeFragment extends Fragment {
                         // Checking whether the prayer time before 10 AM or not to see if there is 0 at the beginning of the string or not
                         if(asrTime<=9)
                         {
-                            if(Double.parseDouble(asrTime.toString().substring(2,4))==0 &&asrTime.toString().length()==4){
+                            if(Double.parseDouble(String.valueOf(asrTime.toString().charAt(2)))==0 &&asrTime.toString().length()==3){
                                 prayerTime = "0"+ asrTime.toString().charAt(0)+":"+"0"+asrTime.toString().charAt(2);
 
-                            }else{
+                            }
+
+                            else if(asrTime.toString().length()==3)
+                            {
+                                prayerTime = "0"+ asrTime.toString().charAt(0)+":"+asrTime.toString().charAt(2)+"0";
+
+
+                            }
+                            else{
                                 prayerTime = "0"+ asrTime.toString().charAt(0)+":"+asrTime.toString().substring(2,4);
 
                             }
@@ -254,14 +293,20 @@ public class HomeFragment extends Fragment {
                         }
                         else
                         {
-                            if(Double.parseDouble(asrTime.toString().substring(2,4))==0 &&asrTime.toString().length()==4){
-                                prayerTime = asrTime.toString().substring(0, 2)+":"+"0"+asrTime.toString().substring(3);
-
-                            }else{
-                                prayerTime = asrTime.toString().substring(0, 2)+":"+asrTime.toString().substring(3, 5);
+                            if(Double.parseDouble(String.valueOf(asrTime.toString().charAt(3)))==0 &&asrTime.toString().length()==4){
+                                prayerTime = asrTime.toString().substring(0, 2)+":"+"0"+asrTime.toString().charAt(3);
 
                             }
 
+                            else if(asrTime.toString().length()==4)
+                            {
+                                prayerTime = asrTime.toString().substring(0, 2)+":"+asrTime.toString().charAt(3)+"0";
+
+                            }
+                            else{
+                                prayerTime = asrTime.toString().substring(0, 2)+":"+asrTime.toString().substring(3,5);
+
+                            }
                         }
 
                         tvPrayerName.setText("Asr");
@@ -282,13 +327,18 @@ public class HomeFragment extends Fragment {
                         // Checking whether the prayer time before 10 AM or not to see if there is 0 at the beginning of the string or not
                         if(maghribTime<=9)
                         {
-                            if(Double.parseDouble(maghribTime.toString().substring(2,4))==0&&maghribTime.toString().length()==4){
+                            if(Double.parseDouble(String.valueOf(maghribTime.toString().charAt(2)))==0 &&maghribTime.toString().length()==3){
                                 prayerTime = "0"+ maghribTime.toString().charAt(0)+":"+"0"+maghribTime.toString().charAt(2);
 
                             }
 
-                            else{
+                            else if(maghribTime.toString().length()==3)
+                            {
+                                prayerTime = "0"+ maghribTime.toString().charAt(0)+":"+maghribTime.toString().charAt(2)+"0";
 
+
+                            }
+                            else{
                                 prayerTime = "0"+ maghribTime.toString().charAt(0)+":"+maghribTime.toString().substring(2,4);
 
                             }
@@ -296,18 +346,21 @@ public class HomeFragment extends Fragment {
                         }
                         else
                         {
-                            if(Double.parseDouble(maghribTime.toString().substring(2,4))==0 &&maghribTime.toString().length()==4){
-                                prayerTime = maghribTime.toString().substring(0, 2)+":"+"0"+maghribTime.toString().substring(3);
-
-                            }else{
-                                prayerTime = maghribTime.toString().substring(0, 2)+":"+maghribTime.toString().substring(3, 5);
+                            if(Double.parseDouble(String.valueOf(maghribTime.toString().charAt(3)))==0 &&maghribTime.toString().length()==4){
+                                prayerTime = maghribTime.toString().substring(0, 2)+":"+"0"+maghribTime.toString().charAt(3);
 
                             }
 
+                            else if(maghribTime.toString().length()==4)
+                            {
+                                prayerTime = maghribTime.toString().substring(0, 2)+":"+maghribTime.toString().charAt(3)+"0";
+
+                            }
+                            else{
+                                prayerTime = maghribTime.toString().substring(0, 2)+":"+maghribTime.toString().substring(3,5);
+
+                            }
                         }
-
-                        Log.d("hii",prayerTime);
-
                         tvPrayerName.setText("Maghrib");
                         prayerTimeSetter(todaysPrayers.getMaghrib());
                     }
@@ -326,10 +379,18 @@ public class HomeFragment extends Fragment {
                         // Checking whether the prayer time before 10 AM or not to see if there is 0 at the beginning of the string or not
                         if(ishaTime<=9)
                         {
-                            if(Double.parseDouble(ishaTime.toString().substring(2,4))==0 &&ishaTime.toString().length()==4){
+                            if(Double.parseDouble(String.valueOf(ishaTime.toString().charAt(2)))==0 &&ishaTime.toString().length()==3){
                                 prayerTime = "0"+ ishaTime.toString().charAt(0)+":"+"0"+ishaTime.toString().charAt(2);
 
-                            }else{
+                            }
+
+                            else if(ishaTime.toString().length()==3)
+                            {
+                                prayerTime = "0"+ ishaTime.toString().charAt(0)+":"+ishaTime.toString().charAt(2)+"0";
+
+
+                            }
+                            else{
                                 prayerTime = "0"+ ishaTime.toString().charAt(0)+":"+ishaTime.toString().substring(2,4);
 
                             }
@@ -337,14 +398,20 @@ public class HomeFragment extends Fragment {
                         }
                         else
                         {
-                            if(Double.parseDouble(ishaTime.toString().substring(2,4))==0 &&ishaTime.toString().length()==4){
-                                prayerTime = ishaTime.toString().substring(0, 2)+":"+"0"+ishaTime.toString().substring(3);
-
-                            }else{
-                                prayerTime = ishaTime.toString().substring(0, 2)+":"+ishaTime.toString().substring(3, 5);
+                            if(Double.parseDouble(String.valueOf(ishaTime.toString().charAt(3)))==0 &&ishaTime.toString().length()==4){
+                                prayerTime = ishaTime.toString().substring(0, 2)+":"+"0"+ishaTime.toString().charAt(3);
 
                             }
 
+                            else if(ishaTime.toString().length()==4)
+                            {
+                                prayerTime = ishaTime.toString().substring(0, 2)+":"+ishaTime.toString().charAt(3)+"0";
+
+                            }
+                            else{
+                                prayerTime = ishaTime.toString().substring(0, 2)+":"+ishaTime.toString().substring(3,5);
+
+                            }
                         }
                         tvPrayerName.setText("Isha");
                         prayerTimeSetter(todaysPrayers.getIsha());
@@ -440,6 +507,7 @@ public class HomeFragment extends Fragment {
      */
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void setCountdown(String result_time, String prayerTime) {
+
         /*
          * Used Duration method to calculate difference between two 24-hour format times
          */
@@ -482,12 +550,12 @@ public class HomeFragment extends Fragment {
      */
     public Double prayerTimeGenerator(String prayerTime)
     {
+
         // Remove the AM/PM part
         String timePart=prayerTime.substring(0, 5);
 
         String modifiedTime = timePart.replace(":", ".");
         System.out.println(Double.parseDouble(modifiedTime));
-        Log.d("keyy",String.valueOf(Double.parseDouble(modifiedTime)));
         return Double.parseDouble(modifiedTime);
     }
 
