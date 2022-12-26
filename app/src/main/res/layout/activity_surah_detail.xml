@@ -91,14 +91,13 @@
         tools:listitem="@layout/surah_detail_item"
         />
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/seek_bar_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentStart="true"
-        android:paddingEnd="20dp"
         android:paddingBottom="3dp"
         android:paddingTop="3dp"
         android:background="@color/whitesmoke"
@@ -109,42 +108,56 @@
 
         <ImageButton
             android:id="@+id/play_button"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
             android:src="@drawable/ic_play_circle"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/start_time"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             android:background="@null"
             android:contentDescription="@string/play_button" />
+
         <TextView
             android:id="@+id/start_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/_0_00_test"
-            android:textAlignment="center"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/seekBar"
+            app:layout_constraintStart_toEndOf="@id/play_button"
             android:textColor="@color/black"
-            android:textSize="20sp"
-            android:layout_gravity="center"
+            android:textSize="18sp"
             android:layout_marginStart="4dp"/>
 
         <SeekBar
             android:id="@+id/seekBar"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="2"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/start_time"
+            app:layout_constraintEnd_toStartOf="@id/total_time"
             android:thumbTint="@color/primary_dark_green"
             android:progressTint="@color/primary_dark_green"
             android:progressBackgroundTint="@color/primary_dark_green"
             />
+
         <TextView
             android:id="@+id/total_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/seekBar"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="10dp"
             android:text="@string/_0_00_test"
             android:textAlignment="center"
             android:textColor="@color/black"
-            android:textSize="20sp"
-            android:layout_gravity="center"
-            android:layout_marginStart="4dp"/>
-    </LinearLayout>
+            android:textSize="18sp"
+            android:layout_gravity="center" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
