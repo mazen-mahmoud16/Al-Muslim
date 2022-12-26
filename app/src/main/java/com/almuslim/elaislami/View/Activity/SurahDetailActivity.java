@@ -12,11 +12,11 @@ import com.almuslim.elaislami.RoomDBManager.ViewModel.AyahViewModel;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -30,6 +30,7 @@ import android.widget.TextView;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 import es.dmoral.toasty.Toasty;
 
@@ -76,6 +77,9 @@ public class SurahDetailActivity extends AppCompatActivity {
 
     // Media player reference
     MediaPlayer mediaPlayer;
+
+    // Flag which check if media player is loaded
+    static boolean isLoaded = false;
 
     /*
      * Here is on create function
@@ -181,6 +185,30 @@ public class SurahDetailActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
+        /*
+         * Make prepared media player async function, to avoid ANR (blocking UI)
+         */
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            CompletableFuture.runAsync(() -> {
+                try {
+                    preparedMediaPlayer();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
+        }
+
+        /*
+         * If build version is lower than 24, so we cannot make use of async function
+         */
+        else{
+            try {
+                preparedMediaPlayer();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
 
     }
 
@@ -218,12 +246,16 @@ public class SurahDetailActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 if(mediaPlayer.isPlaying()){
-                    handler.removeCallbacks(updater);
+                    handler.removeCallbacks(seekBarUpdater);
                     mediaPlayer.pause();
                     playButton.setImageResource(R.drawable.ic_play_circle);
                 }else{
                     if(haveNetworkConnection()){
                         Toasty.error(SurahDetailActivity.this,"Please enable internet connection",Toasty.LENGTH_SHORT,true).show();
+                        return;
+                    }
+                    if(!isLoaded){
+                        Toasty.warning(SurahDetailActivity.this,"Audio is loading, try again after a few seconds",Toasty.LENGTH_SHORT,true).show();
                         return;
                     }
                     mediaPlayer.start();
@@ -233,7 +265,7 @@ public class SurahDetailActivity extends AppCompatActivity {
             }
         });
 
-        preparedMediaPlayer();
+
 
         /*
          * Fired when user clicks on seek bar to move forward or backward
@@ -270,16 +302,26 @@ public class SurahDetailActivity extends AppCompatActivity {
         mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
-
                 seekBar.setProgress(0);
                 playButton.setImageResource(R.drawable.ic_play_circle);
                 startTime.setText("0:00");
                 totalTime.setText("0:00");
                 mediaPlayer.reset();
-                try {
-                    preparedMediaPlayer();
-                } catch (IOException e) {
-                    e.printStackTrace();
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    CompletableFuture.runAsync(() -> {
+                        try {
+                            preparedMediaPlayer();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    });
+                }
+                else{
+                    try {
+                        preparedMediaPlayer();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         });
@@ -288,6 +330,7 @@ public class SurahDetailActivity extends AppCompatActivity {
     /*
      * Fired to set data source from the website and get the surah audio from it to stream the surah audio got
      */
+    @SuppressLint("SetTextI18n")
     private void preparedMediaPlayer() throws IOException {
 
         if(haveNetworkConnection()){
@@ -306,13 +349,15 @@ public class SurahDetailActivity extends AppCompatActivity {
         //https://download.quranicaudio.com/quran/abdul_wadood_haneef_rare/001.mp3
         mediaPlayer.setDataSource("https://download.quranicaudio.com/quran/mishaari_raashid_al_3afaasee/"+surahNumber.trim()+".mp3");
         mediaPlayer.prepare();
+        isLoaded = true;
         totalTime.setText(timeToMilliSecond(mediaPlayer.getDuration()));
+
     }
 
     /*
      * Start thread to update progress bar and update the counter text view beside the progress bar
      */
-    private Runnable updater = new Runnable() {
+    private Runnable seekBarUpdater = new Runnable() {
         @Override
         public void run() {
             updateSeekBar();
@@ -321,13 +366,15 @@ public class SurahDetailActivity extends AppCompatActivity {
         }
     };
 
+
+
     /*
      * Called when to update progress bar
      */
     private void updateSeekBar(){
         if(mediaPlayer.isPlaying()){
             seekBar.setProgress((int) (((float) mediaPlayer.getCurrentPosition() / mediaPlayer.getDuration()) *100));
-            handler.postDelayed(updater,1000);
+            handler.postDelayed(seekBarUpdater,1000);
         }
     }
 
@@ -351,6 +398,7 @@ public class SurahDetailActivity extends AppCompatActivity {
             secondString = "" + second;
         }
         timerString = timerString + minutes + ":" + secondString;
+
         return timerString;
     }
 
@@ -361,7 +409,7 @@ public class SurahDetailActivity extends AppCompatActivity {
     protected void onStop() {
         if(mediaPlayer!=null){
             if(mediaPlayer.isPlaying()) {
-                handler.removeCallbacks(updater);
+                handler.removeCallbacks(seekBarUpdater);
                 mediaPlayer.pause();
                 playButton.setImageResource(R.drawable.ic_play_circle);
             }

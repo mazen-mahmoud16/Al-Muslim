@@ -555,7 +555,6 @@ public class HomeFragment extends Fragment {
         String timePart=prayerTime.substring(0, 5);
 
         String modifiedTime = timePart.replace(":", ".");
-        System.out.println(Double.parseDouble(modifiedTime));
         return Double.parseDouble(modifiedTime);
     }
 
