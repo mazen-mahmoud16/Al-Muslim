@@ -104,10 +104,10 @@
         android:layout_width="0dp"
         android:layout_height="1dp"
         android:background="@android:color/darker_gray"
-        app:layout_constraintBottom_toBottomOf="@id/prev_day"
+        app:layout_constraintBottom_toBottomOf="@id/line1"
         app:layout_constraintEnd_toStartOf="@id/next_day"
         app:layout_constraintStart_toEndOf="@id/day"
-        app:layout_constraintTop_toTopOf="@id/prev_day" />
+        app:layout_constraintTop_toTopOf="@id/line1" />
 
     <ImageButton
         android:id="@+id/next_day"
