@@ -21,7 +21,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.almuslim.elaislami.R;
+import com.almuslim.elaislami.View.Activity.MainActivity;
 
+import java.util.Objects;
+
+import es.dmoral.toasty.Toasty;
 
 
 /*
@@ -111,11 +115,17 @@ public class QiblaFragment extends Fragment implements SensorEventListener {
     public void onResume() {
         super.onResume();
 
-        // For the system's orientation sensor registered listeners
-        mSensorManager.registerListener(this, mSensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION),
-                SensorManager.SENSOR_DELAY_GAME);
-        // Listen on shared preference
-        settings.registerOnSharedPreferenceChangeListener(sharedPreferenceChangeListener);
+        if (mSensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION) != null){
+            // For the system's orientation sensor registered listeners
+            mSensorManager.registerListener(this, mSensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION),
+                    SensorManager.SENSOR_DELAY_GAME);
+            // Listen on shared preference
+            settings.registerOnSharedPreferenceChangeListener(sharedPreferenceChangeListener);
+        } else {
+            Toasty.error(requireActivity(), "Sorry the Qibla feature is not supported by your device", Toasty.LENGTH_LONG, true).show();
+
+        }
+
         // Update location textview
         tvLocation.setText(settings.getString("address", "Location not accessible"));
     }
