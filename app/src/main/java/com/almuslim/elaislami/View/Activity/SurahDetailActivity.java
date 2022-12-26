@@ -19,7 +19,6 @@ import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
@@ -384,6 +383,7 @@ public class SurahDetailActivity extends AppCompatActivity {
     private String timeToMilliSecond(long milliSecond){
         String timerString = "";
         String secondString ;
+        String mins;
 
         int hours = (int) (milliSecond /(1000 * 60 * 60));
         int minutes = (int) (milliSecond % (1000 * 60 * 60)) / (1000 * 60);
@@ -397,8 +397,13 @@ public class SurahDetailActivity extends AppCompatActivity {
         }else{
             secondString = "" + second;
         }
-        timerString = timerString + minutes + ":" + secondString;
-
+        if(minutes<10){
+            mins="0"+minutes;
+        }
+        else{
+            mins=""+minutes;
+        }
+        timerString = timerString + mins + ":" + secondString;
         return timerString;
     }
 

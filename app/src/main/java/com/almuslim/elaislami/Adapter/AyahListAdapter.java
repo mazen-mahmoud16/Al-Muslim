@@ -124,7 +124,6 @@ public class AyahListAdapter extends RecyclerView.Adapter<AyahListAdapter.ViewHo
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            Log.d("debuggingggg","a");
 
             ayaContent = itemView.findViewById(R.id.ayaContent);
             constraintLayout= itemView.findViewById(R.id.ayah_container);
