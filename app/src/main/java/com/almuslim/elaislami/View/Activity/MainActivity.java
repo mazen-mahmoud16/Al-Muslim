@@ -24,7 +24,7 @@ import androidx.core.content.ContextCompat;
 import androidx.viewpager.widget.ViewPager;
 
 import com.almuslim.elaislami.BroadcastReceiver.LocationReceiver;
-import com.almuslim.elaislami.BuildConfig;
+
 import com.almuslim.elaislami.Listener.LocationListener;
 import com.almuslim.elaislami.Adapter.TabsAdapter;
 import com.almuslim.elaislami.R;
@@ -32,6 +32,9 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 import java.util.List;
 import java.util.Locale;
+
+
+
 import es.dmoral.toasty.Toasty;
 
 /*
@@ -194,7 +197,7 @@ public class MainActivity extends AppCompatActivity implements android.location.
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 return;
             }
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 500, MainActivity.this);
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 5000, 500, MainActivity.this);
 
         }catch (Exception e){
             e.printStackTrace();
@@ -246,8 +249,7 @@ public class MainActivity extends AppCompatActivity implements android.location.
                  * If user has chosen never asks again before, a snack bar will be shown
                  */
                 else if (!showRationale){
-                    Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "You have previously declined the location permission.\n" +
-                            "You must approve this permission in \"Permissions\" in the app settings on your device to access all application functionalities.", Snackbar.LENGTH_LONG).setAction("Settings", view -> startActivity(new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package:" + BuildConfig.APPLICATION_ID))));
+                    Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), " ", Snackbar.LENGTH_LONG).setAction("Settings", view -> startActivity(new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package:" + "com.almuslim.elaislami"))));
                     snackbar.show();
                 }
 
@@ -258,7 +260,7 @@ public class MainActivity extends AppCompatActivity implements android.location.
                     new AlertDialog.Builder(this)
                             .setTitle("Permission needed")
                             .setMessage("The location permission is required to get the precise prayer times and Qibla direction.\n\n" +
-                                    "It is required only while using the application not in the background in order to preserve you battery life.\n\n" +
+                                    "It is required only while using the application not in the background in order to preserve you battery life.\n\n1" +
                                     "If you still want to deny the location access, you can still access other functionalities. Yet the default location longitude and latitude will be both 0, so the prayers and qibla will not be accurate")
                             .setPositiveButton("Done", (dialogInterface, i) -> {
                                 //Prompt the user once explanation has been shown
@@ -275,8 +277,7 @@ public class MainActivity extends AppCompatActivity implements android.location.
                  * This condition triggers when the user chooses to deny for the second time, so a snack bar will be shown
                  */
                 else if (Manifest.permission.ACCESS_FINE_LOCATION.equals(permission)){
-                    Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "You have previously declined this permission.\n" +
-                            "You must approve this permission in \"Permissions\" in the app settings on your device.", Snackbar.LENGTH_LONG).setAction("Settings", view -> startActivity(new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package:" + BuildConfig.APPLICATION_ID))));
+                    Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), " ", Snackbar.LENGTH_LONG).setAction("Settings", view -> startActivity(new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package:" + "com.almuslim.elaislami"))));
                     snackbar.show();
                 }
             }
