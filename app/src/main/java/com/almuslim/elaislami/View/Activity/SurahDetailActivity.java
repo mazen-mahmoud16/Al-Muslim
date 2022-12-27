@@ -328,7 +328,7 @@ public class SurahDetailActivity extends AppCompatActivity {
             surahNumber = String.valueOf(surahIndex);
         }
 
-
+        // Load audio in the background
         mTask = (LoadAudio) new LoadAudio("https://download.quranicaudio.com/quran/mishaari_raashid_al_3afaasee/" + surahNumber + ".mp3").execute();
 
     }
@@ -403,6 +403,9 @@ public class SurahDetailActivity extends AppCompatActivity {
         super.onPause();
     }
 
+    /*
+     * Async function to load audio a
+     */
     private class LoadAudio extends AsyncTask<Void, Void, Void> {
         private String url;
 
@@ -430,10 +433,6 @@ public class SurahDetailActivity extends AppCompatActivity {
             return null;
         }
 
-        @Override
-        protected void onPostExecute(Void unused) {
-            super.onPostExecute(unused);
-        }
     }
 
 }
