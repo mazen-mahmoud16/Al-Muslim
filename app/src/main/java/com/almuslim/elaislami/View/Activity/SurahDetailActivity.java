@@ -1,4 +1,5 @@
 package com.almuslim.elaislami.View.Activity;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProvider;
@@ -7,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.almuslim.elaislami.Adapter.AyahListAdapter;
 import com.almuslim.elaislami.R;
+import com.almuslim.elaislami.RoomDBManager.DAO.AyahDAO;
 import com.almuslim.elaislami.RoomDBManager.RoomDBModel.AyahDBModel;
 import com.almuslim.elaislami.RoomDBManager.ViewModel.AyahViewModel;
 
@@ -16,9 +18,11 @@ import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
@@ -29,6 +33,7 @@ import android.widget.TextView;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
 import es.dmoral.toasty.Toasty;
@@ -42,21 +47,23 @@ public class SurahDetailActivity extends AppCompatActivity {
      * Edit texts, image buttons, recycler view , image button and buttons used
      */
     private RecyclerView rvSurahDetail;
-    private TextView tvEnglishName, tvArabicName, tvJuz, startTime , totalTime;
+    private TextView tvEnglishName, tvArabicName, tvJuz, startTime, totalTime;
     private ImageView back_btn;
     private ImageButton playButton;
 
     // Get the arabic and english name of surah
-    private String englishName,arabicName;
+    private String englishName, arabicName;
 
     // Have a reference to view model
     private AyahViewModel ayahViewModel;
 
     // Declare an empty arraylist to be passed to adapter
-    private List<AyahDBModel> ayahList= new ArrayList<>();
+    private List<AyahDBModel> ayahList = new ArrayList<>();
 
     // Get the surah index to get the corresponding ayahs
     private int surahIndex;
+
+    private LoadAudio mTask;
 
     /*
      * To use shared preference
@@ -75,7 +82,7 @@ public class SurahDetailActivity extends AppCompatActivity {
     SeekBar seekBar;
 
     // Media player reference
-    MediaPlayer mediaPlayer;
+    static MediaPlayer mediaPlayer;
 
     // Flag which check if media player is loaded
     static boolean isLoaded = false;
@@ -94,11 +101,11 @@ public class SurahDetailActivity extends AppCompatActivity {
          * Assign elements in layout
          */
         Toolbar toolbar = findViewById(R.id.tool_bar_surah_detail);
-        rvSurahDetail =findViewById(R.id.SurahDetailRV);
-        tvJuz =findViewById(R.id.juz);
-        tvEnglishName =findViewById(R.id.SurahEnglishName);
-        tvArabicName =findViewById(R.id.SurahArabicName);
-        back_btn=findViewById(R.id.back_btn);
+        rvSurahDetail = findViewById(R.id.SurahDetailRV);
+        tvJuz = findViewById(R.id.juz);
+        tvEnglishName = findViewById(R.id.SurahEnglishName);
+        tvArabicName = findViewById(R.id.SurahArabicName);
+        back_btn = findViewById(R.id.back_btn);
         playButton = findViewById(R.id.play_button);
         startTime = findViewById(R.id.start_time);
         totalTime = findViewById(R.id.total_time);
@@ -109,7 +116,7 @@ public class SurahDetailActivity extends AppCompatActivity {
 
 
         // Get surah index
-        surahIndex = getIntent().getIntExtra("surah_number",0);
+        surahIndex = getIntent().getIntExtra("surah_number", 0);
 
         // Put surah number in a shared preference
         settings = getSharedPreferences(PREFS_NAME, 0);
@@ -121,36 +128,35 @@ public class SurahDetailActivity extends AppCompatActivity {
          * Initialize vew model and adapter to pass it to recycler view
          */
         ayahViewModel = new ViewModelProvider(this).get(AyahViewModel.class);
-        ayahAdapter=new AyahListAdapter(ayahList,surahIndex);
+        ayahAdapter = new AyahListAdapter(ayahList, surahIndex);
 
         // Observe on the live data change
         ayahViewModel.getAllAyahs().observe(this, ayahModels -> {
             // Update the cached copy of the words in the adapter.
             assert ayahModels != null;
-            if(!ayahModels.isEmpty()) {
+            if (!ayahModels.isEmpty()) {
 
                 // Add this text to the first of any surah
-                if(!(ayahModels.get(0).getSurahNumber()==1)){
-                    ayahModels.add(0,new AyahDBModel(0,"بِسۡمِ ٱللَّهِ ٱلرَّحۡمَـٰنِ ٱلرَّحِیم",0));
+                if (!(ayahModels.get(0).getSurahNumber() == 1)) {
+                    ayahModels.add(0, new AyahDBModel(0, "بِسۡمِ ٱللَّهِ ٱلرَّحۡمَـٰنِ ٱلرَّحِیم", 0));
                 }
             }
 
             // Pass data to the adapter
             ayahAdapter.setAyahs(ayahModels);
-            ayahList=ayahModels;
+            ayahList = ayahModels;
 
             // Put guz
-            if(!ayahList.isEmpty()&&ayahList.get(0).getSurahNumber()!=1) {
-                if(ayahList.get(1).getJuz()==ayahList.get(ayahList.size()-1).getJuz()){
+            if (!ayahList.isEmpty() && ayahList.get(0).getSurahNumber() != 1) {
+                if (ayahList.get(1).getJuz() == ayahList.get(ayahList.size() - 1).getJuz()) {
                     tvJuz.setText("Juz " + ayahList.get(1).getJuz());
-                }else{
-                    tvJuz.setText("From juz " + ayahList.get(1).getJuz()+" to "+ ayahList.get(ayahList.size()-1).getJuz());
+                } else {
+                    tvJuz.setText("From juz " + ayahList.get(1).getJuz() + " to " + ayahList.get(ayahList.size() - 1).getJuz());
                 }
-            }else if(!ayahList.isEmpty()&&ayahList.get(0).getSurahNumber()==1){
+            } else if (!ayahList.isEmpty() && ayahList.get(0).getSurahNumber() == 1) {
                 tvJuz.setText("Juz " + ayahList.get(0).getJuz());
 
-            }
-            else {
+            } else {
                 tvJuz.setText("Juz");
 
             }
@@ -161,8 +167,8 @@ public class SurahDetailActivity extends AppCompatActivity {
         rvSurahDetail.setAdapter(ayahAdapter);
 
         // Get english and arabic names of surah
-        englishName=getIntent().getStringExtra("surah_englishName");
-        arabicName=getIntent().getStringExtra("surah_arabicName");
+        englishName = getIntent().getStringExtra("surah_englishName");
+        arabicName = getIntent().getStringExtra("surah_arabicName");
 
         // Insert names in the text views
         tvEnglishName.setText(englishName);
@@ -187,25 +193,10 @@ public class SurahDetailActivity extends AppCompatActivity {
         /*
          * Make prepared media player async function, to avoid ANR (blocking UI)
          */
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            CompletableFuture.runAsync(() -> {
-                try {
-                    preparedMediaPlayer();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            });
-        }
-
-        /*
-         * If build version is lower than 24, so we cannot make use of async function
-         */
-        else{
-            try {
-                preparedMediaPlayer();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        try {
+            preparedMediaPlayer();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
 
@@ -244,17 +235,17 @@ public class SurahDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if(mediaPlayer.isPlaying()){
+                if (mediaPlayer.isPlaying()) {
                     handler.removeCallbacks(seekBarUpdater);
                     mediaPlayer.pause();
                     playButton.setImageResource(R.drawable.ic_play_circle);
-                }else{
-                    if(haveNetworkConnection()){
-                        Toasty.error(SurahDetailActivity.this,"Please enable internet connection",Toasty.LENGTH_SHORT,true).show();
+                } else {
+                    if (haveNetworkConnection()) {
+                        Toasty.error(SurahDetailActivity.this, "Please enable internet connection", Toasty.LENGTH_SHORT, true).show();
                         return;
                     }
-                    if(!isLoaded){
-                        Toasty.warning(SurahDetailActivity.this,"Audio is loading, try again after a few seconds",Toasty.LENGTH_SHORT,true).show();
+                    if (!isLoaded) {
+                        Toasty.warning(SurahDetailActivity.this, "Audio is loading, try again after a few seconds", Toasty.LENGTH_SHORT, true).show();
                         return;
                     }
                     mediaPlayer.start();
@@ -273,8 +264,8 @@ public class SurahDetailActivity extends AppCompatActivity {
             @SuppressLint("ClickableViewAccessibility")
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                if(haveNetworkConnection()){
-                    Toasty.error(SurahDetailActivity.this,"Please enable internet connection",Toasty.LENGTH_SHORT,true).show();
+                if (haveNetworkConnection()) {
+                    Toasty.error(SurahDetailActivity.this, "Please enable internet connection", Toasty.LENGTH_SHORT, true).show();
                     return false;
                 }
                 SeekBar seekBar = (SeekBar) v;
@@ -306,22 +297,13 @@ public class SurahDetailActivity extends AppCompatActivity {
                 startTime.setText("0:00");
                 totalTime.setText("0:00");
                 mediaPlayer.reset();
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                    CompletableFuture.runAsync(() -> {
-                        try {
-                            preparedMediaPlayer();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    });
+
+                try {
+                    preparedMediaPlayer();
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
-                else{
-                    try {
-                        preparedMediaPlayer();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
+
             }
         });
     }
@@ -332,24 +314,22 @@ public class SurahDetailActivity extends AppCompatActivity {
     @SuppressLint("SetTextI18n")
     private void preparedMediaPlayer() throws IOException {
 
-        if(haveNetworkConnection()){
-            Toasty.error(SurahDetailActivity.this,"Please enable internet connection",Toasty.LENGTH_SHORT,true).show();
+        if (haveNetworkConnection()) {
+            Toasty.error(SurahDetailActivity.this, "Please enable internet connection", Toasty.LENGTH_SHORT, true).show();
             return;
         }
 
-        String surahNumber="";
-        if(surahIndex<10){
-            surahNumber = "00"+surahIndex;
-        }else if(surahIndex<100){
-            surahNumber = "0"+surahIndex;
-        }else if(surahIndex>=100){
+        String surahNumber = "";
+        if (surahIndex < 10) {
+            surahNumber = "00" + surahIndex;
+        } else if (surahIndex < 100) {
+            surahNumber = "0" + surahIndex;
+        } else {
             surahNumber = String.valueOf(surahIndex);
         }
-        //https://download.quranicaudio.com/quran/abdul_wadood_haneef_rare/001.mp3
-        mediaPlayer.setDataSource("https://download.quranicaudio.com/quran/mishaari_raashid_al_3afaasee/"+surahNumber.trim()+".mp3");
-        mediaPlayer.prepare();
-        isLoaded = true;
-        totalTime.setText(timeToMilliSecond(mediaPlayer.getDuration()));
+
+
+        mTask = (LoadAudio) new LoadAudio("https://download.quranicaudio.com/quran/mishaari_raashid_al_3afaasee/" + surahNumber + ".mp3").execute();
 
     }
 
@@ -362,65 +342,98 @@ public class SurahDetailActivity extends AppCompatActivity {
             updateSeekBar();
             long currentDuration = mediaPlayer.getCurrentPosition();
             startTime.setText(timeToMilliSecond(currentDuration));
+
         }
     };
-
 
 
     /*
      * Called when to update progress bar
      */
-    private void updateSeekBar(){
-        if(mediaPlayer.isPlaying()){
-            seekBar.setProgress((int) (((float) mediaPlayer.getCurrentPosition() / mediaPlayer.getDuration()) *100));
-            handler.postDelayed(seekBarUpdater,1000);
+    private void updateSeekBar() {
+        if (mediaPlayer.isPlaying()) {
+            seekBar.setProgress((int) (((float) mediaPlayer.getCurrentPosition() / mediaPlayer.getDuration()) * 100));
+            handler.postDelayed(seekBarUpdater, 1000);
         }
     }
 
     /*
      * Called to convert time to milli seconds
      */
-    private String timeToMilliSecond(long milliSecond){
+    private static String timeToMilliSecond(long milliSecond) {
         String timerString = "";
-        String secondString ;
+        String secondString;
         String mins;
 
-        int hours = (int) (milliSecond /(1000 * 60 * 60));
+        int hours = (int) (milliSecond / (1000 * 60 * 60));
         int minutes = (int) (milliSecond % (1000 * 60 * 60)) / (1000 * 60);
-        int second = (int) ((milliSecond % (1000 * 60 * 60))% (1000 * 60) /1000);
+        int second = (int) ((milliSecond % (1000 * 60 * 60)) % (1000 * 60) / 1000);
 
-        if(hours>0){
+        if (hours > 0) {
             timerString = hours + ":";
         }
-        if(second < 10){
+        if (second < 10) {
             secondString = "0" + second;
-        }else{
+        } else {
             secondString = "" + second;
         }
-        if(minutes<10){
-            mins="0"+minutes;
-        }
-        else{
-            mins=""+minutes;
+        if (minutes < 10) {
+            mins = "0" + minutes;
+        } else {
+            mins = "" + minutes;
         }
         timerString = timerString + mins + ":" + secondString;
+
         return timerString;
     }
 
     /*
-     * Override on stop to stop playing the audio when user close the surah detail activity or close the application
+     * Override on pause to stop playing the audio when user close the surah detail activity or close the application
      */
     @Override
-    protected void onStop() {
-        if(mediaPlayer!=null){
-            if(mediaPlayer.isPlaying()) {
+    protected void onPause() {
+        if (mediaPlayer != null) {
+            if (mediaPlayer.isPlaying()) {
                 handler.removeCallbacks(seekBarUpdater);
                 mediaPlayer.pause();
                 playButton.setImageResource(R.drawable.ic_play_circle);
             }
         }
 
-        super.onStop();
+        super.onPause();
+    }
+
+    private class LoadAudio extends AsyncTask<Void, Void, Void> {
+        private String url;
+
+        public LoadAudio(String url) {
+            this.url = url;
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+
+            if(!isCancelled()){
+                try {
+                    mediaPlayer.setDataSource(url);
+                    mediaPlayer.prepare();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                runOnUiThread(new Runnable() {
+                    public void run() {
+                        totalTime.setText(timeToMilliSecond(mediaPlayer.getDuration()));
+                    }
+                });
+                isLoaded = true;
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void unused) {
+            super.onPostExecute(unused);
+        }
     }
 
 }

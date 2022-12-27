@@ -152,12 +152,11 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/seekBar"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="10dp"
+            android:paddingEnd="5dp"
             android:text="@string/_0_00_test"
             android:textAlignment="center"
             android:textColor="@color/black"
-            android:textSize="18sp"
-            android:layout_gravity="center" />
+            android:textSize="18sp" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
