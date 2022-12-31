@@ -260,7 +260,7 @@ public class MainActivity extends AppCompatActivity implements android.location.
                     new AlertDialog.Builder(this)
                             .setTitle("Permission needed")
                             .setMessage("The location permission is required to get the precise prayer times and Qibla direction.\n\n" +
-                                    "It is required only while using the application not in the background in order to preserve you battery life.\n\n1" +
+                                    "It is required only while using the application not in the background in order to preserve you battery life.\n\n" +
                                     "If you still want to deny the location access, you can still access other functionalities. Yet the default location longitude and latitude will be both 0, so the prayers and qibla will not be accurate")
                             .setPositiveButton("Done", (dialogInterface, i) -> {
                                 //Prompt the user once explanation has been shown
