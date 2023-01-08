@@ -500,48 +500,79 @@ public class HomeFragment extends Fragment {
 
         return view;
     }
-
     /*
      * Here is the function to calculate the time remaining for the upcoming prayer then to set its text view
      */
-    @RequiresApi(api = Build.VERSION_CODES.O)
     private void setCountdown(String result_time, String prayerTime) {
 
         /*
          * Used Duration method to calculate difference between two 24-hour format times
          */
-        if(!result_time.isEmpty())
-        {
-            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm");
-            LocalTime lt1 = LocalTime.parse(result_time, dtf);
-            LocalTime lt2 = LocalTime.parse(prayerTime, dtf);
-            Duration between = Duration.between(lt1, lt2);
+        if (!result_time.isEmpty()) {
 
-            if (lt2.isBefore(lt1))
-            {
-                between = Duration.ofMinutes(TimeUnit.DAYS.toMinutes(1)).plus(between);
+            if (android.os.Build.VERSION.SDK_INT >= 26) {
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm");
+                LocalTime lt1 = LocalTime.parse(result_time, dtf);
+                LocalTime lt2 = LocalTime.parse(prayerTime, dtf);
+                Duration between = Duration.between(lt1, lt2);
+
+                if (lt2.isBefore(lt1)) {
+                    between = Duration.ofMinutes(TimeUnit.DAYS.toMinutes(1)).plus(between);
+                }
+                String finalTime = between.toString().replace("PT", "");
+                if (finalTime.contains("H") && finalTime.contains("M")) {
+                    finalTime = finalTime.replace("H", " hrs and ");
+                    finalTime = finalTime.replace("M", " mins left");
+                } else if (finalTime.contains("H")) {
+                    finalTime = finalTime.replace("H", " hrs and 0 mins left");
+
+                } else if (finalTime.contains("M")) {
+                    finalTime = finalTime.replace("M", " mins left");
+                } else {
+                    finalTime = "Prayer is now";
+                }
+
+                tvPrayerCountdown.setText(finalTime);
             }
-            String finalTime=between.toString().replace("PT","");
-            if(finalTime.contains("H")&&finalTime.contains("M")){
-                finalTime=finalTime.replace("H"," hrs and ");
-                finalTime=finalTime.replace("M"," mins left");
-            }
-            else if(finalTime.contains("H"))
-            {
-                finalTime=finalTime.replace("H"," hrs and 0 mins left");
+            else{
+                Date lt11 = new Date();
+                Date lt22 = new Date();
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
+                try {
+                    lt11 = simpleDateFormat.parse(result_time);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    lt22 = simpleDateFormat.parse(prayerTime);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
+                long difference = lt22.getTime() - lt11.getTime();
+                if(difference<0)
+                {
+                    Date dateMax = null;
+                    try {
+                        dateMax = simpleDateFormat.parse("24:00");
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    Date dateMin = null;
+                    try {
+                        dateMin = simpleDateFormat.parse("00:00");
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    difference=(dateMax.getTime() -lt11.getTime() )+(lt22.getTime()-dateMin.getTime());
+                }
+                int days = (int) (difference / (1000*60*60*24));
+                int hours = (int) ((difference - (1000*60*60*24*days)) / (1000*60*60));
+                int min = (int) (difference - (1000*60*60*24*days) - (1000*60*60*hours)) / (1000*60);
+                tvPrayerCountdown.setText(hours+" hrs and "+min+" mins left");
 
             }
-            else if(finalTime.contains("M"))
-            {
-                finalTime=finalTime.replace("M"," mins left");
-            }
-            else {
-                finalTime="Prayer is now";
-            }
-
-            tvPrayerCountdown.setText(finalTime);
         }
-
     }
 
     /*
