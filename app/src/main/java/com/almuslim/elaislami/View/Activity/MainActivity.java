@@ -197,7 +197,7 @@ public class MainActivity extends AppCompatActivity implements android.location.
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 return;
             }
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 500, MainActivity.this);
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 5000, 500, MainActivity.this);
 
         }catch (Exception e){
             e.printStackTrace();
