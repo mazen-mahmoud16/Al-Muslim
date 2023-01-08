@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.almuslim.elaislami">
 
@@ -8,6 +7,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
     <application
         android:allowBackup="true"
@@ -19,6 +19,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ElaIslami"
         tools:targetApi="31">
+        <service
+            android:name=".Service.ClosingService"
+            android:enabled="true"
+            android:exported="true"
+            android:stopWithTask="false"/>
+
         <activity
             android:name="com.almuslim.elaislami.View.Activity.TasabehActivity"
             android:exported="false">

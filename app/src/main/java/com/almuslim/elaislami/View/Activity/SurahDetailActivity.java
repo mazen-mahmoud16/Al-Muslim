@@ -2,18 +2,22 @@ package com.almuslim.elaislami.View.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.NotificationCompat;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.almuslim.elaislami.Adapter.AyahListAdapter;
 import com.almuslim.elaislami.R;
-import com.almuslim.elaislami.RoomDBManager.DAO.AyahDAO;
 import com.almuslim.elaislami.RoomDBManager.RoomDBModel.AyahDBModel;
 import com.almuslim.elaislami.RoomDBManager.ViewModel.AyahViewModel;
+import com.almuslim.elaislami.Service.ClosingService;
 
 import android.annotation.SuppressLint;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.net.ConnectivityManager;
@@ -22,7 +26,6 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
@@ -33,8 +36,6 @@ import android.widget.TextView;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
-import java.util.concurrent.CompletableFuture;
 
 import es.dmoral.toasty.Toasty;
 
@@ -114,6 +115,9 @@ public class SurahDetailActivity extends AppCompatActivity {
         // Set toolbar
         setSupportActionBar(toolbar);
 
+        // To start service to detect that app is removed from recent
+        Intent i=new Intent(SurahDetailActivity.this, ClosingService.class);
+        startService(i);
 
         // Get surah index
         surahIndex = getIntent().getIntExtra("surah_number", 0);
@@ -181,6 +185,7 @@ public class SurahDetailActivity extends AppCompatActivity {
             onBackPressed();
         });
 
+        //createNotificationChannel();
         /*
          * Calling listen audio method to initiate and start playing the surah audio on click
          */
@@ -199,6 +204,8 @@ public class SurahDetailActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
+        // Create notification channel
+        createNotificationChannel();
 
     }
 
@@ -292,6 +299,8 @@ public class SurahDetailActivity extends AppCompatActivity {
         mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
+                NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                manager.cancel(22);
                 isLoaded=false;
                 seekBar.setProgress(0);
                 playButton.setImageResource(R.drawable.ic_play_circle);
@@ -389,10 +398,64 @@ public class SurahDetailActivity extends AppCompatActivity {
     }
 
     /*
-     * Override on pause to stop playing the audio when user close the surah detail activity or close the application
+     * Override on pause to handle the case that application is minimized and audio is playing
+     * so notification appears to show that surah is playing and which surah is playing
      */
     @Override
-    protected void onPause() {
+    protected void onStop() {
+        if(mediaPlayer.isPlaying()){
+            englishName = getIntent().getStringExtra("surah_englishName");
+            NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this,"22")
+                    .setSmallIcon(R.drawable.ic_al_muslim_logo)
+                    .setContentText("Surat "+englishName)
+                    .setContentTitle("Surah Audio is currently playing")
+                    .setAutoCancel(true)
+                    .setOngoing(true);
+
+            NotificationManager notificationManager =
+                    (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+            if(notificationManager!=null)
+                notificationManager.notify(22, notificationBuilder.build());
+
+        }
+        super.onStop();
+    }
+
+    /*
+     * When returning to the application back and surah is still playing, it removes the notification
+     */
+    @Override
+    protected void onRestart() {
+        if(mediaPlayer.isPlaying()){
+            NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+            manager.cancel(22);
+        }
+
+        super.onRestart();
+    }
+
+    /*
+     * Create the NotificationChannel, but only on API 26+ because
+     * The NotificationChannel class is new and not in the support library
+     */
+    private void createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = "Al Muslim";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel("22", name, importance);
+            // Register the channel with the system; you can't change the importance
+            // or other notification behaviors after this
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
+    }
+
+    /*
+     * Override on Back Pressed to stop audio when clicking back btn and go to the previous activity
+     */
+    @Override
+    public void onBackPressed() {
         if (mediaPlayer != null) {
             if (mediaPlayer.isPlaying()) {
                 handler.removeCallbacks(seekBarUpdater);
@@ -400,9 +463,10 @@ public class SurahDetailActivity extends AppCompatActivity {
                 playButton.setImageResource(R.drawable.ic_play_circle);
             }
         }
-
-        super.onPause();
+        super.onBackPressed();
     }
+
+
 
     /*
      * Async function to load audio a
