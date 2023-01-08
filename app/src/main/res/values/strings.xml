@@ -54,7 +54,7 @@
     <string name="delete_todo_icon">Delete icon</string>
     <string name="todo_list_item_test">Read surat al kahf 3 times</string>
     <string name="out_of">/35</string>
-    <string name="_0_00_test">0:00</string>
+    <string name="_0_00_test">00:00</string>
     <string name="play_button">Play button</string>
 
 </resources>

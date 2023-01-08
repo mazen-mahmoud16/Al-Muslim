@@ -292,10 +292,11 @@ public class SurahDetailActivity extends AppCompatActivity {
         mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
+                isLoaded=false;
                 seekBar.setProgress(0);
                 playButton.setImageResource(R.drawable.ic_play_circle);
-                startTime.setText("0:00");
-                totalTime.setText("0:00");
+                startTime.setText("00:00");
+                totalTime.setText("00:00");
                 mediaPlayer.reset();
 
                 try {
