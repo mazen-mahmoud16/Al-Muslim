@@ -10,6 +10,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -226,52 +227,64 @@ public class PrayerStatisticsActivity extends AppCompatActivity {
 
         // Get last Sunday date
         editor=settings.edit();
-        String stringDate=settings.getString("date_week","Sun, 11 December");
-
-        /*
-         * The following code is to compare number of days between today and the last sunday
-         */
-        Date date = null;
-        try {
-            date = dateFormatter.parse(stringDate);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        /*
-         * Parse dates to calendar to compare dates
-         */
-        Calendar lastSundayDate = Calendar.getInstance();
-        assert date != null;
-        lastSundayDate.setTime(date);
-        lastSundayDate.set(Calendar.YEAR,Calendar.getInstance().get(Calendar.YEAR));
-
-        Calendar currentTime=Calendar.getInstance();
-
-        /*
-         * Ignore time in calendar
-         */
-        lastSundayDate.set(Calendar.HOUR_OF_DAY, 0);
-        lastSundayDate.set(Calendar.MINUTE, 0);
-        lastSundayDate.set(Calendar.SECOND, 0);
-        lastSundayDate.set(Calendar.MILLISECOND, 0);
-
-        currentTime.set(Calendar.HOUR_OF_DAY, 0);
-        currentTime.set(Calendar.MINUTE, 0);
-        currentTime.set(Calendar.SECOND, 0);
-        currentTime.set(Calendar.MILLISECOND, 0);
+        String stringDate=settings.getString("date_week","xxx");
 
         // Get number of days between last sunday and today
         long days=0;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-             days = Duration.between(lastSundayDate.toInstant(),currentTime.toInstant()).toDays();
-        }
+
+        Calendar currentTime=Calendar.getInstance();
 
         // Declare a new calendar with the current date and make it point to last sunday
         Calendar current=Calendar.getInstance();
 
+        /*
+         * Initially when downloading the application, the date will be xxx
+         */
+        if(!stringDate.equals("xxx")){
+            /*
+             * The following code is to compare number of days between today and the last sunday
+             */
+            Date date = null;
+            try {
+                date = dateFormatter.parse(stringDate);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+            /*
+             * Parse dates to calendar to compare dates
+             */
+            Calendar lastSundayDate = Calendar.getInstance();
+            assert date != null;
+            lastSundayDate.setTime(date);
+            lastSundayDate.set(Calendar.YEAR,Calendar.getInstance().get(Calendar.YEAR));
+
+
+
+            /*
+             * Ignore time in calendar
+             */
+            lastSundayDate.set(Calendar.HOUR_OF_DAY, 0);
+            lastSundayDate.set(Calendar.MINUTE, 0);
+            lastSundayDate.set(Calendar.SECOND, 0);
+            lastSundayDate.set(Calendar.MILLISECOND, 0);
+
+            currentTime.set(Calendar.HOUR_OF_DAY, 0);
+            currentTime.set(Calendar.MINUTE, 0);
+            currentTime.set(Calendar.SECOND, 0);
+            currentTime.set(Calendar.MILLISECOND, 0);
+
+
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                days = Duration.between(lastSundayDate.toInstant(),currentTime.toInstant()).toDays();
+            }
+
+
+        }
+
+
         // A week is passed
-        if(days>=7)
+        if(days>=7 || stringDate.equals("xxx") || days<0)
         {
             while(current.get(Calendar.DAY_OF_WEEK) != Calendar.SUNDAY){
                 current.add(Calendar.DATE,-1);
@@ -321,6 +334,15 @@ public class PrayerStatisticsActivity extends AppCompatActivity {
             prayerStatsViewModel = new ViewModelProvider(this).get(PrayerStatsViewModel.class);
             adapter = new PrayerStatsViewPagerAdapter(prayerStatisticsDBModels, PrayerStatisticsActivity.this);
             viewPager.setAdapter(adapter);
+
+            /*
+             * Restarting activity to generate new values
+             */
+            Intent intent = getIntent();
+            Toasty.info(PrayerStatisticsActivity.this, "Restarting the page as a new week is started", Toasty.LENGTH_LONG, true).show();
+            finish();
+            startActivity(intent);
+
 
         }
     }

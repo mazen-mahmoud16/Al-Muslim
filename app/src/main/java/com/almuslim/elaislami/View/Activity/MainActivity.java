@@ -84,12 +84,12 @@ public class MainActivity extends AppCompatActivity implements android.location.
          * To test prayer statistics activity that the new week (sunday) came to delete data in ROOM DB
          */
 
-        /*
+/*
         editor.putString("date_week",null);
-        editor.putInt("surahNumber",-1);
         editor.commit();
         editor = settings.edit();
-        */
+*/
+
 
 
         /*
@@ -197,7 +197,7 @@ public class MainActivity extends AppCompatActivity implements android.location.
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 return;
             }
-            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 5000, 500, MainActivity.this);
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 500, MainActivity.this);
 
         }catch (Exception e){
             e.printStackTrace();
