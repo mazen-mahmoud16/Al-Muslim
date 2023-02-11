@@ -19,6 +19,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ElaIslami"
         tools:targetApi="31">
+
         <service
             android:name=".Service.ClosingService"
             android:enabled="true"
